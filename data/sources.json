@@ -1,0 +1,38 @@
+[
+  {
+    "id": "bsm",
+    "name": "武汉大学简帛网 [home]",
+    "url": "https://www.bsm.org.cn/",
+    "enabled": true,
+    "manualReview": false,
+    "maxDetailRequests": 6,
+    "notes": "Only the public homepage is checked in V0.8A; no login or deep forum pages."
+  },
+  {
+    "id": "tsinghua-ctwx",
+    "name": "清华大学出土文献研究与保护中心 [home]",
+    "url": "https://www.ctwx.tsinghua.edu.cn/",
+    "enabled": true,
+    "manualReview": false,
+    "maxDetailRequests": 6,
+    "notes": "Only the public homepage is checked in V0.8A; candidate details need human review."
+  },
+  {
+    "id": "nwnu-jiandu",
+    "name": "西北师范大学简牍学术资源相关平台 [home]",
+    "url": "https://jiandu.nwnu.edu.cn/",
+    "enabled": true,
+    "manualReview": false,
+    "maxDetailRequests": 6,
+    "notes": "Only the public homepage is checked in V0.8A; database content is not crawled."
+  },
+  {
+    "id": "kaogu-cssn",
+    "name": "中国考古网 [home]",
+    "url": "https://kaogu.cssn.cn/",
+    "enabled": true,
+    "manualReview": false,
+    "maxDetailRequests": 6,
+    "notes": "Only the public homepage is checked; access controls stop this source for human review."
+  }
+]

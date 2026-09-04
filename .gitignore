@@ -1,0 +1,5 @@
+desktop.ini
+logs/*.log
+logs/*.log.1
+__pycache__/
+*.pyc

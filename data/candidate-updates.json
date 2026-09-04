@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-09-04T07:12:33",
+  "candidates": [],
+  "olderCandidates": [
+    {
+      "id": "candidate-c1ac7956d88a",
+      "title": "“数字简牍”文化遗产智能计算人才队伍培养讲习班报名",
+      "source": "西北师范大学简牍学术资源相关平台",
+      "sourceUrl": "https://jiandu.nwnu.edu.cn/article/222.html",
+      "discoveredAt": "2026-08-20",
+      "possibleDate": "2024-11-21",
+      "matchedKeywords": [
+        "数字简牍"
+      ],
+      "suggestedTopics": [],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-d754ebc91283",
+      "title": "消息丨第二届简牍学国际学术研讨会暨《悬泉汉简（肆）》新书首发仪式在敦煌举行",
+      "source": "西北师范大学简牍学术资源相关平台",
+      "sourceUrl": "https://jiandu.nwnu.edu.cn/article/198.html",
+      "discoveredAt": "2026-08-20",
+      "possibleDate": "2024-09-07",
+      "matchedKeywords": [
+        "悬泉汉简",
+        "汉简"
+      ],
+      "suggestedTopics": [
+        "悬泉汉简"
+      ],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-30ded9f23b54",
+      "title": "【书讯】陈松长主编：《长沙走马楼西汉简牍研究》",
+      "source": "西北师范大学简牍学术资源相关平台",
+      "sourceUrl": "https://jiandu.nwnu.edu.cn/article/194.html",
+      "discoveredAt": "2026-08-20",
+      "possibleDate": "2024-09-04",
+      "matchedKeywords": [
+        "走马楼西汉简",
+        "汉简"
+      ],
+      "suggestedTopics": [
+        "走马楼西汉简"
+      ],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-1b33e2016bb0",
+      "title": "冯玉：西北汉简“柱马”再探",
+      "source": "西北师范大学简牍学术资源相关平台",
+      "sourceUrl": "https://jiandu.nwnu.edu.cn/article/180.html",
+      "discoveredAt": "2026-08-20",
+      "possibleDate": "2024-07-26",
+      "matchedKeywords": [
+        "汉简"
+      ],
+      "suggestedTopics": [],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-92f763a686ff",
+      "title": "【大敦煌·洞鉴】张德芳：西北汉简整理的历史回顾及其启示",
+      "source": "西北师范大学简牍学术资源相关平台",
+      "sourceUrl": "https://jiandu.nwnu.edu.cn/article/175.html",
+      "discoveredAt": "2026-08-20",
+      "possibleDate": "2024-07-23",
+      "matchedKeywords": [
+        "汉简"
+      ],
+      "suggestedTopics": [],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-bf665b7ba27a",
+      "title": "汪受宽：肩水金关汉简“黑色”人群体研究",
+      "source": "西北师范大学简牍学术资源相关平台",
+      "sourceUrl": "https://jiandu.nwnu.edu.cn/article/171.html",
+      "discoveredAt": "2026-08-20",
+      "possibleDate": "2024-07-19",
+      "matchedKeywords": [
+        "肩水金关",
+        "汉简"
+      ],
+      "suggestedTopics": [
+        "肩水金关"
+      ],
+      "status": "older",
+      "needsDateReview": false
+    }
+  ]
+}
