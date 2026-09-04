@@ -20,15 +20,17 @@ const sites = [
   { name:"汉典", institution:"汉典", category:"🛠️ 学术工具", displayCategory:"字典 / 学术工具", description:"综合汉字与词语检索平台，可查询字义、部首、字形以及《说文解字》《康熙字典》等资料。", keywords:["汉字","说文解字","康熙字典","字义","部首","字典"], url:"https://zdic.net/" },
   { name:"字统网", englishName:"zi.tools", institution:"zi.tools", category:"🧱 古文字数据库", displayCategory:"古文字数据库 / 学术工具", description:"面向汉字源、形、音、义和 Unicode 的综合检索网站，支持字形、结构检字与古汉字相关查询。", keywords:["zi.tools","字源","字形","Unicode","古文字","结构检字","汉字"], url:"https://zi.tools/" },
   { name:"OpenAlex", institution:"OurResearch", category:"🤖 AI & 数字人文", description:"开放的全球学术知识图谱，适合发现研究机构、作者与关联文献。", keywords:["开放数据","知识图谱","文献","引文"], url:"https://openalex.org/" },
-  { name:"Semantic Scholar", institution:"Allen Institute for AI", category:"🤖 AI & 数字人文", description:"利用人工智能辅助发现论文、作者、引文脉络与研究主题。", keywords:["AI","论文检索","引文","英文文献"], url:"https://www.semanticscholar.org/" }
+  { name:"Semantic Scholar", institution:"Allen Institute for AI", category:"🤖 AI & 数字人文", description:"利用人工智能辅助发现论文、作者、引文脉络与研究主题。", keywords:["AI","论文检索","引文","英文文献"], url:"https://www.semanticscholar.org/" },
+  { name:"学术公众号", institution:"微信内学术资讯入口", category:"学术资讯", commonOnly:true, commonAction:"wechat", description:"古文字微刊、出土文献、简牍学等学术公众号入口。", keywords:["公众号","古文字","出土文献","简牍"] }
 ];
 
 const categories = ["全部","🏺 汉代简牍","🧱 古文字数据库","📜 出土文献","📚 学术期刊","🎓 学术会议","🏛️ 学术机构","🌏 海外汉学","🤖 AI & 数字人文","🛠️ 学术工具"];
 const directionTags = ["居延汉简","居延新简","悬泉汉简","敦煌汉简","玉门关汉简","肩水金关","武威汉简","尹湾汉简","银雀山汉简","张家山汉简","五一广场东汉简","走马楼西汉简","汉代简牍文字","释文","字形","缀合","著录","图版","实物","检索","学者","论文","出土地","数字人文"];
 const updateTypes = ["全部","新论文","新书","新资料","学术会议","学术讲座","研究动态","数据库更新"];
 const updateObjects = ["全部简牍","居延汉简","悬泉汉简","敦煌汉简","肩水金关","武威汉简","张家山汉简","五一广场东汉简","走马楼西汉简","秦汉简牍文字","汉代简牍文字"];
-const commonNames = ["小學堂文字學資料庫","中国知网","Zotero","中国哲学书电子化计划","汉典","字统网"];
+const commonNames = ["小學堂文字學資料庫","中国知网","学术公众号","中国哲学书电子化计划","汉典","字统网"];
 let activeCategory = "全部";
+let activeResourceCategory = "全部";
 let activeDirectionTag = "";
 let activeUpdateType = "全部";
 let activeUpdateObject = "全部简牍";
@@ -42,9 +44,12 @@ const emptyState = document.querySelector("#emptyState");
 const coreSection = document.querySelector("#coreSection");
 const coreEmpty = document.querySelector("#coreEmpty");
 const resultCount = document.querySelector("#resultCount");
+const resourceFilterStatus = document.querySelector("#resourceFilterStatus");
+const resourceFilterLabel = document.querySelector("#resourceFilterLabel");
+const resourceFilterSummary = document.querySelector("#resourceFilterSummary");
+const clearResourceFilter = document.querySelector("#clearResourceFilter");
 const updatesGrid = document.querySelector("#updatesGrid");
 const researchTopicsContainer = document.querySelector("#researchTopics");
-const researchTopicsReset = document.querySelector("#researchTopicsReset");
 const updateFilters = document.querySelector("#updateFilters");
 const updateObjectFilters = document.querySelector("#updateObjectFilters");
 const updateEmpty = document.querySelector("#updateEmpty");
@@ -53,10 +58,27 @@ const linksLastCheckedElement = document.querySelector("#linksLastChecked");
 const updatesToggle = document.querySelector("#updatesToggle");
 const researchTagsToggle = document.querySelector("#researchTagsToggle");
 const sitesToggle = document.querySelector("#sitesToggle");
+const categoryFeedback = document.querySelector("#categoryFeedback");
+const updateFilterStatus = document.querySelector("#updateFilterStatus");
+const updateFilterSummary = document.querySelector("#updateFilterSummary");
+const clearUpdateFilters = document.querySelector("#clearUpdateFilters");
+const backToTopics = document.querySelector("#backToTopics");
+const updateViewTabs = document.querySelector("#updateViewTabs");
+const latestUpdatesView = document.querySelector("#latestUpdatesView");
+const topicsView = document.querySelector("#topicsView");
+const updatesSection = document.querySelector(".updates-section");
+const commonSection = document.querySelector("#commonSection");
+const resourcesSection = document.querySelector("#resourcesSection");
+const wechatPanel = document.querySelector("#wechatPanel");
+const wechatCollapse = document.querySelector("#wechatCollapse");
 let updatesExpanded = false;
 let researchTagsExpanded = false;
 let sitesExpanded = false;
-const defaultResearchTags = ["居延汉简", "悬泉汉简", "敦煌汉简", "肩水金关", "武威汉简", "张家山汉简", "五一广场东汉简", "走马楼西汉简"];
+let activeUpdateView = "latest";
+let topicSelectionActive = false;
+let wechatExpanded = false;
+const defaultResearchTags = ["释文", "字形", "缀合", "著录", "图版", "实物", "检索", "学者", "论文", "数字人文"];
+const researchObjectTags = new Set(["居延汉简","居延新简","悬泉汉简","敦煌汉简","玉门关汉简","肩水金关","武威汉简","尹湾汉简","银雀山汉简","张家山汉简","五一广场东汉简","走马楼西汉简","汉代简牍文字"]);
 const isTodo = site => site.url === "TODO";
 const academicUpdatesData = Array.isArray(window.academicUpdates) ? window.academicUpdates : (typeof academicUpdates !== "undefined" && Array.isArray(academicUpdates) ? academicUpdates : []);
 const academicUpdatesLastUpdatedValue = typeof window.academicUpdatesLastUpdated === "string" && window.academicUpdatesLastUpdated.trim() ? window.academicUpdatesLastUpdated.trim() : (typeof academicUpdatesLastUpdated !== "undefined" && String(academicUpdatesLastUpdated).trim() ? String(academicUpdatesLastUpdated).trim() : "");
@@ -68,9 +90,9 @@ const researchTopicsData = Array.isArray(window.researchTopics) ? window.researc
 function escapeHtml(text) { return String(text || "").replace(/[&<>'"]/g, char => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", "'":"&#039;", '"':"&quot;" })[char]); }
 function linkTemplate(site) { return isTodo(site) ? `<span class="visit-button is-todo">网址待补</span>` : `<a class="visit-button" href="${site.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(site.buttonLabel || "访问网站 ↗")}</a>`; }
 function keywordsTemplate(site) { return `<div class="keywords" aria-label="关键词">${site.keywords.map(word => `<span class="keyword">${escapeHtml(word)}</span>`).join("")}</div>`; }
-function coreCardTemplate(site) { return `<article class="core-card ${site.priority ? "priority-core" : ""}"><div class="core-meta">${site.priority ? `<span class="priority-label">优先入口</span>` : `<span class="core-label">核心资源</span>`}<span class="category-badge">${escapeHtml(site.category)}</span></div><p class="institution">${escapeHtml(site.institution)}</p><h3>${escapeHtml(site.name)}</h3>${site.subtitle ? `<p class="core-subtitle">${escapeHtml(site.subtitle)}</p>` : ""}<p class="description">${escapeHtml(site.description)}</p><p class="fit-for"><strong>适合：</strong>${escapeHtml(site.fitFor)}</p>${keywordsTemplate(site)}${linkTemplate(site)}</article>`; }
+function coreCardTemplate(site, matchesDirection = false) { const matchText = researchObjectTags.has(activeDirectionTag) ? "匹配当前研究对象" : "匹配当前用途"; return `<article class="core-card ${site.priority ? "priority-core" : ""} ${matchesDirection ? "matches-direction" : ""}"><div class="core-meta">${matchesDirection ? `<span class="match-label">${matchText}</span>` : site.priority ? `<span class="priority-label">优先入口</span>` : `<span class="core-label">综合核心资源</span>`}<span class="category-badge">${escapeHtml(site.category)}</span></div><p class="institution">${escapeHtml(site.institution)}</p><h3>${escapeHtml(site.name)}</h3>${site.subtitle ? `<p class="core-subtitle">${escapeHtml(site.subtitle)}</p>` : ""}<p class="description">${escapeHtml(site.description)}</p><p class="fit-for"><strong>适合：</strong>${escapeHtml(site.fitFor)}</p>${keywordsTemplate(site)}${linkTemplate(site)}</article>`; }
 function siteCardTemplate(site) { return `<article class="site-card"><span class="category-badge">${escapeHtml(site.displayCategory || site.category)}</span><h3>${escapeHtml(site.name)}</h3>${site.englishName ? `<p class="core-subtitle">${escapeHtml(site.englishName)}</p>` : ""}${site.institution ? `<p class="institution">${escapeHtml(site.institution)}</p>` : ""}<p class="description">${escapeHtml(site.description)}</p>${keywordsTemplate(site)}${linkTemplate(site)}</article>`; }
-function renderFilters() { filters.innerHTML = categories.map(category => `<button class="filter-button ${category === activeCategory ? "is-active" : ""}" type="button" data-category="${category}">${category}</button>`).join(""); }
+function renderFilters() { filters.innerHTML = categories.map(category => `<button class="filter-button ${category === activeCategory ? "is-active" : ""}" type="button" data-category="${category}" aria-current="${category === activeCategory ? "true" : "false"}">${category}</button>`).join(""); }
 function renderDirectionTags() {
   const visibleTags = researchTagsExpanded ? directionTags : defaultResearchTags;
   tagsContainer.innerHTML = visibleTags.map(tag => `<button class="research-tag ${tag === activeDirectionTag ? "is-active" : ""}" type="button" data-direction="${tag}">${tag}</button>`).join("");
@@ -79,6 +101,16 @@ function renderDirectionTags() {
 }
 function renderUpdateFilters() { updateFilters.innerHTML = updateTypes.map(type => `<button class="update-filter ${type === activeUpdateType ? "is-active" : ""}" type="button" data-update-type="${type}">${type}</button>`).join(""); }
 function renderUpdateObjectFilters() { updateObjectFilters.innerHTML = updateObjects.map(object => `<button class="update-object-filter ${object === activeUpdateObject ? "is-active" : ""}" type="button" data-update-object="${object}">${object}</button>`).join(""); }
+function renderUpdateView() {
+  const showingLatest = activeUpdateView === "latest";
+  latestUpdatesView.hidden = !showingLatest;
+  topicsView.hidden = showingLatest;
+  updateViewTabs.querySelectorAll("[data-update-view]").forEach(button => {
+    const isActive = button.dataset.updateView === activeUpdateView;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+}
 function updateMatchesTopic(update, topic) {
   const updateTopics = Array.isArray(update.topics) ? update.topics : [];
   const updateTags = Array.isArray(update.tags) ? update.tags : [];
@@ -90,7 +122,6 @@ function renderResearchTopics() {
     const isActive = topic.topics.includes(activeUpdateObject);
     return `<article class="research-topic-card ${isActive ? "is-active" : ""}"><span class="topic-label">专题</span><h3>${escapeHtml(topic.title)}</h3><p class="topic-subtitle">${escapeHtml(topic.subtitle || "")}</p><p class="topic-description">${escapeHtml(topic.description || "")}</p><p class="topic-count">当前收录 ${count} 条研究动态</p><button class="topic-button" type="button" data-research-topic="${escapeHtml(topic.id)}">查看专题 →</button></article>`;
   }).join("");
-  researchTopicsReset.hidden = activeUpdateObject === "全部简牍";
 }
 function parseUpdateDate(dateText) {
   const match = String(dateText || "").match(/\d{4}-\d{2}(?:-\d{2})?/);
@@ -152,7 +183,11 @@ function renderLatestUpdateDate() {
   const latestEvent = eventDates.length ? eventDates[eventDates.length - 1] : "暂无记录";
   latestUpdateDateElement.textContent = `数据更新：${lastUpdated} · 最近事件：${latestEvent}`;
 }
-function renderCommonSites() { commonSites.innerHTML = sites.filter(site => commonNames.includes(site.name)).map(site => { const content = `<span>${escapeHtml(site.displayCategory || site.category)}</span><h3>${escapeHtml(site.name)} <small>↗</small></h3>${site.englishName ? `<p>${escapeHtml(site.englishName)}</p>` : ""}`; return isTodo(site) ? `<div class="common-card">${content}</div>` : `<a class="common-card" href="${site.url}" target="_blank" rel="noopener noreferrer">${content}</a>`; }).join(""); }
+function renderCommonSites() { commonSites.innerHTML = sites.filter(site => commonNames.includes(site.name)).map(site => { const isWechat = site.commonAction === "wechat"; const content = `<span>${escapeHtml(site.displayCategory || site.category)}</span><h3>${escapeHtml(site.name)} <small>${isWechat ? (wechatExpanded ? "↑" : "↓") : "↗"}</small></h3>${site.englishName ? `<p>${escapeHtml(site.englishName)}</p>` : ""}`; return isWechat ? `<button class="common-card common-action" type="button" data-common-action="wechat" aria-expanded="${wechatExpanded}">${content}</button>` : isTodo(site) ? `<div class="common-card">${content}</div>` : `<a class="common-card" href="${site.url}" target="_blank" rel="noopener noreferrer">${content}</a>`; }).join(""); }
+function renderWechatPanel() {
+  wechatPanel.hidden = !wechatExpanded;
+  renderCommonSites();
+}
 function updateCardTemplate(update) {
   const link = update.sourceUrl ? `<a class="update-link" href="${update.sourceUrl}" target="_blank" rel="noopener noreferrer">查看原文 ↗</a>` : `<span class="update-link is-disabled">示例数据 · 暂无原文</span>`;
   const objects = update.tags.filter(tag => updateObjects.includes(tag));
@@ -161,50 +196,147 @@ function updateCardTemplate(update) {
   return `<article class="update-card"><div class="update-top"><span class="update-type">${escapeHtml(update.type)}</span><span class="update-labels">${historyLabel}${update.example ? `<span class="example-label">示例数据</span>` : ""}</span></div><h3>${escapeHtml(update.title)}</h3><p class="update-meta">来源：${escapeHtml(update.source)}<br>时间：${escapeHtml(update.date)}</p>${objectTags}<p class="update-summary">${escapeHtml(update.summary)}</p>${link}</article>`;
 }
 function renderUpdates() {
+  const query = searchInput.value.trim().toLowerCase();
   const filteredUpdates = academicUpdatesData.filter(update => {
     const typeMatches = activeUpdateType === "全部" || update.type === activeUpdateType;
     const objectMatches = activeUpdateObject === "全部简牍" || (Array.isArray(update.tags) && update.tags.includes(activeUpdateObject)) || (Array.isArray(update.topics) && update.topics.includes(activeUpdateObject));
-    return typeMatches && objectMatches;
+    const searchable = [update.title, update.type, update.source, update.summary, ...(update.tags || []), ...(update.topics || [])].join(" ").toLowerCase();
+    return typeMatches && objectMatches && searchable.includes(query);
   });
-  const updates = (updatesExpanded || activeUpdateType !== "全部" || activeUpdateObject !== "全部简牍")
+  const hasExplicitFilter = activeUpdateType !== "全部" || activeUpdateObject !== "全部简牍";
+  const updates = (updatesExpanded || hasExplicitFilter || query)
     ? filteredUpdates
     : filteredUpdates.slice().sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || parseUpdateDate(b.date).localeCompare(parseUpdateDate(a.date))).slice(0, 6);
   updatesGrid.innerHTML = updates.map(updateCardTemplate).join("");
   updateEmpty.hidden = filteredUpdates.length !== 0;
-  updatesToggle.hidden = filteredUpdates.length <= 6 || activeUpdateType !== "全部" || activeUpdateObject !== "全部简牍";
+  updatesToggle.hidden = filteredUpdates.length <= 6 || hasExplicitFilter || Boolean(query);
   updatesToggle.textContent = updatesExpanded ? "收起动态" : `查看全部动态（${filteredUpdates.length}）`;
   updatesToggle.setAttribute("aria-expanded", String(updatesExpanded));
+  updateFilterStatus.hidden = !hasExplicitFilter;
+  updateFilterSummary.textContent = `${activeUpdateObject} · ${activeUpdateType === "全部" ? "全部类型" : activeUpdateType} · 共 ${filteredUpdates.length} 条`;
+  backToTopics.hidden = !topicSelectionActive;
+  updatesSection.classList.toggle("has-active-filter", hasExplicitFilter);
 }
 
-// 搜索、分类和方向标签采用叠加筛选；点击已选中的方向标签可取消该标签。
-function matchesCurrentFilters(site) {
+function siteSearchText(site) {
+  return [site.name,site.englishName,site.subtitle,site.institution,site.description,site.category,site.displayCategory,...(site.keywords || []),...(site.researchTags || [])].join(" ").toLowerCase();
+}
+function matchesResourceBase(site) {
   const query = searchInput.value.trim().toLowerCase();
-  const searchable = [site.name,site.englishName,site.subtitle,site.institution,site.description,site.category,site.displayCategory,...site.keywords,...(site.researchTags || [])].join(" ").toLowerCase();
-  const categoryMatches = activeCategory === "全部" || site.category === activeCategory;
-  const directionMatches = !activeDirectionTag || searchable.includes(activeDirectionTag.toLowerCase());
-  return categoryMatches && directionMatches && searchable.includes(query);
+  const categoryMatches = activeResourceCategory === "全部" || site.category === activeResourceCategory;
+  return !site.commonOnly && categoryMatches && siteSearchText(site).includes(query);
+}
+function directlyMatchesDirection(site) {
+  return Boolean(activeDirectionTag) && Array.isArray(site.researchTags) && site.researchTags.includes(activeDirectionTag);
 }
 function renderSites() {
-  const matching = sites.filter(matchesCurrentFilters);
-  const core = matching.filter(site => site.core);
-  const allOrdinary = matching.filter(site => !site.core);
-  const hasResourceFilter = searchInput.value.trim() || activeCategory !== "全部" || activeDirectionTag;
-  const ordinary = (sitesExpanded || hasResourceFilter) ? allOrdinary : allOrdinary.slice(0, 9);
-  coreSection.hidden = core.length === 0;
-  coreGrid.innerHTML = core.map(coreCardTemplate).join("");
-  coreEmpty.hidden = core.length !== 0;
+  const baseMatching = sites.filter(matchesResourceBase);
+  const core = baseMatching.filter(site => site.core).sort((left, right) => Number(directlyMatchesDirection(right)) - Number(directlyMatchesDirection(left)));
+  const allOrdinary = baseMatching.filter(site => !site.core && (!activeDirectionTag || siteSearchText(site).includes(activeDirectionTag.toLowerCase())));
+  const hasResourceFilter = searchInput.value.trim() || activeResourceCategory !== "全部" || activeDirectionTag;
+  const ordinary = (sitesExpanded || hasResourceFilter) ? allOrdinary : allOrdinary.slice(0, 6);
+  coreGrid.innerHTML = core.map(site => coreCardTemplate(site, directlyMatchesDirection(site))).join("");
+  const hasDirectCoreMatch = core.some(directlyMatchesDirection);
+  coreEmpty.hidden = !activeDirectionTag || core.length === 0;
+  coreEmpty.textContent = hasDirectCoreMatch
+    ? `已优先显示与“${activeDirectionTag}”直接匹配的核心资源，其余综合资源仍保留。`
+    : researchObjectTags.has(activeDirectionTag)
+      ? `暂未收录“${activeDirectionTag}”的专门核心资源，以下为仍可使用的综合简牍资源。`
+      : `暂无与“${activeDirectionTag}”完全对应的核心资源，以下综合资源仍可继续使用。`;
   siteGrid.innerHTML = ordinary.map(siteCardTemplate).join("");
-  sitesToggle.hidden = allOrdinary.length <= 9 || Boolean(hasResourceFilter);
+  sitesToggle.hidden = allOrdinary.length <= 6 || Boolean(hasResourceFilter);
   sitesToggle.textContent = sitesExpanded ? "收起资源" : `展开全部资源（${allOrdinary.length}）`;
   sitesToggle.setAttribute("aria-expanded", String(sitesExpanded));
-  emptyState.hidden = matching.length !== 0;
+  resourceFilterStatus.hidden = !activeDirectionTag;
+  resourceFilterStatus.classList.toggle("is-empty", Boolean(activeDirectionTag) && allOrdinary.length === 0);
+  resourceFilterLabel.textContent = activeDirectionTag ? `当前筛选：${activeDirectionTag}` : "";
+  resourceFilterSummary.textContent = activeDirectionTag
+    ? allOrdinary.length
+      ? `· 匹配 ${allOrdinary.length} 条`
+      : `暂无符合“${activeDirectionTag}”的其他学术资源。`
+    : "";
+  clearResourceFilter.hidden = !activeDirectionTag || allOrdinary.length !== 0;
+  emptyState.hidden = Boolean(activeDirectionTag) || ordinary.length !== 0 || core.length !== 0;
   // 分别显示普通资源数量与全页匹配数，避免把上方核心卡片误认为底部资源缺失。
-  resultCount.textContent = `其他资源 ${ordinary.length} 个 · 全页匹配 ${matching.length} 个`;
+  resultCount.textContent = `其他资源 ${ordinary.length} 个 · 当前可见 ${ordinary.length + core.length} 个`;
+  applyCategoryVisibility(core.length > 0);
 }
-filters.addEventListener("click", event => { const button = event.target.closest("[data-category]"); if (!button) return; activeCategory = button.dataset.category; renderFilters(); renderSites(); });
+function applyCategoryVisibility(hasCoreResources = coreGrid.childElementCount > 0) {
+  const resourceCategoryActive = !["全部", "🏺 汉代简牍", "🎓 学术会议"].includes(activeCategory);
+  updatesSection.hidden = resourceCategoryActive;
+  coreSection.hidden = activeCategory === "🎓 学术会议" || resourceCategoryActive || !hasCoreResources;
+  commonSection.hidden = activeCategory !== "全部";
+  resourcesSection.hidden = activeCategory === "🏺 汉代简牍" || activeCategory === "🎓 学术会议";
+}
+function activateCategory(category) {
+  activeCategory = category;
+  const resourceCategories = new Set(["🧱 古文字数据库","📜 出土文献","📚 学术期刊","🏛️ 学术机构","🌏 海外汉学","🤖 AI & 数字人文","🛠️ 学术工具"]);
+  if (resourceCategories.has(category)) {
+    activeResourceCategory = category;
+    activeDirectionTag = "";
+    renderDirectionTags();
+    renderSites();
+    categoryFeedback.textContent = `当前栏目：${category.replace(/^\S+\s*/, "")} · 内容已在下方原地切换`;
+  } else if (category === "🎓 学术会议") {
+    activeResourceCategory = "全部";
+    activeUpdateType = "学术会议";
+    activeUpdateObject = "全部简牍";
+    updatesExpanded = true;
+    activeUpdateView = "latest";
+    topicSelectionActive = false;
+    renderUpdateFilters();
+    renderUpdateObjectFilters();
+    renderResearchTopics();
+    renderUpdateView();
+    renderUpdates();
+    renderSites();
+    categoryFeedback.textContent = "当前栏目：学术会议 · 动态内容已在下方原地切换";
+  } else if (category === "🏺 汉代简牍") {
+    activeResourceCategory = "全部";
+    activeUpdateType = "全部";
+    activeUpdateObject = "全部简牍";
+    updatesExpanded = false;
+    activeUpdateView = "latest";
+    topicSelectionActive = false;
+    renderUpdateFilters();
+    renderUpdateObjectFilters();
+    renderResearchTopics();
+    renderUpdateView();
+    renderUpdates();
+    renderSites();
+    categoryFeedback.textContent = "当前栏目：汉代简牍 · 最新动态与核心资源已在下方显示";
+  } else {
+    activeResourceCategory = "全部";
+    activeDirectionTag = "";
+    activeUpdateType = "全部";
+    activeUpdateObject = "全部简牍";
+    updatesExpanded = false;
+    activeUpdateView = "latest";
+    topicSelectionActive = false;
+    wechatExpanded = false;
+    renderDirectionTags();
+    renderUpdateFilters();
+    renderUpdateObjectFilters();
+    renderResearchTopics();
+    renderUpdateView();
+    renderWechatPanel();
+    renderUpdates();
+    renderSites();
+    categoryFeedback.textContent = "栏目导航：已返回主要资源总览。";
+  }
+  renderFilters();
+}
+filters.addEventListener("click", event => { const button = event.target.closest("[data-category]"); if (!button) return; activateCategory(button.dataset.category); });
 tagsContainer.addEventListener("click", event => { const button = event.target.closest("[data-direction]"); if (!button) return; activeDirectionTag = activeDirectionTag === button.dataset.direction ? "" : button.dataset.direction; renderDirectionTags(); renderSites(); });
-updateFilters.addEventListener("click", event => { const button = event.target.closest("[data-update-type]"); if (!button) return; activeUpdateType = button.dataset.updateType; renderUpdateFilters(); renderUpdates(); });
-updateObjectFilters.addEventListener("click", event => { const button = event.target.closest("[data-update-object]"); if (!button) return; activeUpdateObject = button.dataset.updateObject; updatesExpanded = activeUpdateObject !== "全部简牍" || updatesExpanded; renderUpdateObjectFilters(); renderResearchTopics(); renderUpdates(); });
+clearResourceFilter.addEventListener("click", () => { activeDirectionTag = ""; renderDirectionTags(); renderSites(); tagsContainer.querySelector("[data-direction]")?.focus(); });
+updateViewTabs.addEventListener("click", event => {
+  const button = event.target.closest("[data-update-view]");
+  if (!button) return;
+  activeUpdateView = button.dataset.updateView;
+  renderUpdateView();
+});
+updateFilters.addEventListener("click", event => { const button = event.target.closest("[data-update-type]"); if (!button) return; activeUpdateType = button.dataset.updateType; topicSelectionActive = false; renderUpdateFilters(); renderUpdates(); });
+updateObjectFilters.addEventListener("click", event => { const button = event.target.closest("[data-update-object]"); if (!button) return; activeUpdateObject = button.dataset.updateObject; topicSelectionActive = false; updatesExpanded = activeUpdateObject !== "全部简牍" || updatesExpanded; renderUpdateObjectFilters(); renderResearchTopics(); renderUpdates(); });
 researchTopicsContainer.addEventListener("click", event => {
   const button = event.target.closest("[data-research-topic]");
   if (!button) return;
@@ -213,24 +345,39 @@ researchTopicsContainer.addEventListener("click", event => {
   activeUpdateType = "全部";
   activeUpdateObject = topic.topics[0];
   updatesExpanded = true;
+  topicSelectionActive = true;
+  activeUpdateView = "latest";
+  renderUpdateFilters();
+  renderUpdateObjectFilters();
+  renderResearchTopics();
+  renderUpdateView();
+  renderUpdates();
+});
+backToTopics.addEventListener("click", () => { activeUpdateView = "topics"; renderUpdateView(); });
+clearUpdateFilters.addEventListener("click", () => {
+  activeUpdateType = "全部";
+  activeUpdateObject = "全部简牍";
+  updatesExpanded = false;
+  topicSelectionActive = false;
   renderUpdateFilters();
   renderUpdateObjectFilters();
   renderResearchTopics();
   renderUpdates();
-  document.querySelector("#updates-title").scrollIntoView({ behavior: "smooth", block: "start" });
-});
-researchTopicsReset.addEventListener("click", () => {
-  activeUpdateObject = "全部简牍";
-  updatesExpanded = false;
-  renderUpdateObjectFilters();
-  renderResearchTopics();
-  renderUpdates();
+  if (activeCategory === "🎓 学术会议") {
+    activeCategory = "全部";
+    categoryFeedback.textContent = "栏目导航：已清除学术会议筛选。";
+    renderFilters();
+    renderSites();
+  }
+  updateFilters.querySelector("[data-update-type='全部']")?.focus();
 });
 updatesToggle.addEventListener("click", () => { updatesExpanded = !updatesExpanded; renderUpdates(); });
 researchTagsToggle.addEventListener("click", () => { researchTagsExpanded = !researchTagsExpanded; renderDirectionTags(); });
 sitesToggle.addEventListener("click", () => { sitesExpanded = !sitesExpanded; renderSites(); });
-searchInput.addEventListener("input", renderSites);
-document.querySelector("#clearSearch").addEventListener("click", () => { searchInput.value = ""; activeDirectionTag = ""; renderDirectionTags(); searchInput.focus(); renderSites(); });
+commonSites.addEventListener("click", event => { const button = event.target.closest("[data-common-action='wechat']"); if (!button) return; wechatExpanded = !wechatExpanded; renderWechatPanel(); });
+wechatCollapse.addEventListener("click", () => { wechatExpanded = false; renderWechatPanel(); commonSites.querySelector("[data-common-action='wechat']")?.focus(); });
+searchInput.addEventListener("input", () => { if (searchInput.value.trim()) { activeCategory = "全部"; activeResourceCategory = "全部"; activeUpdateView = "latest"; topicSelectionActive = false; renderFilters(); renderUpdateView(); } renderSites(); renderUpdates(); });
+document.querySelector("#clearSearch").addEventListener("click", () => { searchInput.value = ""; activeDirectionTag = ""; renderDirectionTags(); searchInput.focus(); renderSites(); renderUpdates(); });
 validateAcademicUpdates();
 if (linksLastCheckedElement) linksLastCheckedElement.textContent = linksLastChecked;
-renderFilters(); renderDirectionTags(); renderUpdateFilters(); renderUpdateObjectFilters(); renderResearchTopics(); renderLatestUpdateDate(); renderCommonSites(); renderUpdates(); renderSites();
+renderFilters(); renderDirectionTags(); renderUpdateFilters(); renderUpdateObjectFilters(); renderResearchTopics(); renderUpdateView(); renderLatestUpdateDate(); renderWechatPanel(); renderUpdates(); renderSites();

@@ -85,3 +85,82 @@ footer p:last-child { color:#cdbda8; }
   .update-filter, .update-object-filter { padding:6px 9px; }
   .section-toggle { min-height:40px; padding:8px 18px; }
 }
+
+/* V1.1D：栏目导航、筛选结果优先与综合资源保底 */
+.filter-button:focus-visible,.research-tag:focus-visible,.update-filter:focus-visible,.update-object-filter:focus-visible,.update-view-tab:focus-visible,.topic-button:focus-visible,.section-toggle:focus-visible,.update-filter-status button:focus-visible,.resource-filter-status button:focus-visible,.common-card:focus-visible,.wechat-panel-heading button:focus-visible { outline:3px solid rgba(142,48,40,.28); outline-offset:2px; }
+.category-feedback { margin:12px 2px 0; color:#806542; font-size:.76rem; }
+.update-view-tabs { display:flex; gap:8px; margin:20px 0 4px; padding-bottom:13px; border-bottom:1px solid var(--line); }
+.update-view-tab { min-width:112px; min-height:39px; padding:7px 16px; border:1px solid #c9b18e; color:#684c35; background:rgba(255,253,247,.7); font-size:.8rem; }
+.update-view-tab:hover,.update-view-tab.is-active { color:#fff9ed; border-color:var(--vermilion); background:var(--vermilion); }
+.update-view-panel[hidden] { display:none; }
+.update-filter-status { display:flex; align-items:center; justify-content:space-between; gap:14px; margin:-2px 0 18px; padding:12px 14px; border-left:3px solid var(--vermilion); background:#eee4d4; }
+.update-filter-status[hidden] { display:none; }
+.update-filter-status p { display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; margin:0; color:#5f5548; font-size:.8rem; }
+.update-filter-status strong { color:var(--vermilion); font-size:.86rem; }
+.update-filter-actions { display:flex; flex:none; flex-wrap:wrap; gap:7px; }
+.update-filter-status button { flex:none; min-height:36px; padding:5px 13px; border:1px solid #bda98d; border-radius:999px; color:#684c35; background:#fffaf0; font-size:.75rem; }
+.update-filter-status button:hover { color:#fff9ed; border-color:var(--vermilion); background:var(--vermilion); }
+.updates-section.has-active-filter .updates-grid { padding-bottom:20px; border-bottom:1px solid rgba(164,123,71,.3); }
+.research-topics-panel { margin-top:15px; }
+.research-topics-heading > div { min-width:0; }
+.research-topics-heading .update-filter-label { display:block; padding:0; color:var(--vermilion); font-size:.77rem; font-weight:700; }
+.research-topics-heading p { margin:2px 0 0; color:#8a7963; font-size:.68rem; }
+.match-label { display:inline-block; padding:3px 8px; color:#fff9ed; border:1px solid var(--vermilion); background:var(--vermilion); font-size:.68rem; line-height:1.4; }
+.core-card.matches-direction { border-color:#b87863; box-shadow:0 0 0 2px rgba(142,48,40,.07),0 8px 20px rgba(54,42,28,.08); }
+.core-empty { margin:0 0 18px; padding:12px 14px; border-style:solid; border-color:#d4c5ad; background:rgba(255,253,247,.58); text-align:left; }
+.resource-filter-status { display:flex; align-items:center; justify-content:space-between; gap:14px; margin:0 0 18px; padding:11px 14px; border-left:3px solid var(--gold); background:rgba(238,228,212,.64); }
+.resource-filter-status[hidden] { display:none; }
+.resource-filter-status p { display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; margin:0; color:#5f5548; font-size:.8rem; }
+.resource-filter-status strong { color:var(--vermilion); }
+.resource-filter-status.is-empty { padding:16px; border:1px dashed #bdad97; border-left:3px solid var(--vermilion); background:rgba(252,250,244,.72); }
+.resource-filter-status button { flex:none; min-height:36px; padding:5px 13px; border:1px solid #bda98d; border-radius:999px; color:#684c35; background:#fffaf0; font-size:.75rem; }
+.resource-filter-status button:hover { color:#fff9ed; border-color:var(--vermilion); background:var(--vermilion); }
+.common-action { width:100%; border:0; font:inherit; text-align:left; cursor:pointer; }
+.wechat-panel { margin-top:18px; padding:20px; border:1px solid #cdb99a; background:rgba(245,238,224,.72); }
+.wechat-panel[hidden] { display:none; }
+.wechat-panel-heading { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:4px; }
+.wechat-panel-heading h3 { margin:2px 0 0; font-size:1.08rem; }
+.wechat-panel-heading button { min-height:38px; padding:6px 13px; border:1px solid #bda98d; border-radius:999px; color:#684c35; background:#fffaf0; font-size:.75rem; }
+.wechat-panel-heading button:hover { color:#fff9ed; border-color:var(--vermilion); background:var(--vermilion); }
+.wechat-intro { margin:0 0 14px; color:var(--ink-soft); font-size:.78rem; }
+.wechat-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px; }
+.wechat-card { min-width:0; padding:18px; border:1px solid #d8cdbc; background:rgba(252,250,244,.78); overflow-wrap:anywhere; }
+.wechat-card h3 { margin:0 0 5px; color:var(--ink); font-size:1rem; }
+.wechat-card p { margin:0 0 8px; color:var(--ink-soft); font-size:.78rem; line-height:1.6; }
+.wechat-card .wechat-meta { color:#806542; font-size:.7rem; }
+.wechat-card span { display:block; padding-top:8px; border-top:1px dashed #d8cdbc; color:var(--vermilion); font-size:.7rem; }
+.core-card,.site-card,.common-card,.update-card { min-width:0; overflow-wrap:anywhere; }
+
+@media (max-width:900px) {
+  .site-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .wechat-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:760px) {
+  .search-panel { align-items:stretch; flex-direction:column; }
+  .core-grid,.site-grid { grid-template-columns:1fr; }
+  .research-tags-wrap { flex-direction:column; gap:9px; }
+  .tag-label { padding-top:0; }
+  .research-tags-wrap .section-toggle { margin:4px 0 0; }
+}
+@media (max-width:560px) {
+  .wechat-grid { grid-template-columns:1fr; }
+  .update-filter-status,.resource-filter-status { align-items:flex-start; flex-direction:column; }
+  .update-filter-status button,.resource-filter-status button { min-width:112px; min-height:42px; }
+  .resource-filter-status button { width:100%; }
+  .update-filter-actions { width:100%; }
+  .update-filter-actions button { flex:1; }
+  .update-view-tabs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .update-view-tab { min-width:0; min-height:44px; }
+  .research-topics-heading { align-items:flex-start; flex-direction:column; gap:8px; }
+  .filter-list,.research-tags,.update-filters,.update-object-filters { max-width:100%; }
+}
+@media (max-width:430px) {
+  .filter-button { min-height:38px; }
+  .category-feedback { line-height:1.55; }
+  .update-filter-status { margin-bottom:14px; padding:11px 12px; }
+  .research-topics-panel { margin-top:18px; }
+  .wechat-panel { padding:15px; }
+  .wechat-panel-heading { align-items:flex-start; flex-direction:column; }
+  .wechat-panel-heading button { min-height:42px; }
+  .wechat-card { padding:16px; }
+}
