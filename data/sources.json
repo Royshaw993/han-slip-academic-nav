@@ -4,35 +4,181 @@
     "name": "武汉大学简帛网 [home]",
     "url": "https://www.bsm.org.cn/",
     "enabled": true,
+    "sourceType": "academic-site",
+    "categories": ["slips", "silk"],
+    "categoryKeywords": {
+      "slips": ["简帛", "简牍", "簡帛", "簡牘", "汉简", "漢簡", "竹简", "竹簡"],
+      "silk": ["帛书", "帛書", "楚帛书", "楚帛書", "马王堆", "馬王堆"]
+    },
+    "keywords": ["简帛", "简牍", "帛书", "帛書", "楚帛书", "马王堆", "馬王堆", "懸泉", "悬泉", "漢簡", "汉简", "簡牘", "竹簡", "竹简", "出土文献", "战国文字", "学术动态", "研究札记", "论文", "讲座", "会议", "新书"],
+    "priority": 1,
     "manualReview": false,
     "maxDetailRequests": 6,
-    "notes": "Only the public homepage is checked in V0.8A; no login or deep forum pages."
+    "note": "公开首页低频检查；同一来源按标题关键词区分 slips 与 silk，不抓取登录或深层论坛页面。"
   },
   {
     "id": "tsinghua-ctwx",
     "name": "清华大学出土文献研究与保护中心 [home]",
     "url": "https://www.ctwx.tsinghua.edu.cn/",
     "enabled": true,
+    "sourceType": "academic-center",
+    "categories": ["oracle", "bronze", "slips"],
+    "categoryKeywords": {
+      "oracle": ["甲骨", "甲骨文", "殷墟"],
+      "bronze": ["金文", "青铜器", "青銅器", "铭文", "銘文"],
+      "slips": ["清华简", "清華簡", "简牍", "簡牘", "简帛", "簡帛", "竹简", "竹簡", "出土文献"]
+    },
+    "keywords": ["甲骨", "甲骨文", "金文", "青铜器", "铭文", "出土文献", "清华简", "帛书", "简帛", "战国文字", "古文字", "学术动态", "讲座", "会议", "论文", "新书"],
+    "priority": 1,
     "manualReview": false,
     "maxDetailRequests": 6,
-    "notes": "Only the public homepage is checked in V0.8A; candidate details need human review."
+    "note": "公开首页检查；资讯栏目和候选详情仍需人工核验。"
   },
   {
     "id": "nwnu-jiandu",
     "name": "西北师范大学简牍学术资源相关平台 [home]",
     "url": "https://jiandu.nwnu.edu.cn/",
     "enabled": true,
+    "sourceType": "academic-platform",
+    "categories": ["slips"],
+    "keywords": ["居延汉简", "居延新简", "悬泉汉简", "敦煌汉简", "玉门关汉简", "肩水金关", "武威汉简", "尹湾汉简", "银雀山汉简", "银座山汉简", "张家山汉简", "五一广场东汉简", "走马楼西汉简", "汉简", "汉代简牍", "简牍文字", "简牍释文", "简牍缀合", "简牍整理", "汉代行政文书", "汉代法律文书", "数字简牍"],
+    "priority": 1,
     "manualReview": false,
     "maxDetailRequests": 6,
-    "notes": "Only the public homepage is checked in V0.8A; database content is not crawled."
+    "note": "公开首页检查；数据库内容不自动抓取。"
   },
   {
     "id": "kaogu-cssn",
     "name": "中国考古网 [home]",
     "url": "https://kaogu.cssn.cn/",
     "enabled": true,
+    "sourceType": "academic-news",
+    "categories": ["oracle", "bronze", "stone", "silk"],
+    "keywords": ["甲骨文", "甲骨", "卜辞", "殷墟", "金文", "青铜器", "铭文", "石刻", "碑刻", "墓志", "拓片", "帛书", "楚帛书", "马王堆", "出土文献", "考古", "发掘", "发现", "学术", "论文", "会议"],
+    "priority": 2,
     "manualReview": false,
     "maxDetailRequests": 6,
-    "notes": "Only the public homepage is checked; access controls stop this source for human review."
+    "note": "公开首页低频检查；访问限制或栏目变化时转人工复核。"
+  },
+  {
+    "id": "xiaoxue-home",
+    "name": "小學堂文字學資料庫 [home]",
+    "url": "https://xiaoxue.iis.sinica.edu.tw/",
+    "enabled": true,
+    "sourceType": "academic-database",
+    "categories": ["oracle", "bronze"],
+    "keywords": ["甲骨文", "金文", "字形", "文字学", "文字學", "资料库", "資料庫", "研究", "更新"],
+    "priority": 2,
+    "manualReview": true,
+    "maxDetailRequests": 0,
+    "note": "官方数据库入口已在站内资源目录使用；未确认独立稳定资讯栏，保留人工复核。"
+  },
+  {
+    "id": "ihp-bronze-studio",
+    "name": "中央研究院历史语言研究所金文工作室 [home]",
+    "url": "https://www.ihp.sinica.edu.tw/~bronze/",
+    "enabled": true,
+    "sourceType": "academic-institute",
+    "categories": ["bronze"],
+    "keywords": ["金文", "青铜器", "青銅器", "铭文", "銘文", "拓片", "器影", "研究", "资料库", "資料庫"],
+    "priority": 2,
+    "manualReview": true,
+    "maxDetailRequests": 0,
+    "note": "官方机构入口；未确认独立稳定资讯栏，保留人工复核。"
+  },
+  {
+    "id": "ihp-academic-activities",
+    "name": "中央研究院历史语言研究所 [home]",
+    "url": "https://www.ihp.sinica.edu.tw/",
+    "enabled": true,
+    "sourceType": "academic-institute",
+    "categories": ["oracle", "bronze", "stone"],
+    "keywords": ["甲骨", "甲骨文", "金文", "青铜器", "铭文", "石刻", "碑刻", "墓志", "拓片", "学术活动", "讲座", "会议", "研究", "新书"],
+    "priority": 2,
+    "manualReview": true,
+    "maxDetailRequests": 0,
+    "note": "使用中央研究院历史语言研究所官方总入口；未猜测具体学术活动栏目，具体页面待人工核验。"
+  },
+  {
+    "id": "zju-epitaph",
+    "name": "中国历代墓志数据库 [home]",
+    "url": "http://csid.zju.edu.cn",
+    "enabled": true,
+    "sourceType": "academic-database",
+    "categories": ["stone"],
+    "keywords": ["墓志", "墓誌", "石刻", "碑刻", "拓片", "全文", "图像", "圖像", "检索", "檢索"],
+    "priority": 2,
+    "manualReview": true,
+    "maxDetailRequests": 0,
+    "note": "官方数据库入口已在站内资源目录使用；未确认独立稳定资讯栏，保留人工复核。"
+  },
+  {
+    "id": "ihp-oracle-rubbing",
+    "name": "中央研究院傅斯年图书馆甲骨文拓片資料庫 [home]",
+    "url": "https://dap.ihp.sinica.edu.tw/database/3/",
+    "enabled": true,
+    "sourceType": "academic-database",
+    "categories": ["oracle"],
+    "keywords": ["甲骨文", "拓片", "典藏", "影像", "实物", "實物", "检索", "檢索"],
+    "priority": 3,
+    "manualReview": true,
+    "maxDetailRequests": 0,
+    "note": "官方数据库入口；未确认独立稳定资讯栏，保留人工复核。"
+  },
+  {
+    "id": "ihp-bronze-rubbing",
+    "name": "中央研究院傅斯年图书馆青銅器拓片資料庫 [home]",
+    "url": "https://dap.ihp.sinica.edu.tw/database/4/",
+    "enabled": true,
+    "sourceType": "academic-database",
+    "categories": ["bronze"],
+    "keywords": ["金文", "青铜器", "青銅器", "拓片", "铭文", "銘文", "器影", "检索", "檢索"],
+    "priority": 3,
+    "manualReview": true,
+    "maxDetailRequests": 0,
+    "note": "官方数据库入口；未确认独立稳定资讯栏，保留人工复核。"
+  },
+  {
+    "id": "ihp-stone-rubbing",
+    "name": "中央研究院傅斯年图书馆漢代石刻畫象拓本資料庫 [home]",
+    "url": "https://dap.ihp.sinica.edu.tw/database/5/",
+    "enabled": true,
+    "sourceType": "academic-database",
+    "categories": ["stone"],
+    "keywords": ["汉代", "漢代", "石刻", "石刻画像", "石刻畫象", "拓本", "拓片", "图像", "圖像", "检索", "檢索"],
+    "priority": 3,
+    "manualReview": true,
+    "maxDetailRequests": 0,
+    "note": "官方数据库入口；未确认独立稳定资讯栏，保留人工复核。"
+  },
+  {
+    "id": "zzu-hzwm",
+    "name": "郑州大学中华汉字文明研究中心 [home]",
+    "url": "https://www5.zzu.edu.cn/hzwm/index.htm",
+    "enabled": true,
+    "sourceType": "academic-center",
+    "categories": ["oracle", "bronze"],
+    "categoryKeywords": {
+      "oracle": ["甲骨", "甲骨文", "殷墟"],
+      "bronze": ["金文", "青铜器", "青銅器", "铭文", "銘文"]
+    },
+    "keywords": ["甲骨文", "甲骨", "殷墟", "金文", "青铜器", "青銅器", "铭文", "銘文", "学术讲座", "讲座", "研究动态", "研究", "论文", "新书"],
+    "priority": 1,
+    "manualReview": false,
+    "maxDetailRequests": 6,
+    "note": "按公开官网首页低频检查；候选详情仍需人工核验。"
+  },
+  {
+    "id": "hunan-cultural-relics",
+    "name": "湖南省文物局 [home]",
+    "url": "https://wwj.hunan.gov.cn/",
+    "enabled": true,
+    "sourceType": "official-government",
+    "categories": ["silk"],
+    "keywords": ["马王堆", "馬王堆", "马王堆汉墓", "馬王堆漢墓", "帛书", "帛書", "整理", "出版", "展览", "展覽", "研究", "出土文献", "考古"],
+    "priority": 2,
+    "manualReview": false,
+    "maxDetailRequests": 6,
+    "note": "湖南省文物局官方公开首页；重点关注马王堆、帛书、整理出版与展览研究相关资讯。"
   }
 ]

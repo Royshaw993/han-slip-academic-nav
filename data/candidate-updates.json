@@ -1,6 +1,719 @@
 {
-  "generatedAt": "2026-09-04T07:12:33",
-  "candidates": [],
+  "generatedAt": "2026-09-11T13:48:08",
+  "candidates": [
+    {
+      "id": "candidate-0305f5c6f451",
+      "title": "《出土文献》",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/ctwx/qkml.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [
+        "帛书",
+        "slips"
+      ],
+      "matchedKeywords": [
+        "出土文献"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-fa5daf82a186",
+      "title": "出土文献中心教研系列教师招聘信息",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/info/1068/3476.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2026-03-03",
+      "categories": [
+        "帛书"
+      ],
+      "matchedKeywords": [
+        "出土文献"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": false,
+      "reviewDecision": "deferred"
+    },
+    {
+      "id": "candidate-9e4a711d64b1",
+      "title": "出土文献中心2026年博士后招聘启事",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/info/1068/3475.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2026-02-06",
+      "categories": [
+        "帛书"
+      ],
+      "matchedKeywords": [
+        "出土文献"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": false,
+      "reviewDecision": "deferred"
+    },
+    {
+      "id": "candidate-2f9c3cfe8d91",
+      "title": "“出土简帛的文本与思想国际学术研讨会：清华简及其延伸”在英国牛津召开",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/info/1011/3517.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2026-07-04",
+      "categories": [
+        "帛书",
+        "slips"
+      ],
+      "matchedKeywords": [
+        "清华简",
+        "简帛"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": false,
+      "reviewDecision": "deferred",
+      "type": "学术会议",
+      "date": "2026-07-04",
+      "summary": "",
+      "tags": [
+        "帛书",
+        "slips",
+        "清华简",
+        "简帛"
+      ],
+      "relatedResources": [],
+      "featured": false
+    },
+    {
+      "id": "candidate-d41fa08bc9db",
+      "title": "《出土文献》2026年第1期（总第25期）",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/info/1093/3478.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [
+        "帛书",
+        "slips"
+      ],
+      "matchedKeywords": [
+        "出土文献"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-dbfd1f0a83ce",
+      "title": "《出土文献》2025年第4期（总第24期）",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/info/1093/3444.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [
+        "帛书",
+        "slips"
+      ],
+      "matchedKeywords": [
+        "出土文献"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-4e1e6ca74a24",
+      "title": "古文字与出土文献数据库",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/#",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [
+        "帛书",
+        "slips"
+      ],
+      "matchedKeywords": [
+        "出土文献",
+        "古文字"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-a5d3aeda18b5",
+      "title": "域外汉字研究",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/kwhhzyj/ywhzyj.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-a9f06fa17b3d",
+      "title": "研究生",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/rcpy/yjs.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-617b5775fea9",
+      "title": "汉字汉语研究",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/zxkw/hzhyyj.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-1b118cd41141",
+      "title": "讲座预告",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/tzgg/jzyg.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "讲座"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-f307b7cf566d",
+      "title": "教育部语言文字信息管理司与郑州大学签约续建中华汉字文明研究中心",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1033/4205.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-b8b5be8b98db",
+      "title": "汉字文明研究中心党支部通过教育部“全国党建工作样板支部”建设验收",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1033/4168.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-9c8a5586f08a",
+      "title": "李运富教授主编《甲骨春秋》获教育部第九届高等学校科学研究优秀成果奖",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1033/4169.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [
+        "oracle"
+      ],
+      "matchedKeywords": [
+        "甲骨",
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-ed7c1d31e5dc",
+      "title": "殷墟甲骨文与中华文明传承发展专题研讨会在河南召开",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1033/3659.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [
+        "oracle"
+      ],
+      "matchedKeywords": [
+        "甲骨文",
+        "甲骨",
+        "殷墟"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-56808619b869",
+      "title": "《汉字汉语研究》入选AMI新刊入库期刊",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1033/4022.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-f4c60c50d9a3",
+      "title": "李守奎教授学术讲座",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1146/4452.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "学术讲座",
+        "讲座"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-69f7db4848c9",
+      "title": "韩琳教授学术讲座",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1146/4450.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "学术讲座",
+        "讲座"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-86ab5b215772",
+      "title": "何毓灵研究员学术讲座",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1146/4446.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "学术讲座",
+        "讲座",
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-d87d2d190b44",
+      "title": "郑振峰教授学术讲座",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1146/4445.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "学术讲座",
+        "讲座"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-d6fee9de2f3a",
+      "title": "党怀兴教授学术讲座",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1146/4444.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "学术讲座",
+        "讲座"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-c864c175d497",
+      "title": "沈培教授学术讲座",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1146/4440.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "学术讲座",
+        "讲座"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-156f611a914a",
+      "title": "黄德宽教授学术讲座",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1146/4429.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "学术讲座",
+        "讲座"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-0cd56ac4eac6",
+      "title": "黄天树教授学术讲座",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1146/4428.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "学术讲座",
+        "讲座"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-9bc7ba1d2dc7",
+      "title": "刘洪涛教授学术讲座",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1146/4379.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "学术讲座",
+        "讲座"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-b63773d62437",
+      "title": "05/15教育部语言文字信息管理司、河南省教育厅、郑州大学共建“汉字文明传承传播与教育研究中心”签…",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1162/2328.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-ad35350d988d",
+      "title": "03/01汉字文明研究中心召开2025年度工作会议",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1162/4208.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-ca8e29086a44",
+      "title": "08/09汉字文明研究院三项成果入选2026年度国家出版基金资助项目",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1162/4487.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-de38975c23bb",
+      "title": "07/28汉字文明研究院李运富教授、李晶副教授赴国家语委优秀中青年学者研修班开展讲学与研修学习",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1162/4485.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-2e69d6c026d2",
+      "title": "07/28郑州大学汉字文明研究中心更名为汉字文明研究院",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1162/4484.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-61d625dccda2",
+      "title": "07/28新华社《瞭望》采访报道郑州大学中华汉字文明研究中心",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1162/4482.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-f84057560ecb",
+      "title": "今天，这个研究中心带你书写“郑州大学”",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1206/2383.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-eb43eb9d53a4",
+      "title": "多家媒体报道汉字文明研究中心成立仪式...",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1206/2400.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-06a18276b61b",
+      "title": "简论跨文化汉字研究",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1167/1809.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-15e335c18242",
+      "title": "改革开放四十年中国文字学研究",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1167/2303.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-9b08b5fd6252",
+      "title": "跨文化汉字研究海外专家访谈01：李圭甲...",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1225/2754.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-287732c0b25a",
+      "title": "跨文化汉字研究海外专家访谈02：笹原宏...",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1225/2755.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-be4b28869191",
+      "title": "跨文化汉字研究海外专家访谈03：池田证...",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1225/2756.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-1e89147eb864",
+      "title": "跨文化漢字研究海外專家訪談04：高嶋謙...",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1225/2753.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-54992e1916a4",
+      "title": "跨文化漢字研究海外專家訪談05：梁曉虹...",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1225/2757.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-0bfdf2a970b9",
+      "title": "跨文化漢字研究海外專家訪談06：風儀誠...",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1225/2767.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-81202fa07615",
+      "title": "《汉字汉语研究》征稿启事",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1150/1977.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-e162c367a74e",
+      "title": "《汉字汉语研究》2026年第2期目录",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1150/4489.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    },
+    {
+      "id": "candidate-f082dfac2a72",
+      "title": "《汉字汉语研究》2025年第4期目录",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1150/4394.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "pending",
+      "needsDateReview": true
+    }
+  ],
   "olderCandidates": [
     {
       "id": "candidate-c1ac7956d88a",
@@ -14,7 +727,11 @@
       ],
       "suggestedTopics": [],
       "status": "older",
-      "needsDateReview": false
+      "needsDateReview": false,
+      "categories": [
+        "简牍",
+        "slips"
+      ]
     },
     {
       "id": "candidate-d754ebc91283",
@@ -31,7 +748,8 @@
         "悬泉汉简"
       ],
       "status": "older",
-      "needsDateReview": false
+      "needsDateReview": false,
+      "reviewDecision": "historical"
     },
     {
       "id": "candidate-30ded9f23b54",
@@ -62,7 +780,11 @@
       ],
       "suggestedTopics": [],
       "status": "older",
-      "needsDateReview": false
+      "needsDateReview": false,
+      "categories": [
+        "简牍",
+        "slips"
+      ]
     },
     {
       "id": "candidate-92f763a686ff",
@@ -92,6 +814,131 @@
       "suggestedTopics": [
         "肩水金关"
       ],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-a8c76be6d9df",
+      "title": "新书 | 《安徽大学藏战国竹简（二）》",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/info/1012/2873.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2022-08-16",
+      "categories": [
+        "帛书",
+        "slips"
+      ],
+      "matchedKeywords": [
+        "新书"
+      ],
+      "suggestedTopics": [],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-ad8d0da58a52",
+      "title": "新书 | 赵平安：《〈说文〉小篆研究（修订版）》",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/info/1012/2855.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2022-07-13",
+      "categories": [
+        "帛书"
+      ],
+      "matchedKeywords": [
+        "新书"
+      ],
+      "suggestedTopics": [],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-3b53de525e62",
+      "title": "郑州大学汉字文明研究中心简介",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/zxgk/zzdxhzwmyjzxjj.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2016-10-08",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-e063dd0aa9e1",
+      "title": "汉字文明研究中心学术委员会",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/zxgk/hzwmyjzxxswyh.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2016-09-28",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-87839abba47e",
+      "title": "跨文化汉字研究高端讲坛",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/xsdt/kwhhzyjgdjt.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2019-05-15",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-ebd0ef9791fa",
+      "title": "科学研究",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/kxyj.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2024-02-02",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-e0024fd69508",
+      "title": "跨文化汉字研究",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/kwhhzyj.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2024-07-11",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
+      "status": "older",
+      "needsDateReview": false
+    },
+    {
+      "id": "candidate-bdded68c455a",
+      "title": "跨文化汉字研究国际联盟（筹）",
+      "source": "郑州大学中华汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/kwhhzyj/kwhhzyjgjlm_c_.htm",
+      "discoveredAt": "2026-09-11",
+      "possibleDate": "2021-10-13",
+      "categories": [],
+      "matchedKeywords": [
+        "研究"
+      ],
+      "suggestedTopics": [],
       "status": "older",
       "needsDateReview": false
     }

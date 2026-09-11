@@ -24,6 +24,7 @@
 .topic-reset { padding:3px 9px; border:1px solid #d4c5ad; border-radius:999px; color:#755c41; background:transparent; font-size:.68rem; }
 .topic-reset:hover { color:#fff9ed; border-color:var(--vermilion); background:var(--vermilion); }
 .research-topics-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+.research-topics-empty { grid-column:1/-1; margin:0; padding:28px 20px; border:1px dashed #bdad97; color:var(--ink-soft); text-align:center; font-size:.86rem; }
 .research-topic-card { padding:13px 14px; border:1px solid #d8c9b2; background:rgba(255,253,247,.7); }
 .research-topic-card.is-active { border-color:var(--vermilion); box-shadow:0 0 0 2px rgba(142,48,40,.08); }
 .topic-label { color:var(--vermilion); font-size:.65rem; letter-spacing:.08em; }
@@ -86,6 +87,48 @@ footer p:last-child { color:#cdbda8; }
   .section-toggle { min-height:40px; padding:8px 18px; }
 }
 
+/* V1.2：Hero 门类入口与简洁访问说明 */
+.seal-line button { flex:none; min-width:36px; min-height:44px; padding:4px 6px; border:1px solid transparent; border-radius:3px; background:transparent; color:inherit; font:inherit; font-size:1rem; letter-spacing:0; cursor:pointer; }
+.seal-line button:hover { background:rgba(217,175,112,.08); }
+.seal-line button.is-active { border-color:rgba(217,175,112,.65); background:rgba(217,175,112,.1); }
+.seal-line button:focus-visible { outline:2px solid #d9af70; outline-offset:3px; }
+.return-home { display:inline-flex; align-items:center; min-height:38px; margin-top:17px; padding:5px 13px; border:1px solid rgba(217,175,112,.65); border-radius:999px; color:#e4cda3; background:rgba(217,175,112,.08); font-size:.8rem; }
+.return-home[hidden] { display:none; }
+.return-home:hover { color:#fff9ed; border-color:#d9af70; background:rgba(217,175,112,.18); }
+.return-home:focus-visible { outline:2px solid #d9af70; outline-offset:3px; }
+.access-note { align-self:flex-start; margin:0 0 12px; padding:3px 8px; border:1px solid #d4c5ad; border-radius:4px; color:#755c41; background:#eee7da; font-size:.72rem; }
+.genre-empty { padding:24px; border:1px dashed #bdad97; color:var(--ink-soft); text-align:center; }
+.resource-tags { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 11px; }
+.resource-tags span,.resource-group-label { display:inline-block; padding:2px 7px; color:#755c41; background:#eee7da; font-size:.68rem; line-height:1.4; }
+.resource-group-label { margin:8px 0 0; color:var(--vermilion); border:1px solid #d9b7ac; background:#fbf2ed; }
+.genre-structure[hidden] { display:none; }
+.genre-structure { margin:0 0 18px; }
+.genre-resource-group { padding:16px 0 18px; border-top:1px solid rgba(164,123,71,.3); }
+.genre-resource-group:last-child { border-bottom:1px solid rgba(164,123,71,.3); }
+.genre-resource-group h3 { margin:0 0 9px; color:var(--vermilion); font-size:1rem; }
+.genre-group-note { margin:0; color:var(--ink-soft); font-size:.8rem; }
+.genre-group-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+@media (max-width:430px) { .seal-line { gap:4px; }.seal-line i { width:12px; }.return-home { margin-top:14px; min-height:40px; } }
+
+/* V1.2：精选核心工具书 / 基础书目 */
+.bibliography-section { margin:0 0 42px; padding:27px 0 4px; border-top:1px solid var(--line); }
+.bibliography-section[hidden] { display:none; }
+.bibliography-heading { align-items:flex-end; }
+.bibliography-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px; }
+.bibliography-card { min-width:0; padding:18px; border:1px solid #d8cdbc; border-top:3px solid var(--gold); background:rgba(252,250,244,.82); box-shadow:0 5px 14px rgba(54,42,28,.04); overflow-wrap:anywhere; }
+.bibliography-meta { display:flex; align-items:center; flex-wrap:wrap; gap:6px; }
+.bibliography-type,.bibliography-level { display:inline-block; padding:2px 7px; color:var(--vermilion); border:1px solid #d9b7ac; background:#fbf2ed; font-size:.68rem; line-height:1.4; }
+.bibliography-level { color:#755c41; border-color:#d4c5ad; background:#eee7da; }
+.bibliography-card h3 { margin:9px 0 5px; font-size:1.05rem; line-height:1.5; }
+.bibliography-author { margin:0 0 10px; color:#806542; font-size:.75rem; line-height:1.55; }
+.bibliography-tags { display:flex; flex-wrap:wrap; gap:5px; margin:0 0 10px; }
+.bibliography-tags span { padding:2px 7px; color:#6d5a47; background:#eee7da; font-size:.68rem; }
+.bibliography-note { margin:0 0 9px; color:var(--ink-soft); font-size:.76rem; line-height:1.6; }
+.bibliography-publication { margin:0; padding-top:8px; border-top:1px dashed #d8cdbc; color:#8a7963; font-size:.68rem; }
+.bibliography-empty { margin:0; padding:24px; border:1px dashed #bdad97; color:var(--ink-soft); text-align:center; font-size:.86rem; }
+@media (max-width:900px) { .bibliography-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:560px) { .bibliography-section { margin-bottom:36px; padding-top:23px; }.bibliography-grid { grid-template-columns:1fr; }.bibliography-heading { align-items:flex-start; flex-direction:column; gap:8px; }.bibliography-heading > p { text-align:left; }.bibliography-card { padding:16px; } }
+
 /* V1.1D：栏目导航、筛选结果优先与综合资源保底 */
 .filter-button:focus-visible,.research-tag:focus-visible,.update-filter:focus-visible,.update-object-filter:focus-visible,.update-view-tab:focus-visible,.topic-button:focus-visible,.section-toggle:focus-visible,.update-filter-status button:focus-visible,.resource-filter-status button:focus-visible,.common-card:focus-visible,.wechat-panel-heading button:focus-visible { outline:3px solid rgba(142,48,40,.28); outline-offset:2px; }
 .category-feedback { margin:12px 2px 0; color:#806542; font-size:.76rem; }
@@ -97,7 +140,7 @@ footer p:last-child { color:#cdbda8; }
 .update-filter-status[hidden] { display:none; }
 .update-filter-status p { display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; margin:0; color:#5f5548; font-size:.8rem; }
 .update-filter-status strong { color:var(--vermilion); font-size:.86rem; }
-.update-filter-actions { display:flex; flex:none; flex-wrap:wrap; gap:7px; }
+.update-filter-actions { display:flex; flex:0 1 auto; min-width:0; flex-wrap:wrap; gap:7px; }
 .update-filter-status button { flex:none; min-height:36px; padding:5px 13px; border:1px solid #bda98d; border-radius:999px; color:#684c35; background:#fffaf0; font-size:.75rem; }
 .update-filter-status button:hover { color:#fff9ed; border-color:var(--vermilion); background:var(--vermilion); }
 .updates-section.has-active-filter .updates-grid { padding-bottom:20px; border-bottom:1px solid rgba(164,123,71,.3); }
@@ -138,6 +181,7 @@ footer p:last-child { color:#cdbda8; }
 @media (max-width:760px) {
   .search-panel { align-items:stretch; flex-direction:column; }
   .core-grid,.site-grid { grid-template-columns:1fr; }
+  .genre-group-cards { grid-template-columns:1fr; }
   .research-tags-wrap { flex-direction:column; gap:9px; }
   .tag-label { padding-top:0; }
   .research-tags-wrap .section-toggle { margin:4px 0 0; }

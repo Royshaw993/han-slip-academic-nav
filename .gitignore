@@ -3,3 +3,4 @@ logs/*.log
 logs/*.log.1
 __pycache__/
 *.pyc
+data/candidate-updates.review-backup.json

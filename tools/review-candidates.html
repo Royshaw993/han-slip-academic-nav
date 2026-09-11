@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>候选审核助手 · 古文字学术导航</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#f5f0e6;color:#40372c;font:16px/1.65 system-ui,sans-serif}
+  main{max-width:1050px;margin:auto;padding:24px 16px}h1{font-size:1.55rem;margin:0 0 8px}p{margin:6px 0 12px}
+  .muted{color:#76644f;font-size:.88rem}.toolbar{padding:16px;background:#eee4d4;border:1px solid #cdb99a;margin:16px 0}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}button,input,select,textarea{font:inherit;max-width:100%}
+  button,select,input[type=search],input[type=text],input[type=date],textarea{min-height:42px;border:1px solid #bda98d;background:#fffaf0;color:#684c35;border-radius:6px;padding:7px 12px}
+  button{cursor:pointer}button:hover{background:#e7d8c1}button:disabled{opacity:.5;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #ad7762;outline-offset:2px}
+  #preview{background:#8e3028;color:#fff}input[type=search]{width:100%;margin-bottom:12px}input[type=checkbox]{width:20px;height:20px;flex:none}
+  article{background:#fffaf1;border:1px solid #d8cdbc;padding:16px;margin:12px 0;overflow-wrap:anywhere}
+  article label{display:flex;align-items:flex-start;gap:10px;cursor:pointer}article h2{font-size:1.05rem;margin:0}article p{margin:8px 0 0;font-size:.9rem}
+  a{color:#8e3028}.decision{font-weight:700;color:#8e3028}pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:16px;background:#fffaf1;border:1px solid #cdb99a;font-size:.85rem}
+  #message{min-height:1.7em;overflow-wrap:anywhere}#message[data-error=true]{color:#a02622}#selection{margin-left:auto;font-size:.9rem}
+  .publish-status{margin-top:12px;color:#684c35}.publish-status-main{font-size:.9rem;font-weight:600}.publish-missing{display:block;margin-top:2px;color:#76644f;font-size:.78rem;font-weight:400}.publish-actions{margin-top:7px}
+  .publish-editor{margin-top:10px;padding:12px;background:#f5f0e6;border:1px solid #cdb99a}.publish-editor form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 14px}.publish-field{display:grid;min-width:0;gap:3px}.publish-field.full{grid-column:1/-1}.publish-label{display:flex;align-items:baseline;gap:6px;font-size:.88rem;font-weight:600}.field-key{color:#8c8173;font:400 .68rem/1.3 ui-monospace,monospace}.publish-help{color:#76644f;font-size:.72rem;line-height:1.45}.publish-field>select,.publish-field>input[type=text],.publish-field>textarea{width:100%}.publish-editor textarea{resize:vertical}.publish-editor .summary-input{min-height:64px;height:64px}.publish-editor .compact-input{min-height:48px;height:48px}.publish-featured{align-content:start}.publish-checkbox{display:flex;align-items:center;gap:7px;min-height:42px;cursor:pointer}.publish-editor input[type=checkbox]{width:20px;height:20px;accent-color:#8e3028}.publish-submit{align-self:end;justify-content:flex-end}.publish-submit button{min-width:112px}
+  #periodSummary{font-weight:700;color:#8e3028}summary{padding:10px 0;cursor:pointer;font-weight:600}summary:focus-visible{outline:2px solid #ad7762}#recentSection>h2{font-size:1.15rem}details{border-top:1px solid #cdb99a;margin-top:18px}#candidates{min-width:0}
+  [hidden]{display:none!important}@media(max-width:650px){.publish-editor form{grid-template-columns:1fr}.publish-field.full{grid-column:auto}.publish-submit{justify-content:flex-end}}@media(max-width:430px){main{padding:16px 12px}.toolbar{padding:12px}.actions button{flex:1 1 44%}#selection{width:100%;margin:0}.publish-editor{padding:10px}.publish-submit{width:100%}.publish-submit button{min-width:0}}
+</style>
+<main>
+  <h1>候选审核助手</h1>
+  <p id="periodSummary" role="status" aria-live="polite">正在统计近期与历史候选…</p>
+  <p id="periodNote" class="muted"></p>
+  <p class="muted">读取 data/candidate-updates.json。“正式加入 / 历史补录”仅保存人工审核结论；正式字段可在候选卡片内补全，预览通过后仍需按维护指南手动发布。</p>
+  <div class="toolbar">
+    <label for="search">查找标题、来源或研究对象</label>
+    <input type="search" id="search" placeholder="输入关键词筛选候选">
+    <div class="actions">
+      <button id="refresh" type="button">重新读取</button>
+      <button id="selectVisible" type="button">选择当前结果</button>
+      <button id="clearSelection" type="button">取消选择</button>
+      <span id="selection">已选 0 条</span>
+    </div>
+    <p class="muted">勾选候选后，点击以下结论即保存。每次保存会保留上一版候选备份。</p>
+    <div class="actions" id="decisions">
+      <button type="button" data-decision="approved" disabled>正式加入</button>
+      <button type="button" data-decision="historical" disabled>历史补录</button>
+      <button type="button" data-decision="deferred" disabled>暂不加入</button>
+      <button type="button" data-decision="rejected" disabled>不建议加入</button>
+      <button id="preview" type="button" disabled>预览所选（preview）</button>
+    </div>
+  </div>
+  <p id="message" role="status" aria-live="polite">正在读取…</p>
+  <section id="previewPanel" hidden aria-label="发布预览">
+    <h2>发布预览</h2><p class="muted">缺少字段时，先按提示在候选文件中人工补全可靠信息，再重新读取并预览。本入口不执行 apply、commit 或 push。</p>
+    <pre id="output"></pre>
+  </section>
+  <div id="candidates">
+    <section id="recentSection" aria-labelledby="recentHeading"><h2 id="recentHeading">近期候选 · 近 12 个月</h2><div id="recentList"></div></section>
+    <details id="historicalSection"><summary id="historicalHeading">历史候选</summary><div id="historicalList"></div></details>
+    <details id="undatedSection" hidden><summary id="undatedHeading">日期待核验</summary><p class="muted">日期缺失、无效、未来日期或月份范围跨越分界时，不计作近期；仅按原值展示，待人工核验。</p><div id="undatedList"></div></details>
+  </div>
+</main>
+<script nonce="__REVIEW_TOKEN__">
+"use strict";
+const token = "__REVIEW_TOKEN__";
+const labels = {approved:"正式加入",historical:"历史补录",deferred:"暂不加入",rejected:"不建议加入"};
+const states = {pending:"待审核",older:"旧资料候选",published:"已发布",needs_review:"待补充核验"};
+const publishLabels = {type:"动态类型",date:"发布日期",summary:"内容简介",tags:"标签",featured:"重点推荐",relatedResources:"关联本站资源"};
+const publishFields = Object.keys(publishLabels), datePattern = /^(?:\d{4}-\d{2}-\d{2}|\d{4}-\d{2}-\d{2}\s+至\s+\d{2}-\d{2})$/;
+const list = document.querySelector("#candidates"), search = document.querySelector("#search"), message = document.querySelector("#message");
+let items = [], revision = "", busy = false, typeOptions = [];
+let periods = {recent:[],historical:[],undated:[]};
+const historicalSection = document.querySelector("#historicalSection"), undatedSection = document.querySelector("#undatedSection");
+const selected = new Set();
+const text = value => Array.isArray(value) ? value.join("、") : String(value ?? "");
+const listValue = value => Array.isArray(value) ? value.map(item => String(item).trim()).filter(Boolean) : (typeof value === "string" ? value.split(/[\n,，]/).map(item => item.trim()).filter(Boolean) : []);
+const topics = item => item.topics || item.suggestedTopics || [];
+function notice(value, error = false) { message.textContent = value; message.dataset.error = String(error); }
+async function api(path, payload) {
+  const response = await fetch(path, {method:payload ? "POST" : "GET", headers:{"X-Review-Token":token,...(payload ? {"Content-Type":"application/json"} : {})}, ...(payload ? {body:JSON.stringify(payload)} : {})});
+  const value = await response.json();
+  if (!response.ok) throw new Error(value.error || "请求失败");
+  return value;
+}
+function matchedItems() {
+  const query = search.value.trim().toLowerCase();
+  return items.filter(i => [i.title,i.source,text(topics(i)),labels[i.reviewDecision],states[i.status]].join(" ").toLowerCase().includes(query));
+}
+function isValidDateText(value) {
+  const text = String(value || "").trim(), single = /^(\d{4})-(\d{2})-(\d{2})$/.exec(text), range = /^(\d{4})-(\d{2})-(\d{2})\s+至\s+(\d{2})-(\d{2})$/.exec(text);
+  const valid = (year, month, day) => { const date = new Date(Number(year), Number(month) - 1, Number(day)); return date.getFullYear() === Number(year) && date.getMonth() === Number(month) - 1 && date.getDate() === Number(day); };
+  if (single) return valid(single[1], single[2], single[3]);
+  if (range) return valid(range[1], range[2], range[3]) && valid(range[1], range[4], range[5]) && new Date(Number(range[1]), Number(range[4]) - 1, Number(range[5])) >= new Date(Number(range[1]), Number(range[2]) - 1, Number(range[3]));
+  return false;
+}
+function visibleItems() {
+  return matchedItems().filter(i => i._period === "recent" || (i._period === "historical" ? historicalSection.open : undatedSection.open));
+}
+function clearSelection() {
+  selected.clear();
+  document.querySelectorAll(".candidate-check").forEach(check => { check.checked = false; });
+  controls();
+}
+function controls() {
+  document.querySelector("#selection").textContent = `已选 ${selected.size} 条 / 当前 ${visibleItems().length} 条 / 总计 ${items.length} 条`;
+  document.querySelectorAll("button").forEach(button => { const needsSelection = Boolean(button.dataset.decision) || button.id === "preview"; button.disabled = busy || (needsSelection && selected.size === 0); });
+  document.querySelectorAll(".candidate-check").forEach(check => { check.disabled = busy || items.find(i => i.id === check.value)?.status === "published"; });
+  document.querySelectorAll(".publish-editor input,.publish-editor select,.publish-editor textarea").forEach(control => { control.disabled = busy; });
+}
+function paragraph(card, value, className = "") { const p = document.createElement("p"); p.textContent = value; p.className = className; card.append(p); }
+function publishDateSuggestion(item) {
+  if (item.needsDateReview) return "";
+  for (const value of [item.date, item.possibleDate]) if (typeof value === "string" && datePattern.test(value)) return value;
+  return "";
+}
+function suggestedTags(item) {
+  if (Array.isArray(item.tags) && item.tags.length) return item.tags;
+  return [...new Set([...listValue(item.categories), ...listValue(item.matchedKeywords), ...listValue(item.suggestedTopics)])];
+}
+function fieldMissing(item, field) {
+  if (!(field in item)) return true;
+  if (["type","date","summary"].includes(field)) return typeof item[field] !== "string" || !item[field].trim() || (field === "date" && !isValidDateText(item[field].trim())) || (field === "type" && typeOptions.length > 0 && !typeOptions.includes(item[field].trim()));
+  if (["tags","relatedResources"].includes(field)) return !Array.isArray(item[field]);
+  return typeof item[field] !== "boolean";
+}
+function missingPublishFields(item) { return publishFields.filter(field => fieldMissing(item, field)); }
+function publishField(form, name) { return form.querySelector(`[data-field="${name}"]`); }
+function readPublishFields(form) {
+  return {type:publishField(form,"type").value.trim(),date:publishField(form,"date").value.trim(),summary:publishField(form,"summary").value.trim(),tags:listValue(publishField(form,"tags").value),featured:publishField(form,"featured").checked,relatedResources:listValue(publishField(form,"relatedResources").value)};
+}
+function validatePublishForm(fields) {
+  if (!isValidDateText(fields.date)) throw new Error("发布日期无效，请填写真实存在的日期，如 2026-07-04。");
+  if (fields.type && typeOptions.length && !typeOptions.includes(fields.type)) throw new Error("type 不是当前正式数据使用的类型。");
+}
+function addPublishField(form, fieldName, labelText, control, hint = "", full = false) {
+  const label = document.createElement("label"); label.className = `publish-field${full ? " full" : ""}`;
+  const heading = document.createElement("span"); heading.className = "publish-label"; heading.append(document.createTextNode(labelText));
+  const key = document.createElement("small"); key.className = "field-key"; key.textContent = fieldName; heading.append(key); label.append(heading, control);
+  if (hint) { const help = document.createElement("small"); help.className = "publish-help"; help.textContent = hint; label.append(help); }
+  form.append(label);
+}
+function buildPublishEditor(item) {
+  const wrapper = document.createElement("div"); wrapper.className = "publish-editor"; wrapper.hidden = true;
+  const form = document.createElement("form");
+  const type = document.createElement("select"); type.dataset.field = "type"; type.append(new Option("请选择正式类型", ""));
+  typeOptions.forEach(value => type.append(new Option(value, value)));
+  if (item.type && !typeOptions.includes(item.type)) type.append(new Option(item.type, item.type));
+  type.value = typeof item.type === "string" ? item.type : "";
+  addPublishField(form, "type", "动态类型", type);
+  const date = document.createElement("input"); date.type = "text"; date.inputMode = "numeric"; date.placeholder = "YYYY-MM-DD 或 YYYY-MM-DD 至 MM-DD"; date.pattern = "(?:\\d{4}-\\d{2}-\\d{2}|\\d{4}-\\d{2}-\\d{2}\\s+至\\s+\\d{2}-\\d{2})"; date.dataset.field = "date"; date.value = publishDateSuggestion(item); addPublishField(form, "date", "发布日期", date, "填写真实存在的单日或同年日期区间；不确定时不要猜。");
+  const summary = document.createElement("textarea"); summary.rows = 3; summary.className = "summary-input"; summary.dataset.field = "summary"; summary.value = typeof item.summary === "string" ? item.summary : ""; addPublishField(form, "summary", "内容简介", summary, "用 1–2 句话说明这条动态的主要内容和收录价值，不必写成论文摘要。", true);
+  const tags = document.createElement("textarea"); tags.rows = 2; tags.className = "compact-input"; tags.dataset.field = "tags"; tags.value = suggestedTags(item).join("\n"); addPublishField(form, "tags", "标签", tags, "填写研究对象、材料或主题关键词，可用逗号或换行分隔。");
+  const related = document.createElement("textarea"); related.rows = 2; related.className = "compact-input"; related.dataset.field = "relatedResources"; related.value = Array.isArray(item.relatedResources) ? item.relatedResources.join("\n") : ""; addPublishField(form, "relatedResources", "关联本站资源", related, "如与本站某个数据库、机构或专题相关可填写；没有可留空。");
+  const featuredWrap = document.createElement("div"); featuredWrap.className = "publish-field publish-featured"; const featuredLabel = document.createElement("label"); featuredLabel.className = "publish-checkbox"; const featured = document.createElement("input"); featured.type = "checkbox"; featured.dataset.field = "featured"; featured.checked = item.featured === true; const featuredText = document.createElement("span"); featuredText.append(document.createTextNode("设为重点推荐 ")); const featuredKey = document.createElement("small"); featuredKey.className = "field-key"; featuredKey.textContent = "featured"; featuredText.append(featuredKey); featuredLabel.append(featured, featuredText); const featuredHelp = document.createElement("small"); featuredHelp.className = "publish-help"; featuredHelp.textContent = "仅用于少量特别重要的动态，通常保持未勾选。"; featuredWrap.append(featuredLabel, featuredHelp); form.append(featuredWrap);
+  const actions = document.createElement("div"); actions.className = "actions publish-submit"; const save = document.createElement("button"); save.type = "submit"; save.className = "primary"; save.textContent = "保存发布信息"; const cancel = document.createElement("button"); cancel.type = "button"; cancel.textContent = "取消"; actions.append(cancel, save); form.append(actions);
+  cancel.addEventListener("click", () => { wrapper.hidden = true; });
+  form.addEventListener("submit", event => { event.preventDefault(); run(async () => { const fields = readPublishFields(form); validatePublishForm(fields); await api("/api/publish-info", {id:item.id,revision,fields}); await reload(); notice("发布信息已保存；当前候选选择保持不变。"); }); });
+  wrapper.append(form); return wrapper;
+}
+function render() {
+  const groups = {recent:document.querySelector("#recentList"),historical:document.querySelector("#historicalList"),undated:document.querySelector("#undatedList")};
+  Object.values(groups).forEach(group => group.replaceChildren());
+  const matches = matchedItems();
+  document.querySelector("#periodSummary").textContent = `近期候选 ${periods.recent.length} 条 · 历史候选 ${periods.historical.length} 条`;
+  document.querySelector("#periodNote").textContent = `按原日期判定：${periods.cutoff || "…"} 至 ${periods.asOf || "…"}；历史候选单独折叠。${periods.undated.length ? `另有 ${periods.undated.length} 条日期待核验。` : ""}`;
+  document.querySelector("#historicalHeading").textContent = `历史候选 ${periods.historical.length} 条 · 当前匹配 ${matches.filter(i => i._period === "historical").length} 条`;
+  document.querySelector("#undatedHeading").textContent = `日期待核验 ${periods.undated.length} 条`;
+  undatedSection.hidden = !periods.undated.length;
+  for (const item of matches) {
+    const card = document.createElement("article"), label = document.createElement("label"), check = document.createElement("input"), title = document.createElement("h2");
+    check.className = "candidate-check"; check.type = "checkbox"; check.value = item.id; check.dataset.candidateId = item.id; check.checked = selected.has(item.id);
+    check.addEventListener("change", () => { check.checked ? selected.add(item.id) : selected.delete(item.id); controls(); });
+    title.textContent = text(item.title) || "标题待补充"; label.append(check, title); card.append(label);
+    paragraph(card, `来源：${text(item.source) || "待核验"}　日期：${text(item.date || item.possibleDate) || "待核验"}`);
+    paragraph(card, `研究对象：${text(topics(item)) || "待补充"}`);
+    paragraph(card, `状态：${states[item.status] || text(item.status) || "待审核"}　审核结论：${labels[item.reviewDecision] || "未标记"}`, "decision");
+    if (item._older) paragraph(card, "来自历史候选池；即使标为“正式加入”，发布工具仍按历史补录处理，保留原始日期。", "muted");
+    else if (item._period === "historical") paragraph(card, "原日期已超过 12 个月；此处分层不修改候选，拟收录时可人工选择“历史补录”。", "muted");
+    try { const url = new URL(item.sourceUrl); if (["https:", "http:"].includes(url.protocol)) { const link = document.createElement("a"); link.href = url.href; link.textContent = "打开来源核验 ↗"; link.target = "_blank"; link.rel = "noopener noreferrer"; card.append(link); } } catch { /* Unknown URLs remain plain candidate data. */ }
+    if (["approved", "historical"].includes(item.reviewDecision)) {
+      const missing = missingPublishFields(item), status = document.createElement("div"); status.className = "publish-status"; const statusMain = document.createElement("div"); statusMain.className = "publish-status-main"; statusMain.textContent = missing.length ? `正式字段：缺 ${missing.length} 项` : "正式字段：已完整 ✓"; status.append(statusMain); if (missing.length) { const missingText = document.createElement("small"); missingText.className = "publish-missing"; missingText.textContent = `缺少：${missing.map(field => publishLabels[field]).join("、")}`; status.append(missingText); } card.append(status);
+      const publishActions = document.createElement("div"); publishActions.className = "actions publish-actions"; const publishButton = document.createElement("button"); publishButton.type = "button"; publishButton.dataset.action = "publish-info"; publishButton.dataset.index = String(items.indexOf(item)); publishButton.textContent = missing.length ? "补全发布信息" : "编辑发布信息"; publishActions.append(publishButton); card.append(publishActions, buildPublishEditor(item));
+    }
+    groups[item._period].append(card);
+  }
+  if (!groups.recent.childElementCount) paragraph(groups.recent, periods.recent.length ? "当前搜索没有匹配的近期候选。" : "当前暂无近期候选");
+  if (!groups.historical.childElementCount) paragraph(groups.historical, "当前没有匹配的历史候选。");
+  if (!groups.undated.childElementCount) paragraph(groups.undated, "当前没有匹配的日期待核验候选。");
+  controls();
+}
+async function reload() {
+  const result = await api("/api/candidates"); revision = result.revision; periods = result.periods; typeOptions = result.typeOptions || typeOptions;
+  const byId = new Map(["recent", "historical", "undated"].flatMap(period => periods[period].map(id => [id, period])));
+  items = [...(result.data.candidates || []).map(i => ({...i,_older:false})),...(result.data.olderCandidates || []).map(i => ({...i,_older:true}))]; items.forEach(item => { item._period = byId.get(item.id); });
+  for (const id of selected) if (!items.some(i => i.id === id && i.status !== "published")) selected.delete(id); render();
+}
+async function run(action) { if (busy) return; busy = true; controls(); try { await action(); } catch (error) { notice(error.message, true); } finally { busy = false; controls(); } }
+document.querySelector("#refresh").addEventListener("click", () => run(async () => { clearSelection(); await reload(); document.querySelector("#previewPanel").hidden = true; notice("已重新读取候选，当前选择已清空。"); }));
+document.querySelector("#selectVisible").addEventListener("click", () => { visibleItems().filter(i => i.status !== "published").forEach(i => selected.add(i.id)); render(); });
+document.querySelector("#clearSelection").addEventListener("click", clearSelection);
+search.addEventListener("input", () => { clearSelection(); const matches = matchedItems(); historicalSection.open = Boolean(search.value.trim()) && matches.some(i => i._period === "historical"); undatedSection.open = Boolean(search.value.trim()) && matches.some(i => i._period === "undated"); render(); });
+ function clearCollapsedSelection(period) { const hiddenIds = new Set(items.filter(i => i._period === period).map(i => i.id)); hiddenIds.forEach(id => selected.delete(id)); document.querySelectorAll(".candidate-check").forEach(check => { if (hiddenIds.has(check.dataset.candidateId)) check.checked = false; }); controls(); }
+ for (const [section, period] of [[historicalSection, "historical"], [undatedSection, "undated"]]) section.addEventListener("toggle", () => { if (!section.open) clearCollapsedSelection(period); });
+document.querySelector("#decisions").addEventListener("click", event => { const button = event.target.closest("[data-decision]"); if (!button) return; run(async () => { await api("/api/review", {ids:[...selected],decision:button.dataset.decision,revision}); clearSelection(); await reload(); document.querySelector("#previewPanel").hidden = true; notice(`已保存“${labels[button.dataset.decision]}”，当前选择已清空。正式学术动态未修改。`); }); });
+list.addEventListener("click", event => { const button = event.target.closest("button[data-action]"); if (!button) return; const item = items[Number(button.dataset.index)]; if (!item) return; if (button.dataset.action === "publish-info") { const editor = button.closest("article").querySelector(".publish-editor"); editor.hidden = !editor.hidden; button.textContent = editor.hidden ? (missingPublishFields(item).length ? "补全发布信息" : "编辑发布信息") : "收起发布信息"; if (!editor.hidden) editor.querySelector("[data-field=type]").focus(); } });
+document.querySelector("#preview").addEventListener("click", () => run(async () => { notice("正在调用发布工具 preview…"); document.querySelector("#previewPanel").hidden = true; const result = await api("/api/preview", {ids:[...selected],revision}); document.querySelector("#output").textContent = result.output; document.querySelector("#previewPanel").hidden = false; notice(result.ok ? "预览通过，未写入正式数据。" : "预览未通过，请按下方提示核验或补全字段。", !result.ok); }));
+run(async () => { await reload(); notice("请选择候选进行人工审核。"); });
+</script>
+</html>

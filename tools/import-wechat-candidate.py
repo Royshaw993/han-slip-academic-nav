@@ -26,6 +26,7 @@ CHECKER_PATH = ROOT / "tools" / "check-updates.py"
 DATA = ROOT / "data"
 CANDIDATES = DATA / "candidate-updates.json"
 SEEN = DATA / "seen-items.json"
+WECHAT_SOURCES = DATA / "wechat-sources.json"
 TIMEOUT = 12
 INTERVAL = 1.5
 MAX_URLS = 20
@@ -58,6 +59,22 @@ def load_checker() -> ModuleType:
 
 
 CHECKER = load_checker()
+
+
+def load_wechat_sources(path: Path = WECHAT_SOURCES) -> dict[str, dict[str, Any]]:
+    """Name membership is a review aid, never proof of official identity."""
+    entries = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(entries, list):
+        raise ValueError("公众号来源文件必须是数组。")
+    sources = {}
+    for entry in entries:
+        if not isinstance(entry, dict) or not isinstance(entry.get("name"), str) or not entry["name"].strip():
+            raise ValueError("公众号来源必须有非空 name。")
+        name = entry["name"].strip()
+        if name in sources:
+            raise ValueError(f"公众号来源名称重复：{name}")
+        sources[name] = entry
+    return sources
 
 
 class MetadataParser(HTMLParser):
@@ -204,7 +221,7 @@ def fetch_public_article(url: str) -> str:
 
 def matched_keywords(title: str) -> list[str]:
     result: list[str] = []
-    for keyword in list(CHECKER.KEYWORDS) + EXTRA_KEYWORDS:
+    for keyword in list(CHECKER.source_keywords({})) + EXTRA_KEYWORDS:
         if keyword in title and keyword not in result:
             result.append(keyword)
     return result
@@ -281,7 +298,13 @@ def main() -> int:
     if len(args.urls) > MAX_URLS:
         parser.error(f"A maximum of {MAX_URLS} explicitly supplied URLs is allowed per run.")
 
-    candidates = CHECKER.read_json(CANDIDATES, {"generatedAt": None, "candidates": [], "olderCandidates": []})
+    try:
+        wechat_sources = load_wechat_sources()
+    except (OSError, ValueError) as error:
+        print(f"公众号来源文件无法读取：{error}", file=sys.stderr)
+        return 2
+
+    candidates, candidate_revision = CHECKER.store.read_snapshot(CANDIDATES, {"generatedAt": None, "candidates": [], "olderCandidates": []})
     seen = CHECKER.read_json(SEEN, {"items": []})
     if not isinstance(candidates, dict) or not isinstance(seen, dict):
         print("\u5019\u9009\u6216\u5df2\u89c1\u8bb0\u5f55 JSON \u683c\u5f0f\u65e0\u6548\u3002", file=sys.stderr)
@@ -317,6 +340,17 @@ def main() -> int:
                 print(f"\u9875\u9762\u65e0\u6cd5\u53ef\u9760\u8bfb\u53d6\uff0c\u5df2\u751f\u6210\u5f85\u4eba\u5de5\u8865\u5145\u5019\u9009\uff1a{url} ({error})")
 
         item = build_candidate(url, metadata, today)
+        if item["title"] and not item["matchedKeywords"]:
+            print(f"标题未命中当前学术关键词，未进入微信候选：{item['title']}")
+            continue
+        if item["title"]:
+            exclusion_reason = CHECKER.title_exclusion_reason(item["title"])
+            if exclusion_reason:
+                print(f"已按共享检查器规则排除 {exclusion_reason} 标题：{item['title']}")
+                continue
+        item["sourceWhitelisted"] = item["source"].strip() in wechat_sources
+        item["needsSourceReview"] = True
+        print("来源名称命中白名单，仍须核验账号身份及原始出处。" if item["sourceWhitelisted"] else "来源未命中白名单或名称未知，仅保留待人工核验线索。")
         duplicate = duplicate_location(item, formal_records, candidate_records + additions)
         if duplicate:
             print_duplicate(duplicate, url)
@@ -338,7 +372,11 @@ def main() -> int:
             bucket = "olderCandidates" if item["status"] == "older" else "candidates"
             candidates[bucket].append(item)
         candidates["generatedAt"] = dt.datetime.now().isoformat(timespec="seconds")
-        CHECKER.write_json(CANDIDATES, candidates)
+        try:
+            CHECKER.store.save(CANDIDATES, candidates, candidate_revision)
+        except CHECKER.store.CandidateConflict as error:
+            print(f"微信导入保存冲突：{error}", file=sys.stderr)
+            return 2
 
         seen.setdefault("items", [])
         seen_urls = {comparable_url(str(item.get("sourceUrl", ""))) for item in seen["items"] if item.get("sourceUrl")}

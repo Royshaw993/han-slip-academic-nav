@@ -16,12 +16,13 @@ import re
 import shutil
 import subprocess
 import sys
-import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Iterable
 from urllib.parse import urlparse
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import candidate_store as store
 
 ROOT = Path(__file__).resolve().parent.parent
 FORMAL_REL = Path("academic-updates.js")
@@ -32,6 +33,8 @@ REQUIRED_FIELDS = (
     "tags", "featured", "relatedResources",
 )
 ARRAY_FIELDS = ("tags", "relatedResources")
+SINGLE_DATE_RE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})$")
+DATE_RANGE_RE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})\s+至\s+(\d{2})-(\d{2})$")
 EXPECTED_REMOTE_REPOSITORY = "han-slip-academic-nav"
 LAST_UPDATED_RE = re.compile(
     r'(window\.academicUpdatesLastUpdated\s*=\s*")[^"]*("\s*;)'
@@ -69,24 +72,18 @@ def read_json(path: Path) -> Any:
 
 
 def atomic_write_text(path: Path, text: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    handle, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
-    temporary = Path(temporary_name)
-    try:
-        with os.fdopen(handle, "w", encoding="utf-8", newline="\n") as file:
-            file.write(text)
-        os.replace(temporary, path)
-    finally:
-        if temporary.exists():
-            temporary.unlink()
+    store.atomic_write_bytes(path, text.encode("utf-8"))
 
 
 def json_text(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
 
 
-def load_candidates(root: Path) -> tuple[dict[str, Any], list[SelectedCandidate]]:
-    data = read_json(root / CANDIDATES_REL)
+def load_candidates(root: Path) -> tuple[dict[str, Any], list[SelectedCandidate], str]:
+    try:
+        data, revision = store.read_snapshot(root / CANDIDATES_REL)
+    except (OSError, ValueError) as error:
+        raise PublishError(f"无法读取候选 JSON：{error}") from error
     if not isinstance(data, dict):
         raise PublishError("candidate-updates.json 顶层必须是对象。")
     indexed: list[SelectedCandidate] = []
@@ -97,8 +94,8 @@ def load_candidates(root: Path) -> tuple[dict[str, Any], list[SelectedCandidate]
         for item in values:
             if not isinstance(item, dict):
                 raise PublishError(f"{collection} 中存在非对象条目。")
-            indexed.append(SelectedCandidate(item=item, historical=historical))
-    return data, indexed
+            indexed.append(SelectedCandidate(item=item, historical=historical or item.get("reviewDecision") == "historical"))
+    return data, indexed, revision
 
 
 def select_candidates(indexed: Iterable[SelectedCandidate], ids: list[str]) -> list[SelectedCandidate]:
@@ -120,6 +117,8 @@ def select_candidates(indexed: Iterable[SelectedCandidate], ids: list[str]) -> l
             raise PublishError(f"候选 id 不唯一：{candidate_id}")
         if matches[0].item.get("status") == "published":
             raise PublishError(f"候选已发布，不能重复发布：{candidate_id}")
+        if matches[0].item.get("reviewDecision") in {"deferred", "rejected"}:
+            raise PublishError(f"候选审核结论为暂不加入或不建议加入，请先人工重新审核：{candidate_id}")
         result.append(matches[0])
     return result
 
@@ -131,6 +130,8 @@ def validate_candidate(selected: SelectedCandidate) -> None:
         field for field in ("id", "title", "type", "source", "sourceUrl", "date", "summary")
         if field in item and (not isinstance(item[field], str) or not item[field].strip())
     ]
+    if "date" in item:
+        validate_date(item["date"], f"候选 {item.get('id', '<unknown>')} 的发布日期")
     if missing or empty:
         fields = ", ".join(missing + empty)
         raise PublishError(f"候选 {item.get('id', '<unknown>')} 待补充正式字段：{fields}")
@@ -148,6 +149,33 @@ def validate_url(value: str, context: str) -> None:
     parsed = urlparse(value)
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
         raise PublishError(f"{context} 的 sourceUrl 不是有效 HTTP(S) URL：{value}")
+
+
+def validate_date(value: object, context: str = "发布日期", allow_empty: bool = False) -> None:
+    """Accept only real ISO dates or the existing same-year formal date range."""
+    if not isinstance(value, str):
+        raise PublishError(f"{context}无效，请填写真实存在的日期，如 2026-07-04。")
+    text = value.strip()
+    if not text:
+        if allow_empty:
+            return
+        raise PublishError(f"{context}无效，请填写真实存在的日期，如 2026-07-04。")
+    single = SINGLE_DATE_RE.fullmatch(text)
+    date_range = DATE_RANGE_RE.fullmatch(text)
+    try:
+        if single:
+            dt.date(int(single.group(1)), int(single.group(2)), int(single.group(3)))
+            return
+        if date_range:
+            year = int(date_range.group(1))
+            start = dt.date(year, int(date_range.group(2)), int(date_range.group(3)))
+            end = dt.date(year, int(date_range.group(4)), int(date_range.group(5)))
+            if end < start:
+                raise ValueError("date range is reversed")
+            return
+    except ValueError:
+        pass
+    raise PublishError(f"{context}无效，请填写真实存在的日期，如 2026-07-04。")
 
 
 def decoded_js_strings(text: str, field: str) -> list[str]:
@@ -289,9 +317,17 @@ def updated_formal_text(original: str, entries: list[dict[str, Any]], today: str
         raise PublishError("找不到 academicUpdatesLastUpdated。")
     if not ARRAY_END_RE.search(original):
         raise PublishError("找不到 academicUpdates 数组结尾。")
-    text = LAST_UPDATED_RE.sub(rf"\g<1>{today}\g<2>", original, count=1)
-    addition = ",\n" + ",\n".join(format_entry(entry) for entry in entries)
-    return ARRAY_END_RE.sub(addition + "\n];\n", text, count=1)
+    text = LAST_UPDATED_RE.sub(lambda match: match[1] + today + match[2], original, count=1)
+    separator = ",\n" if academic_array_text(original).strip() else "\n"
+    addition = separator + ",\n".join(format_entry(entry) for entry in entries)
+    return ARRAY_END_RE.sub(lambda match: addition + "\n];\n", text, count=1)
+
+
+def validate_rendered_text(original: str, rendered: str, entries: list[dict[str, Any]]) -> None:
+    """Round-trip every field, including existing entries, before any write."""
+    if parse_academic_entries(rendered) != parse_academic_entries(original) + entries:
+        raise PublishError("发布文本重新解析后的字段值不一致；已停止写入。")
+    javascript_text_syntax_check(rendered)
 
 
 def update_candidate_status(data: dict[str, Any], ids: set[str], today: str) -> dict[str, Any]:
@@ -315,10 +351,19 @@ def duplicate_values(values: Iterable[Any]) -> list[Any]:
 
 
 def javascript_syntax_check(path: Path) -> None:
-    parse_academic_entries(path.read_text(encoding="utf-8"))
+    javascript_text_syntax_check(path.read_text(encoding="utf-8"))
+
+
+def javascript_text_syntax_check(text: str) -> None:
+    parse_academic_entries(text)
+    # Validate the deliberately restricted data-file envelope even without Node.
+    start = ARRAY_START_RE.search(text)
+    prefix = re.sub(r"/\*.*?\*/|//[^\r\n]*", "", text[:start.start()], flags=re.S)
+    if not re.fullmatch(r'\s*window\.academicUpdatesLastUpdated\s*=\s*"\d{4}-\d{2}-\d{2}"\s*;\s*', prefix):
+        raise PublishError("academic-updates.js 数据文件头语法无效。")
     node = shutil.which("node")
     if node:
-        process = subprocess.run([node, "--check", str(path)], capture_output=True, text=True, encoding="utf-8", errors="replace")
+        process = subprocess.run([node, "--check"], input=text, capture_output=True, text=True, encoding="utf-8", errors="replace")
         if process.returncode != 0:
             detail = (process.stderr or process.stdout).strip()
             raise PublishError(f"JavaScript 语法检查失败：{detail}")
@@ -344,6 +389,7 @@ def validate_written_files(root: Path) -> None:
         if missing:
             raise PublishError("academic-updates.js 条目缺少字段：" + ", ".join(missing))
         validate_url(str(entry["sourceUrl"]), "academic-updates.js")
+        validate_date(entry["date"], "academic-updates.js 的发布日期")
     candidate_data = read_json(root / CANDIDATES_REL)
     if not isinstance(candidate_data, dict):
         raise PublishError("写入后的 candidate-updates.json 无效。")
@@ -461,27 +507,38 @@ def apply_transaction(
     entries: list[dict[str, Any]],
     candidate_data: dict[str, Any],
     today: str,
+    candidate_revision: str,
     validator: Callable[[Path], None] = validate_written_files,
 ) -> None:
     formal_path = root / FORMAL_REL
     candidate_path = root / CANDIDATES_REL
     original_formal = formal_path.read_bytes()
     new_formal = updated_formal_text(original_formal.decode("utf-8"), entries, today)
+    validate_rendered_text(original_formal.decode("utf-8"), new_formal, entries)
     new_candidates = update_candidate_status(candidate_data, {item.item["id"] for item in selected}, today)
-    with tempfile.TemporaryDirectory(prefix="approved-updates-backup-") as directory:
-        backup = Path(directory)
-        formal_backup = backup / FORMAL_REL.name
-        candidates_backup = backup / CANDIDATES_REL.name
-        shutil.copy2(formal_path, formal_backup)
-        shutil.copy2(candidate_path, candidates_backup)
-        try:
-            atomic_write_text(formal_path, new_formal)
-            atomic_write_text(candidate_path, json.dumps(new_candidates, ensure_ascii=False, indent=2) + "\n")
-            validator(root)
-        except Exception:
-            shutil.copy2(formal_backup, formal_path)
-            shutil.copy2(candidates_backup, candidate_path)
-            raise
+    with store.candidate_lock(candidate_path):
+        # Check before touching formal data; keep other candidate writers out
+        # until both files have passed validation (or have been restored).
+        store.assert_revision(candidate_path, candidate_revision)
+        original_candidates = candidate_path.read_bytes()
+        # Stage rollback bytes before committing, so a later disk-full failure
+        # does not require allocating/writing another copy to restore the files.
+        with store.staged_bytes(formal_path, original_formal) as formal_backup, \
+                store.staged_bytes(candidate_path, original_candidates) as candidate_backup:
+            formal_written = candidates_written = False
+            try:
+                atomic_write_text(formal_path, new_formal)
+                formal_written = True
+                store.write_locked(candidate_path, new_candidates, candidate_revision)
+                candidates_written = True
+                validator(root)
+                validate_rendered_text(original_formal.decode("utf-8"), formal_path.read_text(encoding="utf-8"), entries)
+            except BaseException:
+                if formal_written:
+                    os.replace(formal_backup, formal_path)
+                if candidates_written:
+                    os.replace(candidate_backup, candidate_path)
+                raise
 
 
 def commit_and_push(root: Path, today: str, branch: str) -> None:
@@ -521,10 +578,12 @@ def main(argv: list[str] | None = None) -> int:
         args.preview = True
     root = args.project_root.resolve()
     try:
-        candidate_data, indexed = load_candidates(root)
+        candidate_data, indexed, candidate_revision = load_candidates(root)
         selected = select_candidates(indexed, args.ids)
         formal_text = (root / FORMAL_REL).read_text(encoding="utf-8")
         entries = build_formal_entries(selected, formal_text)
+        today = dt.date.today().isoformat()
+        validate_rendered_text(formal_text, updated_formal_text(formal_text, entries, today), entries)
         state = git_state(root)
         if args.push:
             assert_push_preflight(state)
@@ -535,8 +594,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.dry_run:
             print("\nDry-run 完成：候选与环境检查通过；未写入文件，未 commit，未 push。")
             return 0
-        today = dt.date.today().isoformat()
-        apply_transaction(root, selected, entries, candidate_data, today)
+        apply_transaction(root, selected, entries, candidate_data, today, candidate_revision)
         print("\n本地写入与校验成功。")
         if args.push:
             post_state = git_state(root)
@@ -548,7 +606,7 @@ def main(argv: list[str] | None = None) -> int:
         else:
             print("未执行 Git commit 或 push。")
         return 0
-    except (PublishError, OSError) as error:
+    except (PublishError, store.CandidateConflict, OSError) as error:
         print(f"错误：{error}", file=sys.stderr)
         return 2
 

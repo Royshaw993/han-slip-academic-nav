@@ -1,4 +1,4 @@
-# 古文字学术导航 V1.1 维护指南
+# 古文字学术导航 V1.2 维护指南
 
 这是一份日常操作手册。平时按顺序执行即可，不需要了解程序内部实现。
 
@@ -59,6 +59,16 @@ powershell -ExecutionPolicy Bypass -File tools\uninstall-weekly-task.ps1
 
 卸载任务不会删除候选、日志或网站数据。某个网站访问失败时，其他来源仍可继续检查；不要连续高频重试失败来源。
 
+### 来源管理助手
+
+V1.2 可用本机来源管理助手维护 `data/sources.json`。在项目根目录运行：
+
+```powershell
+python tools/manage-sources.py
+```
+
+然后打开终端显示的 `http://127.0.0.1:8766/`。新增来源默认只需填写名称、URL、至少一个门类和关键词，备注可选，来源默认启用；id、sourceType、priority、maxDetailRequests、门类专用关键词和人工复核标记位于折叠的“高级设置”。门类专用关键词可用逗号或换行填写，无需手写 JSON。页面还支持按门类筛选、查看和编辑来源、启用/停用，以及单来源测试。保存会先校验 id、URL、重复 URL、门类和关键词，并在 `data/sources.review-backup.json` 保留保存前版本；发现外部修改时会拒绝覆盖。助手只监听本机，不需要数据库或前端依赖；使用完毕在终端按 Ctrl+C 关闭。
+
 ## 3. 导入微信公众号文章
 
 在微信中复制公开文章链接，然后运行：
@@ -81,6 +91,27 @@ python tools/import-wechat-candidate.py "URL1" "URL2"
 
 ## 4. 审核候选
 
+V1.2 推荐使用本地审核助手。在项目根目录运行：
+
+```powershell
+python tools/review-candidates.py
+```
+
+在浏览器打开终端显示的 `http://127.0.0.1:8765/`，关闭时在终端按 Ctrl+C。若端口被占用，可用 `--port 8766`。只依赖 Python 标准库，不需要安装前端框架。不要直接双击 HTML 文件，也不要将此助手作为公网服务部署。
+
+审核页顶部显示“近期候选 X 条 · 历史候选 Y 条”。近期按运行当天向前推 12 个日历月（含分界日），读取原 `date`，没有时读取 `possibleDate`；`olderCandidates` 或早于分界日的条目归入历史。默认展示近期，历史独立折叠；没有近期时显示“当前暂无近期候选”。日期缺失、无效、未来日期或仅有月份且不能明确判断范围的条目另列“日期待核验”，不拿发现日期代替文章日期。
+
+搜索仍覆盖各分区，会自动展开命中的历史/待核验分区；“选择当前结果”只选择当前展开且匹配的候选。收起分区会取消该分区的选择。分层只影响展示，不搬移候选池、不改日期或审核结论；普通候选因时间变旧而出现在历史区时，仍须人工决定是否标为“历史补录”。
+
+1. 按标题、来源或研究对象查找，勾选一条或多条候选，无需复制 id。
+2. 点击“正式加入 / 历史补录 / 暂不加入 / 不建议加入”保存审核结论。
+3. 对已标记“正式加入 / 历史补录”的候选点击“预览所选（preview）”，查看现有发布工具的结果或缺失字段提示。
+4. 如需补全，编辑 `data/candidate-updates.json` 中对应候选，只填写已核实的信息，然后点“重新读取”再预览。必需字段仍以发布工具检查为准，不能把 `possibleDate` 未经核验直接当作正式 `date`。
+
+“正式加入”只是审核结论，助手没有 apply、commit 或 push 入口。结果保存在候选的 `reviewDecision` 字段（`approved / historical / deferred / rejected`），保留原始 `status`、候选池位置和其他字段。`olderCandidates` 始终按历史补录处理；普通候选标为 `historical` 后也按历史补录预览。已标为暂不加入或不建议加入的候选，发布工具会要求先重新人工审核。
+
+每次成功保存前，会在 `data/candidate-updates.review-backup.json` 保留上一版内容（下一次保存会更新备份）。需要撤销时先关闭助手，核对备份后再恢复；不要把备份当成新候选导入。检测到外部修改会拒绝覆盖，点击“重新读取”后重新审核。保存时避免同时运行导入、周检或手动编辑候选。异常退出若遗留 `data/candidate-updates.review.lock`，确认所有审核助手均已关闭后再删除该锁文件。备份和锁文件均为本地运行文件，无需发布到网站。
+
 打开 data/candidate-updates.json，按照 REVIEW_RULES.md 逐条判断：
 
 - 正式加入
@@ -97,7 +128,7 @@ python tools/import-wechat-candidate.py "URL1" "URL2"
 
 ## 5. 发布审核通过的内容
 
-这是最重要的步骤。先在 data/candidate-updates.json 中找到已经批准的候选 id，然后严格按以下三步操作。
+这是最重要的步骤。审核助手已支持无须复制 id 的 preview；以下是后续手动发布或命令行备用方法，须明确指定已经人工批准的候选 id。
 
 第一步：预览
 
@@ -140,6 +171,16 @@ python tools/publish-approved-updates.py --ids 候选ID --apply --push
 阶段性改动尚未验收完成时，不要提前 Push。
 
 ## 6. 网站新版怎么用
+
+V1.2 在专题结果的筛选栏新增“返回默认视图”：清除专题、动态类型和研究对象，切回“最新动态”，恢复默认前 6 条和“查看更多动态”。操作仅影响动态区；若搜索框仍有文字，其他资源仍使用该搜索词，动态区会显示说明，修改搜索词即可重新搜索动态。
+
+Hero 的“甲—金—石—简—帛”是站内门类按钮，沿用原地切换并标记当前门类，不滚动跳转。“简”回到汉代简牍体系；“石”“帛”显示“资源整理中”。顶部气泡栏移除甲骨文、金文，保留原有十个分类。点击 Hero 门类会清除搜索词与研究方向筛选，以显示该门类的完整资源。
+
+资源仍统一维护在 `script.js` 的 `sites` 中，`resourceCategories` 支持多门类，新增专项资源以 `genreOnly: true` 限定在相应 Hero 门类显示，`accessNote` 展示简洁权限标签。默认首页仍为 6 条其他资源；常用网站、小學堂总入口和殷墟甲骨文数据库的既有 URL 保留。
+
+2026-09-11 补充甲骨文 3 项：[小學堂甲骨文](https://xiaoxue.iis.sinica.edu.tw/jiaguwen)、[合集材料来源表](https://xiaoxue.iis.sinica.edu.tw/obm/Home/Welcome)、[汉达文库“新甲骨文”](http://www.chant.org/Database.aspx)（可能需要机构访问权限）。补充金文 4 项：[小學堂金文](https://xiaoxue.iis.sinica.edu.tw/jinwen/Home/Home)、[殷周金文暨青銅器資料庫](https://bronze.asdc.sinica.edu.tw/)（需要申请账号）、[先秦甲骨金文簡牘詞彙資料庫](https://inscription.asdc.sinica.edu.tw/c_index.php)、[商周金文数字查询平台](https://jwdcdbz.ancientbooks.cn/dictionary)。中研院两项入口经其官方数据库及[金文工作室介绍](https://www.ihp.sinica.edu.tw/~bronze/)核对，商周平台机构未确认，留空。汉达访问说明可参见[复旦大学图书馆](https://library.fudan.edu.cn/e8/6e/c42799a518254/page.htm)。本次不扩展其他门类，也不更改全站旧有链接核验日期。
+
+公众号来源配置在 `data/wechat-sources.json`，首批五项与现有页面名称一致。`priority` 数字越小越优先，本批统一为 1；`topics` 是线索归类；机构未知时保留空字符串，官方身份未知时用 `official: null`，不得把未知写成已确认。导入工具启动时读取并校验名单，按提取到的来源名称记录 `sourceWhitelisted`，同时保留 `needsSourceReview: true`。名称命中不证明账号官方身份，也不代表文章已批准；名称未知或未命中时仅保留待人工核验候选。不抓取公众号列表或历史文章，不使用登录凭证。以后调整来源名单时也需同步核对 `index.html` 中的人工维护展示卡片。
 
 V1.1D.1 只改变访客使用方式，不改变候选审核和发布流程。站内操作尽量统一为“原地切换”和“原地展开”，只有外部数据库、学术资源或论文原文链接会离开本站。
 

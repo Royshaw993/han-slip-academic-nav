@@ -1,0 +1,42 @@
+[
+  {
+    "name": "古文字微刊",
+    "institution": "",
+    "priority": 1,
+    "topics": ["古文字"],
+    "official": null,
+    "note": "人工确认纳入线索来源；机构及官方身份待核验，转载须核对原始来源。"
+  },
+  {
+    "name": "出土文献",
+    "institution": "",
+    "priority": 1,
+    "topics": ["出土文献"],
+    "official": null,
+    "note": "人工确认纳入线索来源；机构及官方身份待核验，转载须核对原始来源。"
+  },
+  {
+    "name": "简牍学",
+    "institution": "",
+    "priority": 1,
+    "topics": ["简牍"],
+    "official": null,
+    "note": "人工确认纳入线索来源；机构及官方身份待核验，转载须核对原始来源。"
+  },
+  {
+    "name": "语言与文献",
+    "institution": "",
+    "priority": 1,
+    "topics": ["语言文字", "文献"],
+    "official": null,
+    "note": "人工确认纳入线索来源；机构及官方身份待核验，转载须核对原始来源。"
+  },
+  {
+    "name": "出土文献综合研究集刊",
+    "institution": "",
+    "priority": 1,
+    "topics": ["出土文献"],
+    "official": null,
+    "note": "人工确认纳入线索来源；机构及官方身份待核验，转载须核对原始来源。"
+  }
+]
