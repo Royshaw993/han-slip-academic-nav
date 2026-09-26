@@ -1,47 +1,49 @@
 // 所有资源都集中在这一份数组中。核心资源以 core: true 标记，避免重复创建同一个网站。
+// id 是人工确定的持久引用键：改名、改描述或小幅更新 URL 均不重建 id。
+// 禁止使用数组索引或从名称动态生成；冲突须人工确定稳定语义 id。
 const sites = [
-  { name:"简牍学术资源数据共享平台", institution:"西北师范大学", category:"🏺 汉代简牍", core:true, priority:true, description:"面向简牍研究的数字资源平台，提供实物、释文、字形、著录、文献与专家等资源，涵盖居延汉简、居延新简、悬泉汉简、敦煌汉简、玉门关汉简、地湾汉简、武威汉简、额济纳汉简等。", fitFor:"实物、释文、字形、著录、文献、专家信息的综合检索。", keywords:["汉代简牍","居延汉简","悬泉汉简","敦煌汉简","释文","字形","著录","实物","图版","检索","学者"], researchTags:["居延汉简","居延新简","悬泉汉简","敦煌汉简","玉门关汉简","武威汉简","张家山汉简","五一广场东汉简","走马楼西汉简","汉代简牍文字","释文","字形","著录","图版","实物","检索","学者","数字人文"], url:"https://jiandu.nwnu.edu.cn/", buttonLabel:"进入资源平台 ↗" },
-  { name:"简帛网", institution:"武汉大学简帛研究中心", category:"🏺 汉代简牍", core:true, priority:true, description:"武汉大学简帛研究中心主办的简帛学术网站，适合跟踪简帛研读、研究札记、学术动态以及汉简等出土文献研究成果。", fitFor:"简帛研究动态、研究文章、汉简资料、学术交流和最新研究成果。", keywords:["简帛","汉简","简牍","研读","研究札记","学术动态","论文","检索"], researchTags:["居延汉简","敦煌汉简","肩水金关","张家山汉简","五一广场东汉简","走马楼西汉简","银雀山汉简","汉代简牍文字","论文","检索","数字人文"], url:"https://www.bsm.org.cn/", buttonLabel:"进入简帛网 ↗" },
-  { name:"简牍字典", subtitle:"史语所藏居延汉简资料库", institution:"中央研究院历史语言研究所", category:"🏺 汉代简牍", core:true, description:"以居延汉简为核心的数字资料库，可检索简号、释文、时代、遗址等信息，并提供简牍图像与字形相关资料。", fitFor:"居延汉简的简号、释文、字形、图像与遗址信息查询。", keywords:["居延汉简","简牍字典","字形","释文","简号","遗址","图像","图版","检索","出土地"], researchTags:["居延汉简","居延新简","肩水金关","汉代简牍文字","释文","字形","图版","检索","出土地"], url:"https://wcd-ihp.ascdc.sinica.edu.tw/woodslip/", buttonLabel:"查询简牍字典 ↗" },
-  { name:"贯联汗青", subtitle:"简牍缀合信息库", institution:"复旦大学出土文献与古文字研究中心", category:"🏺 汉代简牍", core:true, description:"专门整合简牍缀合信息的数据库，目前公布西北汉简缀合信息，适合进行简牍缀合资料查询与研究。", fitFor:"西北汉简缀合记录、释文、缀合者与简号的对照查询。", keywords:["简牍缀合","西北汉简","释文","缀合者","简号","检索","著录"], researchTags:["居延汉简","居延新简","悬泉汉简","敦煌汉简","玉门关汉简","肩水金关","释文","缀合","著录","检索"], url:"https://www.fdgwz.org.cn/guanlianhanqing/Home", buttonLabel:"查询缀合信息 ↗" },
-  { name:"小學堂文字學資料庫", institution:"台湾大学中国文学系、中央研究院历史语言研究所、资讯科学研究所及数位文化中心", category:"🧱 古文字数据库", resourceCategories:["甲骨文","金文"], description:"汉字字形与文字学研究资料库；首页提供甲骨文、金文字形数据库入口。", keywords:["汉字","字形","文字学","资料库","甲骨文","金文"], url:"https://xiaoxue.iis.sinica.edu.tw/" },
-  { name:"殷墟甲骨文数据库", institution:"浙江师范大学等", category:"🧱 古文字数据库", resourceCategories:["甲骨文"], description:"汇集殷墟甲骨文字资料与相关研究信息的数据库入口。", keywords:["甲骨文","殷墟","卜辞","商代"], url:"https://obid.ancientbooks.cn/" },
-  { name:"甲骨文拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🧱 古文字数据库", resourceCategories:["甲骨文"], genreOnly:true, description:"收录甲骨文拓片，并可通过典藏号与甲骨实物资料及影像对照查询。", keywords:["甲骨文","拓片","实物","影像","检索"], url:"https://dap.ihp.sinica.edu.tw/database/3/", buttonLabel:"进入数据库 ↗" },
-  { name:"清华大学出土文献研究与保护中心", institution:"清华大学", category:"📜 出土文献", description:"清华大学出土文献研究、整理、保护及学术交流的重要平台。", keywords:["清华简","出土文献","战国","简帛"], url:"https://www.ctwx.tsinghua.edu.cn/" },
-  { name:"武汉大学简帛研究中心", institution:"武汉大学", category:"🏛️ 学术机构", description:"武汉大学开展简帛、古文字与出土文献研究的重要学术机构。", keywords:["武汉大学","简帛","楚简","古文字"], url:"https://www.bsm.org.cn/" },
-  { name:"中国知网", institution:"中国知网", category:"📚 学术期刊", description:"检索中文期刊、学位论文、会议论文等学术文献的综合平台。", keywords:["期刊","论文","学位论文","中文文献"], url:"https://cnki.net/" },
-  { name:"中国考古网", institution:"中国社会科学院考古研究所", category:"🏛️ 学术机构", description:"中国社会科学院考古研究所主办的考古资讯与学术资源平台。", keywords:["考古","田野","遗址","出土材料"], url:"https://kaogu.cssn.cn/" },
-  { name:"中国社会科学网", institution:"中国社会科学网", category:"📚 学术期刊", description:"社会科学研究动态、学术成果与资讯发布平台。", keywords:["社科","历史","学术资讯","论文"], url:"https://www.cssn.cn/" },
-  { name:"Google Scholar", institution:"Google", category:"🌏 海外汉学", description:"覆盖多语种学术文献的通用检索工具，适合追踪引文与海外研究。", keywords:["英文论文","引文","检索","海外"], url:"https://scholar.google.com/" },
-  { name:"JSTOR", institution:"ITHAKA", category:"📚 学术期刊", description:"人文社会科学期刊与图书的数字学术档案平台。", keywords:["期刊","人文","考古","海外文献"], url:"https://www.jstor.org/" },
-  { name:"CiNii Research", institution:"日本国立信息学研究所", category:"🌏 海外汉学", description:"日本学术信息检索平台，可查找日本汉学与东亚研究成果。", keywords:["日本","汉学","东亚","论文"], url:"https://cir.nii.ac.jp/" },
-  { name:"Brill", institution:"Brill", category:"🌏 海外汉学", description:"以人文与亚洲研究见长的国际学术出版平台。", keywords:["出版","汉学","亚洲研究","期刊"], url:"https://brill.com/" },
-  { name:"Zotero", institution:"Corporation for Digital Scholarship", category:"🛠️ 学术工具", description:"免费开源的文献管理工具，可整理条目、笔记、引文和参考文献。", keywords:["文献管理","引文","笔记","开源"], url:"https://www.zotero.org/" },
-  { name:"中国哲学书电子化计划", englishName:"Chinese Text Project", institution:"Chinese Text Project", category:"🛠️ 学术工具", displayCategory:"古典文献 / 学术工具", description:"开放的中国古典文献电子图书馆，适合查阅先秦两汉传世文献、原典文本与相关资料。", keywords:["CTEXT","Chinese Text Project","先秦","两汉","古籍","传世文献","原典","哲学","历史"], url:"https://ctext.org/pre-qin-and-han/zh" },
-  { name:"汉典", institution:"汉典", category:"🛠️ 学术工具", displayCategory:"字典 / 学术工具", description:"综合汉字与词语检索平台，可查询字义、部首、字形以及《说文解字》《康熙字典》等资料。", keywords:["汉字","说文解字","康熙字典","字义","部首","字典"], url:"https://zdic.net/" },
-  { name:"字统网", englishName:"zi.tools", institution:"zi.tools", category:"🧱 古文字数据库", displayCategory:"古文字数据库 / 学术工具", description:"面向汉字源、形、音、义和 Unicode 的综合检索网站，支持字形、结构检字与古汉字相关查询。", keywords:["zi.tools","字源","字形","Unicode","古文字","结构检字","汉字"], url:"https://zi.tools/" },
-  { name:"OpenAlex", institution:"OurResearch", category:"🤖 AI & 数字人文", description:"开放的全球学术知识图谱，适合发现研究机构、作者与关联文献。", keywords:["开放数据","知识图谱","文献","引文"], url:"https://openalex.org/" },
-  { name:"Semantic Scholar", institution:"Allen Institute for AI", category:"🤖 AI & 数字人文", description:"利用人工智能辅助发现论文、作者、引文脉络与研究主题。", keywords:["AI","论文检索","引文","英文文献"], url:"https://www.semanticscholar.org/" },
-  { name:"《说文解字》研究与应用平台", institution:"北京师范大学汉字汉语实验室相关团队", category:"🧱 古文字数据库", displayCategory:"古文字数据库 / 学术工具", resourceCategories:["🛠️ 学术工具"], description:"面向《说文解字》研究与应用的综合平台，可查检小篆、字头、部首、构形与古音信息。", keywords:["说文解字","说文","小篆","字头","部首","构形","古音","综合资源"], url:"https://szsw.bnu.edu.cn/", buttonLabel:"进入平台 ↗" },
-  { name:"汉字全息资源应用系统", institution:"北京师范大学汉字汉语实验室", category:"🧱 古文字数据库", displayCategory:"古文字数据库 / 学术工具", resourceCategories:["🛠️ 学术工具"], description:"提供汉字形、音、义及历代字形的综合查询，适合比较古今汉字资源。", keywords:["汉字","形音义","历代字形","古今汉字","字形比较","综合资源"], url:"https://qxk.bnu.edu.cn/", buttonLabel:"进入系统 ↗" },
-  { name:"韵典网", institution:"", category:"🛠️ 学术工具", displayCategory:"音韵工具 / 学术工具", description:"提供《广韵》、上古音与中古音等韵书和音韵资料检索。", keywords:["广韵","上古音","中古音","韵书","音韵","检索"], url:"https://ytenx.org/", buttonLabel:"进入韵典网 ↗" },
-  { name:"北京大学 CCL 语料库", institution:"北京大学中国语言学研究中心", category:"🛠️ 学术工具", displayCategory:"古代汉语语料库 / 学术工具", description:"提供古代汉语与断代语料检索，涵盖四库全书、佛道典籍及大型丛书等资源。", keywords:["CCL","语料库","古代汉语","断代语料","四库全书","佛道典籍","大型丛书"], url:"https://cclcorpus.pku.edu.cn/", buttonLabel:"检索语料库 ↗" },
+  { id:"nwnu-jiandu", name:"简牍学术资源数据共享平台", institution:"西北师范大学", category:"🏺 汉代简牍", core:true, priority:true, description:"面向简牍研究的数字资源平台，提供实物、释文、字形、著录、文献与专家等资源，涵盖居延汉简、居延新简、悬泉汉简、敦煌汉简、玉门关汉简、地湾汉简、武威汉简、额济纳汉简等。", fitFor:"实物、释文、字形、著录、文献、专家信息的综合检索。", keywords:["汉代简牍","居延汉简","悬泉汉简","敦煌汉简","释文","字形","著录","实物","图版","检索","学者"], researchTags:["居延汉简","居延新简","悬泉汉简","敦煌汉简","玉门关汉简","武威汉简","张家山汉简","五一广场东汉简","走马楼西汉简","汉代简牍文字","释文","字形","著录","图版","实物","检索","学者","数字人文"], url:"https://jiandu.nwnu.edu.cn/", buttonLabel:"进入资源平台 ↗" },
+  { id:"bsm", name:"简帛网", institution:"武汉大学简帛研究中心", category:"🏺 汉代简牍", core:true, priority:true, description:"武汉大学简帛研究中心主办的简帛学术网站，适合跟踪简帛研读、研究札记、学术动态以及汉简等出土文献研究成果。", fitFor:"简帛研究动态、研究文章、汉简资料、学术交流和最新研究成果。", keywords:["简帛","汉简","简牍","研读","研究札记","学术动态","论文","检索"], researchTags:["居延汉简","敦煌汉简","肩水金关","张家山汉简","五一广场东汉简","走马楼西汉简","银雀山汉简","汉代简牍文字","论文","检索","数字人文"], url:"https://www.bsm.org.cn/", buttonLabel:"进入简帛网 ↗" },
+  { id:"ihp-woodslip", name:"简牍字典", subtitle:"史语所藏居延汉简资料库", institution:"中央研究院历史语言研究所", category:"🏺 汉代简牍", core:true, description:"以居延汉简为核心的数字资料库，可检索简号、释文、时代、遗址等信息，并提供简牍图像与字形相关资料。", fitFor:"居延汉简的简号、释文、字形、图像与遗址信息查询。", keywords:["居延汉简","简牍字典","字形","释文","简号","遗址","图像","图版","检索","出土地"], researchTags:["居延汉简","居延新简","肩水金关","汉代简牍文字","释文","字形","图版","检索","出土地"], url:"https://wcd-ihp.ascdc.sinica.edu.tw/woodslip/", buttonLabel:"查询简牍字典 ↗" },
+  { id:"guanlian-hanqing", name:"贯联汗青", subtitle:"简牍缀合信息库", institution:"复旦大学出土文献与古文字研究中心", category:"🏺 汉代简牍", core:true, description:"专门整合简牍缀合信息的数据库，目前公布西北汉简缀合信息，适合进行简牍缀合资料查询与研究。", fitFor:"西北汉简缀合记录、释文、缀合者与简号的对照查询。", keywords:["简牍缀合","西北汉简","释文","缀合者","简号","检索","著录"], researchTags:["居延汉简","居延新简","悬泉汉简","敦煌汉简","玉门关汉简","肩水金关","释文","缀合","著录","检索"], url:"https://www.fdgwz.org.cn/guanlianhanqing/Home", buttonLabel:"查询缀合信息 ↗" },
+  { id:"xiaoxue", name:"小學堂文字學資料庫", institution:"台湾大学中国文学系、中央研究院历史语言研究所、资讯科学研究所及数位文化中心", category:"🧱 古文字数据库", resourceCategories:["甲骨文","金文"], description:"汉字字形与文字学研究资料库；首页提供甲骨文、金文字形数据库入口。", keywords:["汉字","字形","文字学","资料库","甲骨文","金文"], url:"https://xiaoxue.iis.sinica.edu.tw/" },
+  { id:"yinxu-oracle-database", name:"殷墟甲骨文数据库", institution:"浙江师范大学等", category:"🧱 古文字数据库", resourceCategories:["甲骨文"], description:"汇集殷墟甲骨文字资料与相关研究信息的数据库入口。", keywords:["甲骨文","殷墟","卜辞","商代"], url:"https://obid.ancientbooks.cn/" },
+  { id:"ihp-oracle-rubbings", name:"甲骨文拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🧱 古文字数据库", resourceCategories:["甲骨文"], genreOnly:true, description:"收录甲骨文拓片，并可通过典藏号与甲骨实物资料及影像对照查询。", keywords:["甲骨文","拓片","实物","影像","检索"], url:"https://dap.ihp.sinica.edu.tw/database/3/", buttonLabel:"进入数据库 ↗" },
+  { id:"tsinghua-ctwx", name:"清华大学出土文献研究与保护中心", institution:"清华大学", category:"📜 出土文献", description:"清华大学出土文献研究、整理、保护及学术交流的重要平台。", keywords:["清华简","出土文献","战国","简帛"], url:"https://www.ctwx.tsinghua.edu.cn/" },
+  { id:"wuhan-bamboo-silk-center", name:"武汉大学简帛研究中心", institution:"武汉大学", category:"🏛️ 学术机构", description:"武汉大学开展简帛、古文字与出土文献研究的重要学术机构。", keywords:["武汉大学","简帛","楚简","古文字"], url:"https://www.bsm.org.cn/" },
+  { id:"cnki", name:"中国知网", institution:"中国知网", category:"📚 学术期刊", description:"检索中文期刊、学位论文、会议论文等学术文献的综合平台。", keywords:["期刊","论文","学位论文","中文文献"], url:"https://cnki.net/" },
+  { id:"china-archaeology", name:"中国考古网", institution:"中国社会科学院考古研究所", category:"🏛️ 学术机构", description:"中国社会科学院考古研究所主办的考古资讯与学术资源平台。", keywords:["考古","田野","遗址","出土材料"], url:"https://kaogu.cssn.cn/" },
+  { id:"cssn", name:"中国社会科学网", institution:"中国社会科学网", category:"📚 学术期刊", description:"社会科学研究动态、学术成果与资讯发布平台。", keywords:["社科","历史","学术资讯","论文"], url:"https://www.cssn.cn/" },
+  { id:"google-scholar", name:"Google Scholar", institution:"Google", category:"🌏 海外汉学", description:"覆盖多语种学术文献的通用检索工具，适合追踪引文与海外研究。", keywords:["英文论文","引文","检索","海外"], url:"https://scholar.google.com/" },
+  { id:"jstor", name:"JSTOR", institution:"ITHAKA", category:"📚 学术期刊", description:"人文社会科学期刊与图书的数字学术档案平台。", keywords:["期刊","人文","考古","海外文献"], url:"https://www.jstor.org/" },
+  { id:"cinii", name:"CiNii Research", institution:"日本国立信息学研究所", category:"🌏 海外汉学", description:"日本学术信息检索平台，可查找日本汉学与东亚研究成果。", keywords:["日本","汉学","东亚","论文"], url:"https://cir.nii.ac.jp/" },
+  { id:"brill", name:"Brill", institution:"Brill", category:"🌏 海外汉学", description:"以人文与亚洲研究见长的国际学术出版平台。", keywords:["出版","汉学","亚洲研究","期刊"], url:"https://brill.com/" },
+  { id:"zotero", name:"Zotero", institution:"Corporation for Digital Scholarship", category:"🛠️ 学术工具", description:"免费开源的文献管理工具，可整理条目、笔记、引文和参考文献。", keywords:["文献管理","引文","笔记","开源"], url:"https://www.zotero.org/" },
+  { id:"ctext", name:"中国哲学书电子化计划", englishName:"Chinese Text Project", institution:"Chinese Text Project", category:"🛠️ 学术工具", displayCategory:"古典文献 / 学术工具", description:"开放的中国古典文献电子图书馆，适合查阅先秦两汉传世文献、原典文本与相关资料。", keywords:["CTEXT","Chinese Text Project","先秦","两汉","古籍","传世文献","原典","哲学","历史"], url:"https://ctext.org/pre-qin-and-han/zh" },
+  { id:"zdic", name:"汉典", institution:"汉典", category:"🛠️ 学术工具", displayCategory:"字典 / 学术工具", description:"综合汉字与词语检索平台，可查询字义、部首、字形以及《说文解字》《康熙字典》等资料。", keywords:["汉字","说文解字","康熙字典","字义","部首","字典"], url:"https://zdic.net/" },
+  { id:"zi-tools", name:"字统网", englishName:"zi.tools", institution:"zi.tools", category:"🧱 古文字数据库", displayCategory:"古文字数据库 / 学术工具", description:"面向汉字源、形、音、义和 Unicode 的综合检索网站，支持字形、结构检字与古汉字相关查询。", keywords:["zi.tools","字源","字形","Unicode","古文字","结构检字","汉字"], url:"https://zi.tools/" },
+  { id:"openalex", name:"OpenAlex", institution:"OurResearch", category:"🤖 AI & 数字人文", description:"开放的全球学术知识图谱，适合发现研究机构、作者与关联文献。", keywords:["开放数据","知识图谱","文献","引文"], url:"https://openalex.org/" },
+  { id:"semantic-scholar", name:"Semantic Scholar", institution:"Allen Institute for AI", category:"🤖 AI & 数字人文", description:"利用人工智能辅助发现论文、作者、引文脉络与研究主题。", keywords:["AI","论文检索","引文","英文文献"], url:"https://www.semanticscholar.org/" },
+  { id:"bnu-shuowen", name:"《说文解字》研究与应用平台", institution:"北京师范大学汉字汉语实验室相关团队", category:"🧱 古文字数据库", displayCategory:"古文字数据库 / 学术工具", resourceCategories:["🛠️ 学术工具"], description:"面向《说文解字》研究与应用的综合平台，可查检小篆、字头、部首、构形与古音信息。", keywords:["说文解字","说文","小篆","字头","部首","构形","古音","综合资源"], url:"https://szsw.bnu.edu.cn/", buttonLabel:"进入平台 ↗" },
+  { id:"bnu-hanzi", name:"汉字全息资源应用系统", institution:"北京师范大学汉字汉语实验室", category:"🧱 古文字数据库", displayCategory:"古文字数据库 / 学术工具", resourceCategories:["🛠️ 学术工具"], description:"提供汉字形、音、义及历代字形的综合查询，适合比较古今汉字资源。", keywords:["汉字","形音义","历代字形","古今汉字","字形比较","综合资源"], url:"https://qxk.bnu.edu.cn/", buttonLabel:"进入系统 ↗" },
+  { id:"ytenx", name:"韵典网", institution:"", category:"🛠️ 学术工具", displayCategory:"音韵工具 / 学术工具", description:"提供《广韵》、上古音与中古音等韵书和音韵资料检索。", keywords:["广韵","上古音","中古音","韵书","音韵","检索"], url:"https://ytenx.org/", buttonLabel:"进入韵典网 ↗" },
+  { id:"ccl-corpus", name:"北京大学 CCL 语料库", institution:"北京大学中国语言学研究中心", category:"🛠️ 学术工具", displayCategory:"古代汉语语料库 / 学术工具", description:"提供古代汉语与断代语料检索，涵盖四库全书、佛道典籍及大型丛书等资源。", keywords:["CCL","语料库","古代汉语","断代语料","四库全书","佛道典籍","大型丛书"], url:"https://cclcorpus.pku.edu.cn/", buttonLabel:"检索语料库 ↗" },
   // 专项入口只在对应门类显示，首页和原有资源目录保持紧凑。
-  { name:"小學堂甲骨文資料庫", institution:"中央研究院资讯科学研究所 · 小學堂", category:"🧱 古文字数据库", resourceCategories:["甲骨文"], genreOnly:true, description:"小學堂甲骨文字形资料的专门检索入口。", keywords:["甲骨文","字形","小學堂"], url:"https://xiaoxue.iis.sinica.edu.tw/jiaguwen" },
-  { name:"甲骨文合集材料來源表資料庫", institution:"中央研究院资讯科学研究所 · 小學堂", category:"🧱 古文字数据库", resourceCategories:["甲骨文"], genreOnly:true, description:"用于查阅《甲骨文合集》材料来源与著录对应信息。", keywords:["甲骨文","合集","材料来源","著录"], url:"https://xiaoxue.iis.sinica.edu.tw/obm/Home/Welcome" },
-  { name:"汉达文库“新甲骨文”", institution:"香港中文大学", category:"🧱 古文字数据库", resourceCategories:["甲骨文"], genreOnly:true, accessNote:"可能需要机构访问权限", description:"汉达文库的新甲骨文数据库入口，提供甲骨资料与释文检索。", keywords:["甲骨文","汉达文库","释文","检索"], url:"http://www.chant.org/Database.aspx" },
-  { name:"小學堂金文資料庫", institution:"中央研究院资讯科学研究所 · 小學堂", category:"🧱 古文字数据库", resourceCategories:["金文"], genreOnly:true, description:"小學堂金文字形资料的专门检索入口。", keywords:["金文","字形","小學堂"], url:"https://xiaoxue.iis.sinica.edu.tw/jinwen/Home/Home" },
-  { name:"殷周金文暨青銅器資料庫", institution:"中央研究院历史语言研究所金文工作室", category:"🧱 古文字数据库", resourceCategories:["金文"], genreOnly:true, accessNote:"需要申请账号", description:"提供青铜器铭文、拓片、器影及相关背景资料查询。", keywords:["金文","青铜器","铭文","拓片","器影"], url:"https://bronze.asdc.sinica.edu.tw/" },
-  { name:"先秦甲骨金文簡牘詞彙資料庫", institution:"中央研究院历史语言研究所金文工作室", category:"🧱 古文字数据库", resourceCategories:["金文","帛书"], resourceGroup:"数据库与检索", genreOnly:true, description:"提供甲骨、金文及简牍词汇与全文检索，其中收录《楚帛书》甲乙丙本，可作跨材料检索。", keywords:["金文","帛书","楚帛书","词汇","释文","全文检索"], url:"https://w9.ihp.sinica.edu.tw/bronze/pages/263", buttonLabel:"查看官方说明 ↗" },
-  { name:"商周金文数字查询平台", institution:"", category:"🧱 古文字数据库", resourceCategories:["金文"], genreOnly:true, description:"商周金文数字查询入口。", keywords:["商周","金文","查询"], url:"https://jwdcdbz.ancientbooks.cn/dictionary" },
-  { name:"青銅器拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🧱 古文字数据库", resourceCategories:["金文"], genreOnly:true, description:"收藏青铜器全形拓片与铭文拓片，可供器物、铭文与拓片影像研究使用。", keywords:["金文","青铜器","拓片","铭文","器影"], url:"https://dap.ihp.sinica.edu.tw/database/4/", buttonLabel:"进入数据库 ↗" },
-  { name:"中国历代墓志数据库", institution:"浙江大学图书馆古籍碑帖研究与保护中心", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, accessNote:"不限 IP", resourceTags:["墓志","拓片"], description:"历代墓志、拓片、全文与图像检索，校内外均可访问。", keywords:["墓志","石刻","拓片","全文","图像","检索"], url:"http://csid.zju.edu.cn", buttonLabel:"进入数据库 ↗" },
-  { name:"漢代石刻畫象拓本資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["石刻画像","拓片"], description:"收录汉代石刻画像拓本，可用于汉代社会、信仰、建筑与生活文化史研究。", keywords:["汉代","石刻画像","拓本","拓片","图像"], url:"https://dap.ihp.sinica.edu.tw/database/5/", buttonLabel:"查看官方说明 ↗" },
-  { name:"佛教石刻造像拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["佛教造像","拓片"], description:"收藏佛教石刻造像拓片，支持按题名、原刻地点、年代与释文关键词检索。", keywords:["佛教","石刻造像","拓片","释文","检索"], url:"https://dap.ihp.sinica.edu.tw/database/6/", buttonLabel:"查看官方说明 ↗" },
-  { name:"遼金元拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["拓片"], description:"收录辽金元三朝碑拓，提供基本资料、释文与影像浏览。", keywords:["辽金元","碑拓","拓片","释文","影像"], url:"https://dap.ihp.sinica.edu.tw/database/7/", buttonLabel:"查看官方说明 ↗" },
-  { name:"五代及宋拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["墓志","拓片"], description:"以五代及宋拓片为主，优先收录墓志主题，支持题名、墓主、年代、地点与释文检索。", keywords:["五代","宋代","墓志","拓片","释文","检索"], url:"https://dap.ihp.sinica.edu.tw/database/8/", buttonLabel:"查看官方说明 ↗" },
-  { name:"历代碑刻典藏与应用平台", institution:"北京师范大学汉字汉语实验室相关团队", category:"🪨 石刻资源", displayCategory:"石刻核心资源 / 古文字数据库", resourceCategories:["石刻"], genreOnly:true, resourceTags:["碑刻","拓片","释文","字形"], description:"提供历代碑刻、拓片与碑刻文字资料，可用于释文和字形检索。", keywords:["历代碑刻","碑刻","拓片","碑刻文字","释文","字形","检索"], url:"https://ldbk.bnu.edu.cn/", buttonLabel:"进入碑刻平台 ↗" },
-  { name:"学术公众号", institution:"微信内学术资讯入口", category:"学术资讯", commonOnly:true, commonAction:"wechat", description:"古文字微刊、出土文献、简牍学等学术公众号入口。", keywords:["公众号","古文字","出土文献","简牍"] }
+  { id:"xiaoxue-oracle", name:"小學堂甲骨文資料庫", institution:"中央研究院资讯科学研究所 · 小學堂", category:"🧱 古文字数据库", resourceCategories:["甲骨文"], genreOnly:true, description:"小學堂甲骨文字形资料的专门检索入口。", keywords:["甲骨文","字形","小學堂"], url:"https://xiaoxue.iis.sinica.edu.tw/jiaguwen" },
+  { id:"xiaoxue-oracle-sources", name:"甲骨文合集材料來源表資料庫", institution:"中央研究院资讯科学研究所 · 小學堂", category:"🧱 古文字数据库", resourceCategories:["甲骨文"], genreOnly:true, description:"用于查阅《甲骨文合集》材料来源与著录对应信息。", keywords:["甲骨文","合集","材料来源","著录"], url:"https://xiaoxue.iis.sinica.edu.tw/obm/Home/Welcome" },
+  { id:"chant-oracle", name:"汉达文库“新甲骨文”", institution:"香港中文大学", category:"🧱 古文字数据库", resourceCategories:["甲骨文"], genreOnly:true, accessNote:"可能需要机构访问权限", description:"汉达文库的新甲骨文数据库入口，提供甲骨资料与释文检索。", keywords:["甲骨文","汉达文库","释文","检索"], url:"http://www.chant.org/Database.aspx" },
+  { id:"xiaoxue-bronze", name:"小學堂金文資料庫", institution:"中央研究院资讯科学研究所 · 小學堂", category:"🧱 古文字数据库", resourceCategories:["金文"], genreOnly:true, description:"小學堂金文字形资料的专门检索入口。", keywords:["金文","字形","小學堂"], url:"https://xiaoxue.iis.sinica.edu.tw/jinwen/Home/Home" },
+  { id:"ihp-bronze", name:"殷周金文暨青銅器資料庫", institution:"中央研究院历史语言研究所金文工作室", category:"🧱 古文字数据库", resourceCategories:["金文"], genreOnly:true, accessNote:"需要申请账号", description:"提供青铜器铭文、拓片、器影及相关背景资料查询。", keywords:["金文","青铜器","铭文","拓片","器影"], url:"https://bronze.asdc.sinica.edu.tw/" },
+  { id:"ihp-preqin-vocabulary", name:"先秦甲骨金文簡牘詞彙資料庫", institution:"中央研究院历史语言研究所金文工作室", category:"🧱 古文字数据库", resourceCategories:["金文","帛书"], resourceGroup:"数据库与检索", genreOnly:true, description:"提供甲骨、金文及简牍词汇与全文检索，其中收录《楚帛书》甲乙丙本，可作跨材料检索。", keywords:["金文","帛书","楚帛书","词汇","释文","全文检索"], url:"https://w9.ihp.sinica.edu.tw/bronze/pages/263", buttonLabel:"查看官方说明 ↗" },
+  { id:"shangzhou-bronze-query", name:"商周金文数字查询平台", institution:"", category:"🧱 古文字数据库", resourceCategories:["金文"], genreOnly:true, description:"商周金文数字查询入口。", keywords:["商周","金文","查询"], url:"https://jwdcdbz.ancientbooks.cn/dictionary" },
+  { id:"ihp-bronze-rubbings", name:"青銅器拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🧱 古文字数据库", resourceCategories:["金文"], genreOnly:true, description:"收藏青铜器全形拓片与铭文拓片，可供器物、铭文与拓片影像研究使用。", keywords:["金文","青铜器","拓片","铭文","器影"], url:"https://dap.ihp.sinica.edu.tw/database/4/", buttonLabel:"进入数据库 ↗" },
+  { id:"zju-epitaphs", name:"中国历代墓志数据库", institution:"浙江大学图书馆古籍碑帖研究与保护中心", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, accessNote:"不限 IP", resourceTags:["墓志","拓片"], description:"历代墓志、拓片、全文与图像检索，校内外均可访问。", keywords:["墓志","石刻","拓片","全文","图像","检索"], url:"http://csid.zju.edu.cn", buttonLabel:"进入数据库 ↗" },
+  { id:"ihp-han-stone-rubbings", name:"漢代石刻畫象拓本資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["石刻画像","拓片"], description:"收录汉代石刻画像拓本，可用于汉代社会、信仰、建筑与生活文化史研究。", keywords:["汉代","石刻画像","拓本","拓片","图像"], url:"https://dap.ihp.sinica.edu.tw/database/5/", buttonLabel:"查看官方说明 ↗" },
+  { id:"ihp-buddhist-stone-rubbings", name:"佛教石刻造像拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["佛教造像","拓片"], description:"收藏佛教石刻造像拓片，支持按题名、原刻地点、年代与释文关键词检索。", keywords:["佛教","石刻造像","拓片","释文","检索"], url:"https://dap.ihp.sinica.edu.tw/database/6/", buttonLabel:"查看官方说明 ↗" },
+  { id:"ihp-liao-jin-yuan-rubbings", name:"遼金元拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["拓片"], description:"收录辽金元三朝碑拓，提供基本资料、释文与影像浏览。", keywords:["辽金元","碑拓","拓片","释文","影像"], url:"https://dap.ihp.sinica.edu.tw/database/7/", buttonLabel:"查看官方说明 ↗" },
+  { id:"ihp-song-rubbings", name:"五代及宋拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["墓志","拓片"], description:"以五代及宋拓片为主，优先收录墓志主题，支持题名、墓主、年代、地点与释文检索。", keywords:["五代","宋代","墓志","拓片","释文","检索"], url:"https://dap.ihp.sinica.edu.tw/database/8/", buttonLabel:"查看官方说明 ↗" },
+  { id:"bnu-inscriptions", name:"历代碑刻典藏与应用平台", institution:"北京师范大学汉字汉语实验室相关团队", category:"🪨 石刻资源", displayCategory:"石刻核心资源 / 古文字数据库", resourceCategories:["石刻"], genreOnly:true, resourceTags:["碑刻","拓片","释文","字形"], description:"提供历代碑刻、拓片与碑刻文字资料，可用于释文和字形检索。", keywords:["历代碑刻","碑刻","拓片","碑刻文字","释文","字形","检索"], url:"https://ldbk.bnu.edu.cn/", buttonLabel:"进入碑刻平台 ↗" },
+  { id:"academic-wechat", name:"学术公众号", institution:"微信内学术资讯入口", category:"学术资讯", commonOnly:true, commonAction:"wechat", description:"古文字微刊、出土文献、简牍学等学术公众号入口。", keywords:["公众号","古文字","出土文献","简牍"] }
 ];
 
 const categories = ["全部","🏺 汉代简牍","🧱 古文字数据库","📜 出土文献","📚 学术期刊","🎓 学术会议","🏛️ 学术机构","🌏 海外汉学","🤖 AI & 数字人文","🛠️ 学术工具"];
@@ -139,8 +141,189 @@ const academicUpdatesData = Array.isArray(window.academicUpdates) ? window.acade
 const academicUpdatesLastUpdatedValue = typeof window.academicUpdatesLastUpdated === "string" && window.academicUpdatesLastUpdated.trim() ? window.academicUpdatesLastUpdated.trim() : (typeof academicUpdatesLastUpdated !== "undefined" && String(academicUpdatesLastUpdated).trim() ? String(academicUpdatesLastUpdated).trim() : "");
 // 外部资源链接最近一次人工核验日期，与学术动态数据维护日期分开记录。
 const linksLastChecked = "2026-08-20";
-const researchTopicsData = Array.isArray(window.researchTopics) ? window.researchTopics : [];
 const coreBibliographyData = Array.isArray(window.coreBibliography) ? window.coreBibliography : [];
+const researchHubsData = Array.isArray(window.researchHubs) ? window.researchHubs : [];
+const hubCategoryLabels = { oracle:"甲骨文", bronze:"金文", stone:"石刻", slips:"简牍", silk:"帛书" };
+const hubDetail = document.querySelector("#hubDetail");
+const hubsToggle = document.querySelector("#hubsToggle");
+let hubsExpanded = false;
+let activeHubId = "";
+let hubReturnContext = null;
+let hubExpandedSections = new Set();
+let hubNavigationFrame = 0;
+const hubWarnings = new Set();
+
+function hubWarning(message) {
+  if (hubWarnings.has(message)) return;
+  hubWarnings.add(message);
+  console.warn(`Research hubs: ${message}`);
+}
+function hubIndex(items, kind) {
+  const index = new Map();
+  items.forEach(item => {
+    if (!item || typeof item.id !== "string" || !item.id) { hubWarning(`${kind}: 缺少 id`); return; }
+    if (index.has(item.id)) { hubWarning(`${kind}: 重复 id ${item.id}`); return; }
+    index.set(item.id, item);
+  });
+  return index;
+}
+const hubResourcesById = hubIndex(sites, "resource");
+const hubBooksById = hubIndex(coreBibliographyData, "bibliography");
+const hubsById = hubIndex(researchHubsData, "hub");
+
+// 论文按唯一数据源建立运行时索引。URL 结构校验不代替人工来源核验。
+function classicPaperUrl(value) {
+  if (typeof value !== "string" || !value.trim()) return "";
+  try {
+    const url = new URL(value);
+    if (!["https:", "http:"].includes(url.protocol) || url.username || url.password) return "";
+    if (/^(?:localhost|example\.(?:com|org|net))$|\.(?:test|invalid|example)$|(?:^|\.)example\.(?:com|org|net)$/i.test(url.hostname)) return "";
+    return url.href;
+  } catch { return ""; }
+}
+function validateClassicPapers(items, hubIndex = hubsById) {
+  const papers = [], byHub = new Map(), warnings = [];
+  const ids = new Set(), identities = new Set();
+  const categories = new Set(["oracle", "bronze", "stone", "slips", "silk", "general"]);
+  const types = new Set(["经典论文", "研究史", "重要综述"]);
+  const normalize = value => value.normalize("NFKC").replace(/[\p{P}\s]/gu, "").toLowerCase();
+  if (!Array.isArray(items)) return { papers, byHub, warnings: ["论文数据必须为数组"] };
+  items.forEach((paper, index) => {
+    const label = `论文 #${index + 1}`;
+    const fail = message => warnings.push(`${label}: ${message}`);
+    if (!paper || typeof paper !== "object") { fail("条目不是对象"); return; }
+    if (typeof paper.id !== "string" || !/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(paper.id)) { fail("缺少合法稳定 id"); return; }
+    if (ids.has(paper.id)) { fail(`重复 id ${paper.id}`); return; }
+    ids.add(paper.id);
+    if (typeof paper.title !== "string" || !paper.title.trim()) { fail("题名为空"); return; }
+    if (["author", "year", "journal", "note"].some(key => typeof paper[key] !== "string")) { fail("作者、年份、刊物及 note 必须为字符串，未核验时用空字符串"); return; }
+    if (paper.year !== "" && (!/^\d{4}$/.test(paper.year) || Number(paper.year) < 1000 || Number(paper.year) > new Date().getFullYear())) { fail("年份不合理"); return; }
+    if (!types.has(paper.type)) { fail("论文类型不合法"); return; }
+    if (typeof paper.featured !== "boolean") { fail("featured 必须为布尔值"); return; }
+    if (!Array.isArray(paper.categories) || !paper.categories.length || paper.categories.some(code => !categories.has(code))) { fail("门类编码不合法"); return; }
+    if (!Array.isArray(paper.hubIds) || paper.hubIds.some(id => typeof id !== "string" || !id)) { fail("hubIds 必须为非空字符串组成的数组，可为空数组"); return; }
+    if (["volume", "issue", "pages", "url", "sourceNote"].some(key => paper[key] !== undefined && typeof paper[key] !== "string")) { fail("可选字段必须为字符串"); return; }
+    const url = classicPaperUrl(paper.url);
+    if (paper.url && !url) { fail("URL 无效或包含占位地址"); return; }
+    const identity = `${normalize(paper.author)}\u0000${normalize(paper.title)}`;
+    if (identities.has(identity)) { fail(`作者与题名疑似重复，需人工核对：${paper.id}`); return; }
+    identities.add(identity);
+    const hubIds = [...new Set(paper.hubIds)].filter(id => {
+      if (hubIndex.has(id)) return true;
+      fail(`未找到专题引用 ${id}`);
+      return false;
+    });
+    const valid = { ...paper, url, hubIds };
+    papers.push(valid);
+    hubIds.forEach(id => {
+      if (!byHub.has(id)) byHub.set(id, []);
+      byHub.get(id).push(valid);
+    });
+  });
+  // 精选优先，其余保留人工编排顺序；年份和内部来源说明不决定顺序。
+  byHub.forEach(list => list.sort((a, b) => Number(b.featured) - Number(a.featured)));
+  return { papers, byHub, warnings };
+}
+const classicPaperCatalog = validateClassicPapers(window.classicPapers || []);
+classicPaperCatalog.warnings.forEach(message => console.warn(`Classic papers: ${message}`));
+function classicPapersForHub(hubId, catalog = classicPaperCatalog) {
+  return catalog.byHub.get(hubId) || [];
+}
+function classicPaperCardTemplate(paper) {
+  const publication = [paper.journal, paper.year, paper.volume ? `卷：${paper.volume}` : "", paper.issue ? `期：${paper.issue}` : "", paper.pages ? `页：${paper.pages}` : ""].filter(Boolean).map(escapeHtml).join(" · ");
+  const url = classicPaperUrl(paper.url);
+  return `<article class="classic-paper-card bibliography-card" data-paper-id="${escapeHtml(paper.id)}"><div class="bibliography-meta"><span class="bibliography-type">${escapeHtml(paper.type)}</span></div><h4>${escapeHtml(paper.title)}</h4>${paper.author ? `<p class="bibliography-author">${escapeHtml(paper.author)}</p>` : ""}${publication ? `<p class="bibliography-publication">${publication}</p>` : ""}${paper.note ? `<p class="bibliography-note">${escapeHtml(paper.note)}</p>` : ""}${url ? `<a class="classic-paper-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">查看来源 ↗</a>` : ""}</article>`;
+}
+function resolveHubReferences(ids, index, kind) {
+  return [...new Set(Array.isArray(ids) ? ids : [])].flatMap(id => {
+    if (index.has(id)) return [index.get(id)];
+    hubWarning(`${kind}: 未找到引用 ${id}`);
+    return [];
+  });
+}
+function hubCategories(hub) {
+  return [...new Set([hub.category, ...(Array.isArray(hub.categories) ? hub.categories : [])])];
+}
+function availableHub(hub) {
+  return ["active", "preparing"].includes(hub.status) && hubCategories(hub).some(code => hubCategoryLabels[code]);
+}
+function hubsForCategory(category) {
+  const hubs = [...hubsById.values()].filter(availableHub);
+  // 首页默认面向简牍研究；“全部”只代表首页资源总览，不是跨门类专题索引。
+  const code = category === "全部" ? "slips" : bibliographyCategoryCodes[category];
+  return code ? hubs.filter(hub => hubCategories(hub).includes(code)) : [];
+}
+function updatesForHub(hub) {
+  const terms = new Set(Array.isArray(hub.updateTags) ? hub.updateTags : []);
+  const seen = new Set();
+  return academicUpdatesData.filter(update => {
+    if (!update || seen.has(update.id) || update.example) return false;
+    const tags = [...(Array.isArray(update.tags) ? update.tags : []), ...(Array.isArray(update.topics) ? update.topics : [])];
+    if (!tags.some(tag => terms.has(tag))) return false;
+    seen.add(update.id);
+    return true;
+  }).sort((a, b) => parseUpdateDate(b.date).localeCompare(parseUpdateDate(a.date)));
+}
+function hubCardTemplate(hub) {
+  const labels = hubCategories(hub).map(code => hubCategoryLabels[code]).filter(Boolean).join(" / ");
+  return `<article class="research-topic-card"><span class="topic-label">${escapeHtml(labels)} · ${hub.status === "preparing" ? "整理中" : "研究专题"}</span><h3>${escapeHtml(hub.title)}</h3>${hub.subtitle ? `<p class="topic-subtitle">${escapeHtml(hub.subtitle)}</p>` : ""}<p class="topic-description">${escapeHtml(hub.description)}</p><p class="topic-count">当前收录 ${updatesForHub(hub).length} 条研究动态</p><button class="topic-button" type="button" data-research-topic="${escapeHtml(hub.id)}" aria-label="查看${escapeHtml(hub.title)}">查看专题 →</button></article>`;
+}
+function hubSectionTemplate(key, title, items, template, emptyText, limit = 4) {
+  const expanded = hubExpandedSections.has(key);
+  const content = items.length ? `<div class="hub-grid">${(expanded ? items : items.slice(0, limit)).map(template).join("")}</div>` : `<p class="hub-empty">${emptyText}</p>`;
+  const toggle = items.length > limit ? `<button type="button" class="section-toggle" data-hub-expand="${key}" aria-expanded="${expanded}">${expanded ? "收起" : `展开更多（${items.length}）`}</button>` : "";
+  return `<section class="hub-section" data-hub-section="${key}" aria-labelledby="hub-${key}-title"><h3 id="hub-${key}-title">${title}</h3>${content}${toggle}</section>`;
+}
+function renderHubDetail() {
+  const hub = hubsById.get(activeHubId);
+  if (!hub) return;
+  const resources = resolveHubReferences(hub.resourceIds, hubResourcesById, "resource");
+  const books = resolveHubReferences(hub.bibliographyIds, hubBooksById, "bibliography");
+  const related = resolveHubReferences(hub.relatedHubIds, hubsById, "hub").filter(item => item.id !== hub.id && availableHub(item));
+  const returnLabel = hubReturnContext?.category === "全部" ? "返回首页" : "返回当前门类";
+  hubDetail.innerHTML = `<button type="button" class="hub-back" data-hub-back>← ${returnLabel}</button><header class="hub-heading"><p class="section-kicker">RESEARCH HUB · ${escapeHtml(hubCategories(hub).map(code => hubCategoryLabels[code]).filter(Boolean).join(" / "))}</p><h2 id="hubTitle" tabindex="-1">${escapeHtml(hub.title)}</h2>${hub.subtitle ? `<p class="hub-subtitle">${escapeHtml(hub.subtitle)}</p>` : ""}<p>${escapeHtml(hub.description)}</p></header>`
+    + hubSectionTemplate("resources", "核心资源", resources, siteCardTemplate, "核心资源整理中。")
+    + hubSectionTemplate("bibliography", "核心工具书 / 基础书目", books, bibliographyCardTemplate, "核心书目整理中。")
+    + hubSectionTemplate("papers", "经典论文 / 研究史", classicPapersForHub(hub.id), classicPaperCardTemplate, "当前暂无已整理的经典论文与研究史资料。", 3)
+    + hubSectionTemplate("updates", "最新学术动态", updatesForHub(hub), update => updateCardTemplate({ ...update, tags: Array.isArray(update.tags) ? update.tags : [] }), "当前暂无已收录的相关学术动态。")
+    + hubSectionTemplate("related", "相关专题", related, hubCardTemplate, "相关专题整理中。");
+  hubDetail.hidden = false;
+  [updatesSection, coreSection, commonSection, resourcesSection, bibliographySection].forEach(section => { section.hidden = true; });
+}
+function openResearchHub(id) {
+  const hub = hubsById.get(id);
+  if (!hub || !availableHub(hub)) { hubWarning(`hub: 无法打开 ${id}`); return; }
+  if (!activeHubId) hubReturnContext = { category: activeCategory, scrollY: window.scrollY, triggerId: id };
+  activeHubId = id;
+  hubExpandedSections.clear();
+  renderHubDetail();
+  cancelAnimationFrame(hubNavigationFrame);
+  hubNavigationFrame = requestAnimationFrame(() => {
+    document.querySelector("#hubTitle")?.focus({ preventScroll: true });
+    const top = hubDetail.getBoundingClientRect().top + window.scrollY - 16;
+    window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
+  });
+}
+function dismissResearchHub(restore = false) {
+  cancelAnimationFrame(hubNavigationFrame);
+  if (!activeHubId) return;
+  const context = hubReturnContext;
+  activeHubId = "";
+  hubReturnContext = null;
+  hubExpandedSections.clear();
+  hubDetail.hidden = true;
+  hubDetail.innerHTML = "";
+  if (!restore) return;
+  renderSites();
+  renderBibliography();
+  renderResearchTopics();
+  renderUpdateView();
+  hubNavigationFrame = requestAnimationFrame(() => {
+    const trigger = [...researchTopicsContainer.querySelectorAll("[data-research-topic]")].find(button => button.dataset.researchTopic === context?.triggerId);
+    trigger?.focus({ preventScroll: true });
+    window.scrollTo({ top: context?.scrollY || 0, behavior: "instant" });
+  });
+}
 
 // 统一处理文本，保证日后新增资料时特殊字符不会影响卡片结构。
 function escapeHtml(text) { return String(text || "").replace(/[&<>'"]/g, char => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", "'":"&#039;", '"':"&quot;" })[char]); }
@@ -183,7 +366,7 @@ function renderBibliography() {
   bibliographyToggle.setAttribute("aria-expanded", String(bibliographyExpanded));
 }
 function renderFilters() {
-  filters.innerHTML = categories.map(category => `<button class="filter-button ${category === activeCategory ? "is-active" : ""}" type="button" data-category="${category}" aria-current="${category === activeCategory ? "true" : "false"}">${category}</button>`).join("");
+  filters.innerHTML = categories.map(category => `<button class="filter-button ${category === activeCategory ? "is-active" : ""}" type="button" data-category="${category}" aria-current="${category === activeCategory ? "true" : "false"}">${category === "🏺 汉代简牍" ? "🏺 简牍" : category}</button>`).join("");
   document.querySelectorAll("[data-genre]").forEach(button => {
     const active = button.dataset.genre === activeCategory;
     button.classList.toggle("is-active", active);
@@ -219,6 +402,7 @@ function renderUpdateView() {
     button.classList.toggle("is-active", isActive);
     button.setAttribute("aria-pressed", String(isActive));
   });
+  renderUpdateContext();
 }
 function updateMatchesGenre(update, definition) {
   const explicitCategories = [
@@ -232,6 +416,15 @@ function updateMatchesGenre(update, definition) {
 function renderUpdateContext() {
   searchTitle.textContent = searchTitles[activeCategory] || searchTitles["全部"];
   renderUpdateObjectFilters();
+  if (activeUpdateView === "topics") {
+    const label = hubCategoryLabels[bibliographyCategoryCodes[activeCategory]];
+    updatesKicker.textContent = "RESEARCH HUBS";
+    updatesTitle.textContent = label ? `${label} · 研究专题` : "研究专题";
+    updatesIntro.textContent = "汇集已收录的专题资源、基础书目与相关学术动态。";
+    latestUpdateDateElement.hidden = true;
+    updateDateNote.hidden = true;
+    return;
+  }
   const definition = updateGenreDefinitions[activeCategory];
   if (definition) {
     updatesKicker.textContent = `${definition.code.toUpperCase()} · LATEST RESEARCH`;
@@ -247,23 +440,14 @@ function renderUpdateContext() {
   latestUpdateDateElement.hidden = false;
   updateDateNote.hidden = false;
 }
-function updateMatchesTopic(update, topic) {
-  const updateTopics = Array.isArray(update.topics) ? update.topics : [];
-  const updateTags = Array.isArray(update.tags) ? update.tags : [];
-  return topic.topics.some(item => updateTopics.includes(item) || updateTags.includes(item));
-}
 function renderResearchTopics() {
-  const definition = updateGenreDefinitions[activeCategory];
-  if (definition) {
-    topicSelectionActive = false;
-    researchTopicsContainer.innerHTML = `<p class="research-topics-empty">当前暂无已整理的${definition.label}重点专题。</p>`;
-    return;
-  }
-  researchTopicsContainer.innerHTML = researchTopicsData.filter(topic => topic.featured !== false).map(topic => {
-    const count = academicUpdatesData.filter(update => updateMatchesTopic(update, topic)).length;
-    const isActive = topic.topics.includes(activeUpdateObject);
-    return `<article class="research-topic-card ${isActive ? "is-active" : ""}"><span class="topic-label">专题</span><h3>${escapeHtml(topic.title)}</h3><p class="topic-subtitle">${escapeHtml(topic.subtitle || "")}</p><p class="topic-description">${escapeHtml(topic.description || "")}</p><p class="topic-count">当前收录 ${count} 条研究动态</p><button class="topic-button" type="button" data-research-topic="${escapeHtml(topic.id)}">查看专题 →</button></article>`;
-  }).join("");
+  const items = hubsForCategory(activeCategory);
+  const initial = items.slice(0, 4);
+  const visible = hubsExpanded ? items : initial;
+  researchTopicsContainer.innerHTML = visible.length ? visible.map(hubCardTemplate).join("") : `<p class="research-topics-empty">当前暂无已整理的${escapeHtml(hubCategoryLabels[bibliographyCategoryCodes[activeCategory]] || "")}研究专题。</p>`;
+  hubsToggle.hidden = items.length <= initial.length;
+  hubsToggle.textContent = hubsExpanded ? "收起专题" : `展开更多专题（${items.length}）`;
+  hubsToggle.setAttribute("aria-expanded", String(hubsExpanded));
 }
 function parseUpdateDate(dateText) {
   const match = String(dateText || "").match(/\d{4}-\d{2}(?:-\d{2})?/);
@@ -446,6 +630,8 @@ function applyCategoryVisibility(hasCoreResources = coreGrid.childElementCount >
   resourcesSection.hidden = activeCategory === "🏺 汉代简牍" || activeCategory === "🎓 学术会议";
 }
 function activateCategory(category) {
+  dismissResearchHub();
+  hubsExpanded = false;
   activeCategory = category;
   bibliographyExpanded = false;
   if (!isSlipsUpdateCategory()) {
@@ -498,7 +684,7 @@ function activateCategory(category) {
     renderUpdateView();
     renderUpdates();
     renderSites();
-    categoryFeedback.textContent = "当前栏目：汉代简牍 · 最新动态与核心资源已在下方显示";
+    categoryFeedback.textContent = "当前栏目：简牍 · 最新动态与核心资源已在下方显示";
   } else {
     activeResourceCategory = "全部";
     activeDirectionTag = "";
@@ -553,18 +739,21 @@ updateObjectFilters.addEventListener("click", event => { const button = event.ta
 researchTopicsContainer.addEventListener("click", event => {
   const button = event.target.closest("[data-research-topic]");
   if (!button) return;
-  const topic = researchTopicsData.find(item => item.id === button.dataset.researchTopic);
-  if (!topic || !topic.topics.length) return;
-  activeUpdateType = "全部";
-  activeUpdateObject = topic.topics[0];
-  updatesExpanded = true;
-  topicSelectionActive = true;
-  activeUpdateView = "latest";
-  renderUpdateFilters();
-  renderUpdateObjectFilters();
-  renderResearchTopics();
-  renderUpdateView();
-  renderUpdates();
+  openResearchHub(button.dataset.researchTopic);
+});
+hubsToggle.addEventListener("click", () => { hubsExpanded = !hubsExpanded; renderResearchTopics(); });
+hubDetail.addEventListener("click", event => {
+  if (event.target.closest("[data-hub-back]")) { dismissResearchHub(true); return; }
+  const related = event.target.closest("[data-research-topic]");
+  if (related) { openResearchHub(related.dataset.researchTopic); return; }
+  const toggle = event.target.closest("[data-hub-expand]");
+  if (!toggle) return;
+  const key = toggle.dataset.hubExpand;
+  const sectionTop = toggle.closest(".hub-section").getBoundingClientRect().top + window.scrollY;
+  if (hubExpandedSections.has(key)) hubExpandedSections.delete(key); else hubExpandedSections.add(key);
+  renderHubDetail();
+  hubDetail.querySelector(`[data-hub-expand="${key}"]`)?.focus({ preventScroll: true });
+  if (!hubExpandedSections.has(key) && window.scrollY > sectionTop) window.scrollTo({ top: sectionTop - 16, behavior: "instant" });
 });
 backToTopics.addEventListener("click", () => { activeUpdateView = "topics"; renderUpdateView(); });
 document.querySelector("#resetUpdateView").addEventListener("click", () => {
@@ -604,8 +793,8 @@ sitesToggle.addEventListener("click", () => { sitesExpanded = !sitesExpanded; re
 bibliographyToggle.addEventListener("click", () => { bibliographyExpanded = !bibliographyExpanded; renderBibliography(); });
 commonSites.addEventListener("click", event => { const button = event.target.closest("[data-common-action='wechat']"); if (!button) return; wechatExpanded = !wechatExpanded; renderWechatPanel(); });
 wechatCollapse.addEventListener("click", () => { wechatExpanded = false; renderWechatPanel(); commonSites.querySelector("[data-common-action='wechat']")?.focus(); });
-searchInput.addEventListener("input", () => { updateSearchIgnored = false; if (searchInput.value.trim()) { activeCategory = "全部"; activeResourceCategory = "全部"; activeUpdateView = "latest"; topicSelectionActive = false; bibliographyExpanded = false; renderFilters(); renderUpdateView(); } renderSites(); renderUpdates(); renderBibliography(); });
-document.querySelector("#clearSearch").addEventListener("click", () => { searchInput.value = ""; activeDirectionTag = ""; renderDirectionTags(); searchInput.focus(); renderSites(); renderUpdates(); renderBibliography(); });
+searchInput.addEventListener("input", () => { dismissResearchHub(); updateSearchIgnored = false; if (searchInput.value.trim()) { activeCategory = "全部"; activeResourceCategory = "全部"; activeUpdateView = "latest"; topicSelectionActive = false; bibliographyExpanded = false; renderFilters(); renderUpdateView(); } renderResearchTopics(); renderSites(); renderUpdates(); renderBibliography(); });
+document.querySelector("#clearSearch").addEventListener("click", () => { dismissResearchHub(); searchInput.value = ""; activeDirectionTag = ""; renderDirectionTags(); searchInput.focus(); renderSites(); renderUpdates(); renderBibliography(); });
 validateAcademicUpdates();
 if (linksLastCheckedElement) linksLastCheckedElement.textContent = linksLastChecked;
 renderFilters(); renderDirectionTags(); renderUpdateFilters(); renderUpdateObjectFilters(); renderResearchTopics(); renderUpdateView(); renderLatestUpdateDate(); renderWechatPanel(); renderUpdates(); renderSites(); renderBibliography();

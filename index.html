@@ -23,7 +23,7 @@
         <button type="button" data-genre="甲骨文" aria-label="甲：甲骨文资源" aria-pressed="false">甲</button><i aria-hidden="true"></i>
         <button type="button" data-genre="金文" aria-label="金：金文资源" aria-pressed="false">金</button><i aria-hidden="true"></i>
         <button type="button" data-genre="石刻" aria-label="石：石刻资源" aria-pressed="false">石</button><i aria-hidden="true"></i>
-        <button type="button" data-genre="🏺 汉代简牍" aria-label="简：汉代简牍资源" aria-pressed="false">简</button><i aria-hidden="true"></i>
+        <button type="button" data-genre="🏺 汉代简牍" aria-label="简：简牍资源" aria-pressed="false">简</button><i aria-hidden="true"></i>
         <button type="button" data-genre="帛书" aria-label="帛：帛书资源" aria-pressed="false">帛</button>
       </nav>
       <button id="returnHomeButton" class="return-home" type="button" hidden>← 返回首页</button>
@@ -52,7 +52,7 @@
       </div>
       <div id="updateViewTabs" class="update-view-tabs" aria-label="学术动态视图">
         <button class="update-view-tab is-active" type="button" data-update-view="latest" aria-pressed="true">最新动态</button>
-        <button class="update-view-tab" type="button" data-update-view="topics" aria-pressed="false">重点专题</button>
+        <button class="update-view-tab" type="button" data-update-view="topics" aria-pressed="false">研究专题</button>
       </div>
       <div id="latestUpdatesView" class="update-view-panel">
         <div class="update-filter-groups">
@@ -78,12 +78,15 @@
       <div id="topicsView" class="update-view-panel" hidden>
         <div class="research-topics-panel" aria-labelledby="research-topics-title">
           <div class="research-topics-heading">
-            <div><span class="update-filter-label" id="research-topics-title">重点专题 · 进一步探索</span><p>选择专题后，将在此区域显示对应动态。</p></div>
+            <div><span class="update-filter-label" id="research-topics-title">研究专题 · 进一步探索</span><p>从专题查阅已收录的资源、基础书目与相关学术动态。</p></div>
           </div>
           <div id="researchTopics" class="research-topics-grid"></div>
+          <button id="hubsToggle" class="section-toggle" type="button" hidden aria-expanded="false">展开更多专题</button>
         </div>
       </div>
     </section>
+
+    <section id="hubDetail" class="hub-detail" aria-labelledby="hubTitle" hidden></section>
 
     <section class="core-section" id="coreSection" aria-labelledby="core-title">
       <div class="core-heading">
@@ -156,11 +159,11 @@
       <ol>
         <li>顶部分类用于在当前页面原地切换内容，不会把你突然带到页面另一处。</li>
         <li>搜索框用于全站搜索，可检索资源、机构、简介、关键词和学术动态。</li>
-        <li>最新学术动态可在“最新动态 / 重点专题”之间原地切换。</li>
+        <li>最新学术动态可在“最新动态 / 研究专题”之间原地切换。</li>
         <li>动态类型和研究对象筛选会在当前区域直接更新结果。</li>
         <li>核心资源筛选只影响当前资源区；没有精确匹配时仍会保留综合资源。</li>
         <li>点击“学术公众号”会在“我的常用网站”下方原地展开。</li>
-        <li>其他学术资源可按需展开或收起，重点专题也不会永久占据页面。</li>
+        <li>其他学术资源可按需展开或收起，研究专题也不会永久占据页面。</li>
         <li>只有外部数据库、资源和论文原文链接会真正离开本站。</li>
       </ol>
     </aside>
@@ -187,8 +190,10 @@
 
   <footer><p>🏺 古文字学术导航 · V1.2</p><p>个人学习与研究使用 · 汉代简牍重点整理中</p><p>链接核验：<span id="linksLastChecked">正在读取…</span></p><p>如发现链接失效或资料信息错误，欢迎反馈。</p></footer>
   <script src="academic-updates.js"></script>
+  <script src="data/research-hubs.js"></script>
   <script src="research-topics.js"></script>
   <script src="data/core-bibliography.js"></script>
+  <script src="data/classic-papers.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
