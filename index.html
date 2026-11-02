@@ -35,10 +35,12 @@
       <div><p class="section-kicker">检索资源</p><h2 id="search-title">从一枚汉简，抵达一片学术天地</h2></div>
       <label class="search-box" for="searchInput">
         <span aria-hidden="true">⌕</span>
-        <input id="searchInput" type="search" placeholder="搜索网站、机构、简介或关键词…" autocomplete="off" />
+        <input id="searchInput" type="search" placeholder="搜索资源、专题、书目、论文与动态…" autocomplete="off" aria-label="全站学术检索" aria-controls="unifiedSearchResults" />
         <button id="clearSearch" type="button">清除</button>
       </label>
     </section>
+
+    <section id="unifiedSearchResults" class="unified-search" aria-labelledby="unifiedSearchTitle" hidden></section>
 
     <section class="filters" aria-label="栏目导航">
       <div id="categoryFilters" class="filter-list"></div>
@@ -158,7 +160,7 @@
       <p class="section-kicker">使用说明</p><h2 id="guide-title">如何使用这个导航</h2>
       <ol>
         <li>顶部分类用于在当前页面原地切换内容，不会把你突然带到页面另一处。</li>
-        <li>搜索框用于全站搜索，可检索资源、机构、简介、关键词和学术动态。</li>
+        <li>顶部搜索可检索全站资源、专题、书目、论文与动态；清空或退出搜索会返回搜索前的浏览位置。</li>
         <li>最新学术动态可在“最新动态 / 研究专题”之间原地切换。</li>
         <li>动态类型和研究对象筛选会在当前区域直接更新结果。</li>
         <li>核心资源筛选只影响当前资源区；没有精确匹配时仍会保留综合资源。</li>
@@ -194,6 +196,7 @@
   <script src="research-topics.js"></script>
   <script src="data/core-bibliography.js"></script>
   <script src="data/classic-papers.js"></script>
+  <script src="data/search-taxonomy.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

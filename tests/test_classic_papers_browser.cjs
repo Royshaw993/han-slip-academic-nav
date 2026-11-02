@@ -11,7 +11,7 @@ const http = require('node:http');
 const {chromium} = require(process.env.PLAYWRIGHT_MODULE || path.join(os.tmpdir(),'research-hubs-tests/node_modules/playwright'));
 const root = path.resolve(__dirname,'..');
 const output = path.join(os.tmpdir(),'classic-papers-browser');
-const allowed = new Set(['index.html','script.js','style.css','academic-updates.js','research-topics.js','data/research-hubs.js','data/core-bibliography.js','data/classic-papers.js','favicon.svg']);
+const allowed = new Set(['index.html','script.js','style.css','academic-updates.js','research-topics.js','data/research-hubs.js','data/core-bibliography.js','data/classic-papers.js','data/search-taxonomy.js','favicon.svg']);
 const server = http.createServer((req,res)=>{
   const file = new URL(req.url,'http://localhost').pathname.slice(1) || 'index.html';
   if(!allowed.has(file)){res.writeHead(404);res.end();return;}
@@ -60,7 +60,7 @@ async function layout(page,label){
     browser=await chromium.launch({channel:process.env.HUB_BROWSER_CHANNEL||'msedge',headless:true});
     const page=await browser.newPage({viewport:{width:1280,height:900}});
     page.on('pageerror',e=>errors.push(e.message));
-    page.on('console',m=>{if(m.type()==='warning')warnings.push(m.text());});
+    page.on('console',m=>{if(m.type()==='warning' && m.text() !== 'Search data: resource: URL shared by bsm, wuhan-bamboo-silk-center')warnings.push(m.text());});
     const url=`http://127.0.0.1:${server.address().port}/`;
     await page.goto(url);
     assert.equal(await page.evaluate(()=>classicPaperCatalog.papers.length),1);

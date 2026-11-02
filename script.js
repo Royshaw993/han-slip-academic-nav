@@ -49,7 +49,7 @@ const sites = [
 const categories = ["全部","🏺 汉代简牍","🧱 古文字数据库","📜 出土文献","📚 学术期刊","🎓 学术会议","🏛️ 学术机构","🌏 海外汉学","🤖 AI & 数字人文","🛠️ 学术工具"];
 const resourceGenres = ["甲骨文", "金文", "石刻", "帛书"];
 const heroGenreViews = new Set([...resourceGenres, "🏺 汉代简牍"]);
-const bibliographyCategoryCodes = { "甲骨文":"oracle", "金文":"bronze", "石刻":"stone", "🏺 汉代简牍":"slips", "帛书":"silk" };
+const bibliographyCategoryCodes = Object.fromEntries(Object.entries(window.searchTaxonomy.categories).flatMap(([code, item]) => [item.label, ...item.aliases].map(label => [label, code])));
 const updateGenreDefinitions = {
   "甲骨文": { code:"oracle", label:"甲骨文", matches:["甲骨文", "甲骨"] },
   "金文": { code:"bronze", label:"金文", matches:["金文", "青铜器", "青銅器"] },
@@ -143,7 +143,7 @@ const academicUpdatesLastUpdatedValue = typeof window.academicUpdatesLastUpdated
 const linksLastChecked = "2026-08-20";
 const coreBibliographyData = Array.isArray(window.coreBibliography) ? window.coreBibliography : [];
 const researchHubsData = Array.isArray(window.researchHubs) ? window.researchHubs : [];
-const hubCategoryLabels = { oracle:"甲骨文", bronze:"金文", stone:"石刻", slips:"简牍", silk:"帛书" };
+const hubCategoryLabels = Object.fromEntries(Object.entries(window.searchTaxonomy.categories).map(([code, item]) => [code, item.label]));
 const hubDetail = document.querySelector("#hubDetail");
 const hubsToggle = document.querySelector("#hubsToggle");
 let hubsExpanded = false;
@@ -242,7 +242,7 @@ function resolveHubReferences(ids, index, kind) {
   });
 }
 function hubCategories(hub) {
-  return [...new Set([hub.category, ...(Array.isArray(hub.categories) ? hub.categories : [])])];
+  return [...new Set([hub.category, ...searchStrings(hub.categories)].map(searchCategoryCode).filter(Boolean))];
 }
 function availableHub(hub) {
   return ["active", "preparing"].includes(hub.status) && hubCategories(hub).some(code => hubCategoryLabels[code]);
@@ -272,7 +272,7 @@ function hubSectionTemplate(key, title, items, template, emptyText, limit = 4) {
   const expanded = hubExpandedSections.has(key);
   const content = items.length ? `<div class="hub-grid">${(expanded ? items : items.slice(0, limit)).map(template).join("")}</div>` : `<p class="hub-empty">${emptyText}</p>`;
   const toggle = items.length > limit ? `<button type="button" class="section-toggle" data-hub-expand="${key}" aria-expanded="${expanded}">${expanded ? "收起" : `展开更多（${items.length}）`}</button>` : "";
-  return `<section class="hub-section" data-hub-section="${key}" aria-labelledby="hub-${key}-title"><h3 id="hub-${key}-title">${title}</h3>${content}${toggle}</section>`;
+  return `<section class="hub-section${items.length ? "" : " hub-section-empty"}" data-hub-section="${key}" aria-labelledby="hub-${key}-title"><h3 id="hub-${key}-title">${title}</h3>${content}${toggle}</section>`;
 }
 function renderHubDetail() {
   const hub = hubsById.get(activeHubId);
@@ -280,7 +280,7 @@ function renderHubDetail() {
   const resources = resolveHubReferences(hub.resourceIds, hubResourcesById, "resource");
   const books = resolveHubReferences(hub.bibliographyIds, hubBooksById, "bibliography");
   const related = resolveHubReferences(hub.relatedHubIds, hubsById, "hub").filter(item => item.id !== hub.id && availableHub(item));
-  const returnLabel = hubReturnContext?.category === "全部" ? "返回首页" : "返回当前门类";
+  const returnLabel = searchSession ? "返回搜索结果" : hubReturnContext?.category === "全部" ? "返回首页" : "返回当前门类";
   hubDetail.innerHTML = `<button type="button" class="hub-back" data-hub-back>← ${returnLabel}</button><header class="hub-heading"><p class="section-kicker">RESEARCH HUB · ${escapeHtml(hubCategories(hub).map(code => hubCategoryLabels[code]).filter(Boolean).join(" / "))}</p><h2 id="hubTitle" tabindex="-1">${escapeHtml(hub.title)}</h2>${hub.subtitle ? `<p class="hub-subtitle">${escapeHtml(hub.subtitle)}</p>` : ""}<p>${escapeHtml(hub.description)}</p></header>`
     + hubSectionTemplate("resources", "核心资源", resources, siteCardTemplate, "核心资源整理中。")
     + hubSectionTemplate("bibliography", "核心工具书 / 基础书目", books, bibliographyCardTemplate, "核心书目整理中。")
@@ -305,6 +305,7 @@ function openResearchHub(id) {
   });
 }
 function dismissResearchHub(restore = false) {
+  if (restore && searchSession) { returnToSearchResults(); return; }
   cancelAnimationFrame(hubNavigationFrame);
   if (!activeHubId) return;
   const context = hubReturnContext;
@@ -331,7 +332,8 @@ function linkTemplate(site) { return isTodo(site) ? `<span class="visit-button i
 function keywordsTemplate(site) { return `<div class="keywords" aria-label="关键词">${site.keywords.map(word => `<span class="keyword">${escapeHtml(word)}</span>`).join("")}</div>`; }
 function coreCardTemplate(site, matchesDirection = false) { const matchText = researchObjectTags.has(activeDirectionTag) ? "匹配当前研究对象" : "匹配当前用途"; return `<article class="core-card ${site.priority ? "priority-core" : ""} ${matchesDirection ? "matches-direction" : ""}"><div class="core-meta">${matchesDirection ? `<span class="match-label">${matchText}</span>` : site.priority ? `<span class="priority-label">优先入口</span>` : `<span class="core-label">综合核心资源</span>`}<span class="category-badge">${escapeHtml(site.category)}</span></div><p class="institution">${escapeHtml(site.institution)}</p><h3>${escapeHtml(site.name)}</h3>${site.subtitle ? `<p class="core-subtitle">${escapeHtml(site.subtitle)}</p>` : ""}<p class="description">${escapeHtml(site.description)}</p><p class="fit-for"><strong>适合：</strong>${escapeHtml(site.fitFor)}</p>${keywordsTemplate(site)}${linkTemplate(site)}</article>`; }
 function resourceTagsTemplate(site) { return Array.isArray(site.resourceTags) && site.resourceTags.length ? `<div class="resource-tags" aria-label="资源类型">${site.resourceTags.map(tag => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""; }
-function siteCardTemplate(site) { return `<article class="site-card"><span class="category-badge">${escapeHtml(site.displayCategory || site.category)}</span>${activeResourceCategory === "帛书" && site.resourceGroup ? `<span class="resource-group-label">${escapeHtml(site.resourceGroup)}</span>` : ""}<h3>${escapeHtml(site.name)}</h3>${site.englishName ? `<p class="core-subtitle">${escapeHtml(site.englishName)}</p>` : ""}${site.institution ? `<p class="institution">${escapeHtml(site.institution)}</p>` : ""}${site.accessNote ? `<span class="access-note">${escapeHtml(site.accessNote)}</span>` : ""}${resourceTagsTemplate(site)}<p class="description">${escapeHtml(site.description)}</p>${keywordsTemplate(site)}${linkTemplate(site)}</article>`; }
+function siteCardTemplate(site) { return renderSiteCard(site, activeResourceCategory); }
+function renderSiteCard(site, resourceCategory) { return `<article class="site-card"><span class="category-badge">${escapeHtml(site.displayCategory || site.category)}</span>${resourceCategory === "帛书" && site.resourceGroup ? `<span class="resource-group-label">${escapeHtml(site.resourceGroup)}</span>` : ""}<h3>${escapeHtml(site.name)}</h3>${site.englishName ? `<p class="core-subtitle">${escapeHtml(site.englishName)}</p>` : ""}${site.institution ? `<p class="institution">${escapeHtml(site.institution)}</p>` : ""}${site.accessNote ? `<span class="access-note">${escapeHtml(site.accessNote)}</span>` : ""}${resourceTagsTemplate(site)}<p class="description">${escapeHtml(site.description)}</p>${keywordsTemplate(site)}${linkTemplate(site)}</article>`; }
 function bibliographyItemsFor(category) {
   if (category === "全部") return coreBibliographyData.filter(book => book.featured === true).slice(0, 4);
   const code = bibliographyCategoryCodes[category];
@@ -365,8 +367,17 @@ function renderBibliography() {
   bibliographyToggle.textContent = bibliographyExpanded ? "收起书目" : `展开全部书目（${allItems.length}）`;
   bibliographyToggle.setAttribute("aria-expanded", String(bibliographyExpanded));
 }
+// 控件重绘时保留键盘位置，不触发滚动；数据与筛选逻辑保持独立。
+function replaceControls(container, markup, attribute) {
+  const active = document.activeElement;
+  const value = container.contains?.(active) ? active?.getAttribute(attribute) : null;
+  container.innerHTML = markup;
+  if (value !== null) {
+    [...container.querySelectorAll('[' + attribute + ']')].find(button => button.getAttribute(attribute) === value)?.focus({ preventScroll:true });
+  }
+}
 function renderFilters() {
-  filters.innerHTML = categories.map(category => `<button class="filter-button ${category === activeCategory ? "is-active" : ""}" type="button" data-category="${category}" aria-current="${category === activeCategory ? "true" : "false"}">${category === "🏺 汉代简牍" ? "🏺 简牍" : category}</button>`).join("");
+  replaceControls(filters, categories.map(category => `<button class="filter-button ${category === activeCategory ? "is-active" : ""}" type="button" data-category="${category}" aria-current="${category === activeCategory ? "true" : "false"}">${category === "🏺 汉代简牍" ? "🏺 简牍" : category}</button>`).join(""), "data-category");
   document.querySelectorAll("[data-genre]").forEach(button => {
     const active = button.dataset.genre === activeCategory;
     button.classList.toggle("is-active", active);
@@ -376,12 +387,12 @@ function renderFilters() {
 }
 function renderDirectionTags() {
   const visibleTags = researchTagsExpanded ? directionTags : defaultResearchTags;
-  tagsContainer.innerHTML = visibleTags.map(tag => `<button class="research-tag ${tag === activeDirectionTag ? "is-active" : ""}" type="button" data-direction="${tag}">${tag}</button>`).join("");
+  replaceControls(tagsContainer, visibleTags.map(tag => `<button class="research-tag ${tag === activeDirectionTag ? "is-active" : ""}" type="button" data-direction="${tag}" aria-pressed="${tag === activeDirectionTag}">${tag}</button>`).join(""), "data-direction");
   researchTagsToggle.textContent = researchTagsExpanded ? "收起" : "更多研究方向";
   researchTagsToggle.setAttribute("aria-expanded", String(researchTagsExpanded));
 }
 function isSlipsUpdateCategory() { return activeCategory === "全部" || activeCategory === "🏺 汉代简牍"; }
-function renderUpdateFilters() { updateFilters.innerHTML = updateTypes.map(type => `<button class="update-filter ${type === activeUpdateType ? "is-active" : ""}" type="button" data-update-type="${type}">${type}</button>`).join(""); }
+function renderUpdateFilters() { replaceControls(updateFilters, updateTypes.map(type => `<button class="update-filter ${type === activeUpdateType ? "is-active" : ""}" type="button" data-update-type="${type}" aria-pressed="${type === activeUpdateType}">${type}</button>`).join(""), "data-update-type"); }
 function renderUpdateObjectFilters() {
   const visible = isSlipsUpdateCategory();
   updateObjectFilterGroup.hidden = !visible;
@@ -391,7 +402,7 @@ function renderUpdateObjectFilters() {
     updateObjectFilters.innerHTML = "";
     return;
   }
-  updateObjectFilters.innerHTML = updateObjects.map(object => `<button class="update-object-filter ${object === activeUpdateObject ? "is-active" : ""}" type="button" data-update-object="${object}">${object}</button>`).join("");
+  replaceControls(updateObjectFilters, updateObjects.map(object => `<button class="update-object-filter ${object === activeUpdateObject ? "is-active" : ""}" type="button" data-update-object="${object}" aria-pressed="${object === activeUpdateObject}">${object}</button>`).join(""), "data-update-object");
 }
 function renderUpdateView() {
   const showingLatest = activeUpdateView === "latest";
@@ -502,21 +513,21 @@ function validateAcademicUpdates() {
 
 function renderLatestUpdateDate() {
   const eventDates = academicUpdatesData
-    .map(update => parseUpdateDate(update.date))
+    .map(update => parseUpdateDate(update?.date))
     .filter(Boolean)
     .sort();
   const lastUpdated = academicUpdatesLastUpdatedValue || "暂无记录";
   const latestEvent = eventDates.length ? eventDates[eventDates.length - 1] : "暂无记录";
   latestUpdateDateElement.textContent = `数据更新：${lastUpdated} · 最近事件：${latestEvent}`;
 }
-function renderCommonSites() { commonSites.innerHTML = sites.filter(site => commonNames.includes(site.name)).map(site => { const isWechat = site.commonAction === "wechat"; const content = `<span>${escapeHtml(site.displayCategory || site.category)}</span><h3>${escapeHtml(site.name)} <small>${isWechat ? (wechatExpanded ? "↑" : "↓") : "↗"}</small></h3>${site.englishName ? `<p>${escapeHtml(site.englishName)}</p>` : ""}`; return isWechat ? `<button class="common-card common-action" type="button" data-common-action="wechat" aria-expanded="${wechatExpanded}">${content}</button>` : isTodo(site) ? `<div class="common-card">${content}</div>` : `<a class="common-card" href="${site.url}" target="_blank" rel="noopener noreferrer">${content}</a>`; }).join(""); }
+function renderCommonSites() { replaceControls(commonSites, sites.filter(site => commonNames.includes(site.name)).map(site => { const isWechat = site.commonAction === "wechat"; const content = `<span>${escapeHtml(site.displayCategory || site.category)}</span><h3>${escapeHtml(site.name)} <small>${isWechat ? (wechatExpanded ? "↑" : "↓") : "↗"}</small></h3>${site.englishName ? `<p>${escapeHtml(site.englishName)}</p>` : ""}`; return isWechat ? `<button class="common-card common-action" type="button" data-common-action="wechat" aria-expanded="${wechatExpanded}">${content}</button>` : isTodo(site) ? `<div class="common-card">${content}</div>` : `<a class="common-card" href="${site.url}" target="_blank" rel="noopener noreferrer">${content}</a>`; }).join(""), "data-common-action"); }
 function renderWechatPanel() {
   wechatPanel.hidden = !wechatExpanded;
   renderCommonSites();
 }
 function updateCardTemplate(update) {
   const link = update.sourceUrl ? `<a class="update-link" href="${update.sourceUrl}" target="_blank" rel="noopener noreferrer">查看原文 ↗</a>` : `<span class="update-link is-disabled">示例数据 · 暂无原文</span>`;
-  const objects = update.tags.filter(tag => updateObjects.includes(tag));
+  const objects = searchStrings(update.tags).filter(tag => updateObjects.includes(tag));
   const objectTags = objects.length ? `<div class="update-object-list">${objects.map(object => `<span>${escapeHtml(object)}</span>`).join("")}</div>` : "";
   const historyLabel = update.historical === true ? `<span class="historical-label">历史补录</span>` : "";
   return `<article class="update-card"><div class="update-top"><span class="update-type">${escapeHtml(update.type)}</span><span class="update-labels">${historyLabel}${update.example ? `<span class="example-label">示例数据</span>` : ""}</span></div><h3>${escapeHtml(update.title)}</h3><p class="update-meta">来源：${escapeHtml(update.source)}<br>时间：${escapeHtml(update.date)}</p>${objectTags}<p class="update-summary">${escapeHtml(update.summary)}</p>${link}</article>`;
@@ -527,11 +538,12 @@ function renderUpdates() {
   if (!objectFilterVisible) activeUpdateObject = "全部简牍";
   const query = updateSearchIgnored ? "" : searchInput.value.trim().toLowerCase();
   const definition = updateGenreDefinitions[activeCategory];
-  const genreUpdates = definition ? academicUpdatesData.filter(update => updateMatchesGenre(update, definition)) : academicUpdatesData;
+  const validUpdates = academicUpdatesData.filter(update => update && typeof update === "object");
+  const genreUpdates = definition ? validUpdates.filter(update => updateMatchesGenre(update, definition)) : validUpdates;
   const filteredUpdates = genreUpdates.filter(update => {
     const typeMatches = activeUpdateType === "全部" || update.type === activeUpdateType;
     const objectMatches = !objectFilterVisible || activeUpdateObject === "全部简牍" || (Array.isArray(update.tags) && update.tags.includes(activeUpdateObject)) || (Array.isArray(update.topics) && update.topics.includes(activeUpdateObject));
-    const searchable = [update.title, update.type, update.source, update.summary, ...(update.tags || []), ...(update.topics || [])].join(" ").toLowerCase();
+    const searchable = [update.title, update.type, update.source, update.summary, ...searchStrings(update.tags), ...searchStrings(update.topics)].join(" ").toLowerCase();
     return typeMatches && objectMatches && searchable.includes(query);
   });
   const hasExplicitFilter = activeUpdateType !== "全部" || (objectFilterVisible && activeUpdateObject !== "全部简牍");
@@ -630,6 +642,7 @@ function applyCategoryVisibility(hasCoreResources = coreGrid.childElementCount >
   resourcesSection.hidden = activeCategory === "🏺 汉代简牍" || activeCategory === "🎓 学术会议";
 }
 function activateCategory(category) {
+  if (searchSession) exitUnifiedSearch(false);
   dismissResearchHub();
   hubsExpanded = false;
   activeCategory = category;
@@ -707,24 +720,315 @@ function activateCategory(category) {
   renderBibliography();
   renderFilters();
 }
+// 全站检索：白名单字段建立一次运行时索引，原始内容仍由各数据源维护。
+const searchTypeLabels = { hub:"研究专题", resource:"学术资源", bibliography:"核心书目", paper:"经典论文 / 研究史", update:"学术动态" };
+const searchGroupLimit = 4;
+const searchFields = new WeakMap();
+const searchResults = document.querySelector("#unifiedSearchResults");
+let searchSession = null;
+let searchQuery = "";
+let searchExpandedGroups = new Set();
+let searchResultScroll = 0;
+let searchFrame = 0;
+let searchComposing = false;
+
+function searchStrings(value) { return Array.isArray(value) ? value.filter(item => typeof item === "string") : []; }
+function normalizeSearch(value) {
+  return String(value ?? "").normalize("NFKC").toLowerCase()
+    .replace(/./gu, char => window.searchTaxonomy.characters[char] || char)
+    .replace(/[\p{P}\p{S}\s]/gu, "");
+}
+function searchCategoryCode(value) {
+  if (typeof value !== "string") return "";
+  const term = normalizeSearch(value);
+  return Object.keys(window.searchTaxonomy.categories).find(code => code === value ||
+    window.searchTaxonomy.categories[code].aliases.some(alias => normalizeSearch(alias) === term)) || "";
+}
+function buildSearchCatalog(sources = { resource:sites, hub:researchHubsData, bibliography:coreBibliographyData, paper:window.classicPapers || [], update:academicUpdatesData }) {
+  const maps = {}, warnings = [], references = new Map(), relatedResources = new Map();
+  const warn = message => { if (!warnings.includes(message)) warnings.push(message); };
+  for (const type of Object.keys(searchTypeLabels)) {
+    maps[type] = new Map();
+    if (!Array.isArray(sources[type])) { warn(`${type}: 数据必须为数组`); continue; }
+    if (type === "paper" && !arguments.length) {
+      // 默认数据已经过原有论文校验：复用有效集合，不重复报告同一问题。
+      const validIds = new Set(classicPaperCatalog.papers.map(paper => paper.id));
+      for (const item of sources.paper) if (item && validIds.has(item.id) && !maps.paper.has(item.id)) maps.paper.set(item.id, item);
+      continue;
+    }
+    for (const item of sources[type]) {
+      if (!item || typeof item.id !== "string" || !/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(item.id)) { warn(`${type}: 缺少合法稳定 id`); continue; }
+      if (maps[type].has(item.id)) { warn(`${type}: 重复 id ${item.id}`); continue; }
+      const title = type === "resource" ? item.name : item.title;
+      if (typeof title !== "string" || !title.trim()) { warn(`${type}:${item.id}: 标题为空`); continue; }
+      maps[type].set(item.id, item);
+    }
+  }
+  // 延用论文原有校验；索引仍引用原始对象，不将内部字段序列化进检索文本。
+  const papers = arguments.length ? validateClassicPapers([...maps.paper.values()], maps.hub) : classicPaperCatalog;
+  if (arguments.length) papers.warnings.forEach(message => warn(`paper: ${message}`));
+  const validPaperIds = new Set(papers.papers.map(item => item.id));
+  for (const id of maps.paper.keys()) if (!validPaperIds.has(id)) maps.paper.delete(id);
+  const arrayField = (item, field, type, optional = false) => {
+    if (optional && item[field] === undefined) return [];
+    if (!Array.isArray(item[field]) || item[field].some(value => typeof value !== "string" || !value.trim())) warn(`${type}:${item.id}: ${field} 必须为字符串数组`);
+    return searchStrings(item[field]).filter(value => value.trim());
+  };
+  const resolve = (item, field, target, type) => [...new Set(arrayField(item, field, type))].flatMap(id => {
+    if (maps[target].has(id) && !(target === type && id === item.id)) return [maps[target].get(id)];
+    warn(`${type}:${item.id}: ${field} 无效引用 ${id}`); return [];
+  });
+  for (const hub of maps.hub.values()) {
+    if (!searchCategoryCode(hub.category)) warn(`hub:${hub.id}: category 不合法`);
+    if (hub.categories !== undefined) arrayField(hub, "categories", "hub").forEach(code => { if (!searchCategoryCode(code)) warn(`hub:${hub.id}: categories 不合法 ${code}`); });
+    arrayField(hub, "updateTags", "hub");
+    references.set(hub.id, {
+      resources:resolve(hub, "resourceIds", "resource", "hub"),
+      books:resolve(hub, "bibliographyIds", "bibliography", "hub"),
+      hubs:resolve(hub, "relatedHubIds", "hub", "hub")
+    });
+  }
+  for (const type of ["bibliography", "paper"]) for (const item of maps[type].values()) {
+    const codes = arrayField(item, "categories", type);
+    if (!codes.length || codes.some(code => !searchCategoryCode(code))) warn(`${type}:${item.id}: categories 不合法`);
+  }
+  const names = new Map(), urls = new Map();
+  for (const site of maps.resource.values()) {
+    const name = normalizeSearch(site.name);
+    if (!names.has(name)) names.set(name, []);
+    names.get(name).push(site);
+    if (site.url && site.url !== "TODO") {
+      try {
+        const url = new URL(site.url); url.hash = "";
+        const key = url.href.replace(/\/$/, "");
+        if (!urls.has(key)) urls.set(key, []);
+        urls.get(key).push(site);
+      } catch { warn(`resource:${site.id}: URL 不合法`); }
+    }
+  }
+  for (const list of names.values()) if (list.length > 1) warn(`resource: 名称疑似重复 ${list.map(item => item.id).join(", ")}`);
+  for (const list of urls.values()) if (list.length > 1) warn(`resource: URL shared by ${list.map(item => item.id).join(", ")}`);
+  function resolveResource(value) {
+    if (maps.resource.has(value)) return maps.resource.get(value);
+    // 历史名称精确匹配；同名歧义不猜测、不自动合并。
+    const matches = [...maps.resource.values()].filter(site => site.name === value);
+    return matches.length === 1 ? matches[0] : null;
+  }
+  for (const update of maps.update.values()) {
+    arrayField(update, "tags", "update");
+    arrayField(update, "topics", "update", true);
+    const resolved = arrayField(update, "relatedResources", "update", true).flatMap(value => {
+      const site = resolveResource(value);
+      if (site) return [site];
+      warn(`update:${update.id}: relatedResources 无效或歧义 ${value}`); return [];
+    });
+    relatedResources.set(update.id, [...new Map(resolved.map(site => [site.id, site])).values()]);
+  }
+  const entries = [];
+  for (const type of Object.keys(searchTypeLabels)) for (const source of maps[type].values()) {
+    if (type === "hub" && !availableHub(source)) continue;
+    if (type === "update" && source.example) continue;
+    const title = type === "resource" ? source.name : source.title;
+    let titleOther = [], people = [], tags = [], body = [], codes = [];
+    if (type === "hub") {
+      titleOther = [source.subtitle]; tags = searchStrings(source.updateTags); body = [source.description];
+      codes = [source.category, ...searchStrings(source.categories)];
+    } else if (type === "resource") {
+      titleOther = [source.englishName, source.subtitle]; people = [source.institution];
+      tags = [source.category, source.displayCategory, ...searchStrings(source.keywords), ...searchStrings(source.researchTags), ...searchStrings(source.resourceTags)];
+      body = [source.description, source.fitFor]; codes = [source.category, ...searchStrings(source.resourceCategories)];
+      for (const hub of maps.hub.values()) if (references.get(hub.id)?.resources.includes(source)) codes.push(hub.category);
+    } else if (type === "bibliography") {
+      people = [source.author]; tags = [source.type, ...searchStrings(source.useFor)]; body = [source.note]; codes = searchStrings(source.categories);
+    } else if (type === "paper") {
+      people = [source.author]; tags = [source.type, source.journal, source.year]; body = [source.note]; codes = searchStrings(source.categories);
+      for (const id of searchStrings(source.hubIds)) {
+        const hub = maps.hub.get(id);
+        if (hub) tags.push(hub.title, ...(window.searchTaxonomy.objects[id] || []));
+      }
+    } else {
+      people = [source.source]; tags = [source.type, ...searchStrings(source.tags), ...searchStrings(source.topics)]; body = [source.summary];
+      codes = [source.category, ...searchStrings(source.categories)];
+      for (const hub of maps.hub.values()) if (searchStrings(hub.updateTags).some(tag => [...searchStrings(source.tags), ...searchStrings(source.topics)].includes(tag))) codes.push(hub.category);
+      for (const tag of tags) {
+        const code = searchCategoryCode(tag);
+        if (code) codes.push(code);
+        // 仅使用明确的材料标签，不从标题、摘要或机构名称推断门类。
+        if (/汉简|漢簡|简牍|簡牘|清华简|清華簡/.test(tag)) codes.push("slips");
+      }
+    }
+    const categories = [...new Set(codes.map(searchCategoryCode).filter(Boolean))];
+    if (!categories.length) categories.push("general");
+    const aliases = [...searchStrings(source.aliases)];
+    const objectText = [title, ...tags].map(normalizeSearch);
+    for (const [hubId, terms] of Object.entries(window.searchTaxonomy.objects)) {
+      if ((type === "hub" && source.id === hubId) || objectText.some(text => terms.some(term => text.includes(normalizeSearch(term))))) aliases.push(...terms);
+    }
+    // 门类别名是完整词匹配，绝不将“简”在查询字符串中全局替换。
+    for (const code of categories) aliases.push(...window.searchTaxonomy.categories[code].aliases);
+    tags.push(...categories.map(code => hubCategoryLabels[code]));
+    const fields = {
+      title:normalizeSearch(title), titles:titleOther.filter(Boolean).map(normalizeSearch),
+      aliases:[...new Set(aliases.map(normalizeSearch))], people:people.filter(Boolean).map(normalizeSearch),
+      tags:tags.filter(Boolean).map(normalizeSearch), body:body.filter(Boolean).map(normalizeSearch)
+    };
+    const entry = { type, id:source.id, title, searchableText:[fields.title, ...fields.titles, ...fields.aliases, ...fields.people, ...fields.tags, ...fields.body].join(" "), categories, source };
+    searchFields.set(entry, fields); entries.push(entry);
+  }
+  return { entries, maps, warnings, references, relatedResources, resolveResource };
+}
+const unifiedSearchCatalog = buildSearchCatalog();
+unifiedSearchCatalog.warnings.forEach(message => console.warn(`Search data: ${message}`));
+
+function searchUnified(query, catalog = unifiedSearchCatalog) {
+  const term = normalizeSearch(query);
+  if (!term) return [];
+  const hits = new Map();
+  catalog.entries.forEach((entry, order) => {
+    const fields = searchFields.get(entry);
+    let rank = 0;
+    if (fields.title === term || fields.titles.includes(term)) rank = 6;
+    else if ([fields.title, ...fields.titles].some(text => text.includes(term))) rank = 5;
+    else if (fields.aliases.includes(term)) rank = 4;
+    else if (fields.people.some(text => text.includes(term))) rank = 3;
+    else if (fields.tags.some(text => text.includes(term))) rank = 2;
+    else if (fields.body.some(text => text.includes(term))) rank = 1;
+    if (!rank) return;
+    const key = `${entry.type}:${entry.id}`;
+    const previous = hits.get(key);
+    if (!previous || rank > previous.rank) hits.set(key, { entry, rank, order });
+  });
+  return [...hits.values()].sort((a, b) => b.rank - a.rank || a.order - b.order).map(hit => hit.entry);
+}
+function searchCardTemplate(entry) {
+  const item = entry.source;
+  const meta = `<div class="search-result-meta"><span>${searchTypeLabels[entry.type]}</span>${entry.categories.map(code => `<span>${hubCategoryLabels[code]}</span>`).join("")}</div>`;
+  let card;
+  if (entry.type === "hub") card = hubCardTemplate(item);
+  else if (entry.type === "bibliography") card = bibliographyCardTemplate(item);
+  else if (entry.type === "paper") card = classicPaperCardTemplate(item);
+  else if (entry.type === "update") card = updateCardTemplate({ ...item, tags:searchStrings(item.tags) });
+  else if (item.commonAction === "wechat") card = `<article class="site-card"><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.description)}</p><button type="button" class="search-action" data-search-wechat>展开学术公众号</button></article>`;
+  else card = renderSiteCard(item, "");
+  return `<div class="search-result" data-search-type="${entry.type}" data-search-id="${escapeHtml(entry.id)}">${meta}${card}</div>`;
+}
+function renderUnifiedSearch() {
+  const items = searchUnified(searchQuery);
+  const groups = Object.entries(searchTypeLabels).map(([type, label]) => {
+    const group = items.filter(item => item.type === type);
+    if (!group.length) return "";
+    const expanded = searchExpandedGroups.has(type);
+    return `<section class="search-result-group" aria-labelledby="search-group-${type}"><h3 id="search-group-${type}">${label} <span>（${group.length}）</span></h3><div class="search-result-grid">${(expanded ? group : group.slice(0, searchGroupLimit)).map(searchCardTemplate).join("")}</div>${group.length > searchGroupLimit ? `<button type="button" class="section-toggle" data-search-expand="${type}" aria-expanded="${expanded}">${expanded ? "收起" : `展开更多（${group.length}）`}</button>` : ""}</section>`;
+  }).join("");
+  searchResults.innerHTML = `<div class="search-results-heading"><div><p class="section-kicker">全站学术检索</p><h2 id="unifiedSearchTitle">搜索：“${escapeHtml(searchQuery)}”</h2><p role="status" aria-live="polite">找到 ${items.length} 项相关内容</p></div><button class="search-action" type="button" data-search-exit>退出搜索 · 返回原位置</button></div>${groups || `<div class="search-empty"><p>未找到与“${escapeHtml(searchQuery)}”相关的内容。</p><p>尝试使用研究对象、材料名称、作者或机构名称搜索。</p></div>`}`;
+  searchResults.hidden = false;
+}
+function searchBrowseSections() { return [updatesSection, coreSection, commonSection, resourcesSection, bibliographySection, hubDetail, document.querySelector(".filters")]; }
+function captureSearchContext() {
+  return {
+    activeCategory, activeResourceCategory, activeDirectionTag, activeUpdateType, activeUpdateObject, activeUpdateView,
+    updatesExpanded, researchTagsExpanded, sitesExpanded, topicSelectionActive, updateSearchIgnored, wechatExpanded,
+    bibliographyExpanded, hubsExpanded, activeHubId, hubReturnContext:hubReturnContext ? { ...hubReturnContext } : null,
+    hubExpandedSections:new Set(hubExpandedSections), scrollY:window.scrollY,
+    hidden:searchBrowseSections().map(section => section.hidden),
+    hubHTML:hubDetail.innerHTML, homeHidden:returnHomeButton.hidden
+  };
+}
+function updateUnifiedSearch() {
+  const query = searchInput.value.trim();
+  if (!query) { exitUnifiedSearch(); return; }
+  // 搜索期间改词、进入结果专题及返回均不能覆盖首次浏览快照。
+  if (!searchSession) searchSession = captureSearchContext();
+  cancelAnimationFrame(hubNavigationFrame);
+  cancelAnimationFrame(searchFrame);
+  if (query !== searchQuery) searchExpandedGroups.clear();
+  searchQuery = query;
+  searchBrowseSections().forEach(section => { section.hidden = true; });
+  returnHomeButton.hidden = true;
+  renderUnifiedSearch();
+}
+function exitUnifiedSearch(restoreScroll = true) {
+  if (!searchSession) { searchInput.value = ""; return; }
+  const original = searchSession;
+  cancelAnimationFrame(hubNavigationFrame);
+  cancelAnimationFrame(searchFrame);
+  ({ activeCategory, activeResourceCategory, activeDirectionTag, activeUpdateType, activeUpdateObject, activeUpdateView,
+    updatesExpanded, researchTagsExpanded, sitesExpanded, topicSelectionActive, updateSearchIgnored, wechatExpanded,
+    bibliographyExpanded, hubsExpanded, activeHubId, hubReturnContext } = original);
+  hubExpandedSections = new Set(original.hubExpandedSections);
+  hubDetail.innerHTML = original.hubHTML;
+  searchBrowseSections().forEach((section, index) => { section.hidden = original.hidden[index]; });
+  returnHomeButton.hidden = original.homeHidden;
+  // 内部公众号操作可能临时更新了共用容器。
+  renderWechatPanel();
+  searchResults.hidden = true;
+  searchResults.innerHTML = "";
+  searchSession = null; searchQuery = ""; searchExpandedGroups.clear(); searchInput.value = "";
+  searchInput.focus({ preventScroll:true });
+  if (restoreScroll) searchFrame = requestAnimationFrame(() => window.scrollTo({ top:original.scrollY, behavior:"instant" }));
+}
+let searchResultHubId = "";
+function openSearchHub(id) {
+  if (!searchSession) return;
+  if (!hubsById.has(id) || !availableHub(hubsById.get(id))) { hubWarning(`hub: 无法打开 ${id}`); return; }
+  searchResultScroll = window.scrollY;
+  searchResultHubId = id;
+  searchResults.hidden = true;
+  openResearchHub(id);
+}
+function returnToSearchResults() {
+  if (!searchSession) return;
+  cancelAnimationFrame(hubNavigationFrame);
+  cancelAnimationFrame(searchFrame);
+  searchBrowseSections().forEach(section => { section.hidden = true; });
+  renderUnifiedSearch();
+  searchFrame = requestAnimationFrame(() => {
+    [...searchResults.querySelectorAll('[data-research-topic]')].find(button => button.dataset.researchTopic === searchResultHubId)?.focus({ preventScroll:true });
+    window.scrollTo({ top:searchResultScroll, behavior:"instant" });
+  });
+}
+searchResults.addEventListener("click", event => {
+  if (event.target.closest("[data-search-exit]")) { exitUnifiedSearch(); return; }
+  const hub = event.target.closest("[data-research-topic]");
+  if (hub) { openSearchHub(hub.dataset.researchTopic); return; }
+  if (event.target.closest("[data-search-wechat]")) {
+    wechatExpanded = true;
+    renderWechatPanel(); commonSection.hidden = false;
+    commonSection.querySelector("#wechat-title")?.scrollIntoView({ block:"center", behavior:"instant" });
+    return;
+  }
+  const toggle = event.target.closest("[data-search-expand]");
+  if (!toggle) return;
+  const type = toggle.dataset.searchExpand;
+  const sectionTop = toggle.closest(".search-result-group").getBoundingClientRect().top + window.scrollY;
+  if (searchExpandedGroups.has(type)) searchExpandedGroups.delete(type); else searchExpandedGroups.add(type);
+  renderUnifiedSearch();
+  searchResults.querySelector(`[data-search-expand="${type}"]`)?.focus({ preventScroll:true });
+  if (!searchExpandedGroups.has(type) && window.scrollY > sectionTop) window.scrollTo({ top:sectionTop - 16, behavior:"instant" });
+});
+
 filters.addEventListener("click", event => { const button = event.target.closest("[data-category]"); if (!button) return; activateCategory(button.dataset.category); });
 returnHomeButton.addEventListener("click", () => {
+  if (searchSession) exitUnifiedSearch(false);
   searchInput.value = "";
   updateSearchIgnored = false;
   updatesExpanded = false;
   researchTagsExpanded = false;
   sitesExpanded = false;
   activateCategory("全部");
+  filters.querySelector("[data-category]")?.focus({ preventScroll:true });
 });
 document.querySelector(".seal-line").addEventListener("click", event => {
   const button = event.target.closest("[data-genre]");
   if (!button) return;
   // Explicit genre navigation starts from that genre's complete resource view.
+  if (searchSession) exitUnifiedSearch(false);
   searchInput.value = "";
   updateSearchIgnored = false;
   activeDirectionTag = "";
   renderDirectionTags();
   activateCategory(button.dataset.genre);
+  button.focus({ preventScroll:true });
 });
 tagsContainer.addEventListener("click", event => { const button = event.target.closest("[data-direction]"); if (!button) return; activeDirectionTag = activeDirectionTag === button.dataset.direction ? "" : button.dataset.direction; renderDirectionTags(); renderSites(); });
 clearResourceFilter.addEventListener("click", () => { activeDirectionTag = ""; renderDirectionTags(); renderSites(); tagsContainer.querySelector("[data-direction]")?.focus(); });
@@ -793,8 +1097,11 @@ sitesToggle.addEventListener("click", () => { sitesExpanded = !sitesExpanded; re
 bibliographyToggle.addEventListener("click", () => { bibliographyExpanded = !bibliographyExpanded; renderBibliography(); });
 commonSites.addEventListener("click", event => { const button = event.target.closest("[data-common-action='wechat']"); if (!button) return; wechatExpanded = !wechatExpanded; renderWechatPanel(); });
 wechatCollapse.addEventListener("click", () => { wechatExpanded = false; renderWechatPanel(); commonSites.querySelector("[data-common-action='wechat']")?.focus(); });
-searchInput.addEventListener("input", () => { dismissResearchHub(); updateSearchIgnored = false; if (searchInput.value.trim()) { activeCategory = "全部"; activeResourceCategory = "全部"; activeUpdateView = "latest"; topicSelectionActive = false; bibliographyExpanded = false; renderFilters(); renderUpdateView(); } renderResearchTopics(); renderSites(); renderUpdates(); renderBibliography(); });
-document.querySelector("#clearSearch").addEventListener("click", () => { dismissResearchHub(); searchInput.value = ""; activeDirectionTag = ""; renderDirectionTags(); searchInput.focus(); renderSites(); renderUpdates(); renderBibliography(); });
+searchInput.addEventListener("compositionstart", () => { searchComposing = true; });
+searchInput.addEventListener("compositionend", () => { searchComposing = false; updateUnifiedSearch(); });
+searchInput.addEventListener("input", () => { if (!searchComposing) updateUnifiedSearch(); });
+searchInput.addEventListener("keydown", event => { if (event.key === "Escape" && !searchComposing) { event.preventDefault(); exitUnifiedSearch(); } });
+document.querySelector("#clearSearch").addEventListener("click", () => { exitUnifiedSearch(); searchInput.focus({ preventScroll:true }); });
 validateAcademicUpdates();
 if (linksLastCheckedElement) linksLastCheckedElement.textContent = linksLastChecked;
 renderFilters(); renderDirectionTags(); renderUpdateFilters(); renderUpdateObjectFilters(); renderResearchTopics(); renderUpdateView(); renderLatestUpdateDate(); renderWechatPanel(); renderUpdates(); renderSites(); renderBibliography();

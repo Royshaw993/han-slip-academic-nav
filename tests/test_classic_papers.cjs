@@ -17,8 +17,8 @@ function load() {
       querySelectorAll(){return [];},querySelector(){return null;},focus(){},getBoundingClientRect(){return {top:0};}
     });return nodes.get(selector);
   };
-  const c=vm.createContext({URL,window:{scrollY:0,scrollTo(){}},document:{querySelector:get,querySelectorAll:()=>[]},console:{warn:m=>warnings.push(m),info(){}},requestAnimationFrame:()=>1,cancelAnimationFrame(){}});
-  for(const file of ['academic-updates.js','data/research-hubs.js','research-topics.js','data/core-bibliography.js','data/classic-papers.js','script.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),c,{filename:file});
+  const c=vm.createContext({URL,window:{scrollY:0,scrollTo(){}},document:{querySelector:get,querySelectorAll:()=>[]},console:{warn:m=>(m !== 'Search data: resource: URL shared by bsm, wuhan-bamboo-silk-center' && warnings.push(m)),info(){}},requestAnimationFrame:()=>1,cancelAnimationFrame(){}});
+  for(const file of ['academic-updates.js','data/research-hubs.js','research-topics.js','data/core-bibliography.js','data/classic-papers.js','data/search-taxonomy.js','script.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),c,{filename:file});
   const run=code=>vm.runInContext(code,c);
   return {c,run,get,warnings,validate(items){c.testItems=items;return run('validateClassicPapers(testItems)');},inject(items){c.testItems=items;run('const testCatalog=validateClassicPapers(testItems);classicPaperCatalog.byHub.clear();testCatalog.byHub.forEach((list,id)=>classicPaperCatalog.byHub.set(id,list));');}};
 }

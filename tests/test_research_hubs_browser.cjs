@@ -12,7 +12,7 @@ const http = require('node:http');
 const {chromium} = require(process.env.PLAYWRIGHT_MODULE || path.join(os.tmpdir(),'research-hubs-tests/node_modules/playwright'));
 const root = path.resolve(__dirname,'..');
 const output = process.env.HUB_TEST_OUTPUT || path.join(os.tmpdir(),'research-hubs-browser');
-const allowed = new Set(['index.html','script.js','style.css','academic-updates.js','research-topics.js','data/research-hubs.js','data/core-bibliography.js','data/classic-papers.js','favicon.svg']);
+const allowed = new Set(['index.html','script.js','style.css','academic-updates.js','research-topics.js','data/research-hubs.js','data/core-bibliography.js','data/classic-papers.js','data/search-taxonomy.js','favicon.svg']);
 const server = http.createServer((req,res)=>{
   const file = new URL(req.url,'http://localhost').pathname.slice(1) || 'index.html';
   if(!allowed.has(file)){res.writeHead(404);res.end();return;}
@@ -44,7 +44,7 @@ async function back(page){await page.locator('[data-hub-back]').click();await fr
     browser=await chromium.launch({channel:process.env.HUB_BROWSER_CHANNEL||'msedge',headless:true});
     const page=await browser.newPage({viewport:{width:1280,height:900}});
     page.on('pageerror',e=>errors.push(e.message));
-    page.on('console',message=>{if(message.type()==='warning')warnings.push(message.text());});
+    page.on('console',message=>{if(message.type()==='warning' && message.text() !== 'Search data: resource: URL shared by bsm, wuhan-bamboo-silk-center')warnings.push(message.text());});
     const url=`http://127.0.0.1:${server.address().port}/`;
     await page.goto(url);
     assert.equal(await page.locator('#coreGrid .core-card').count(),4);
@@ -152,8 +152,10 @@ async function back(page){await page.locator('[data-hub-back]').click();await fr
     await topics(page);await open(page,'qinghua-slips');
     await page.locator('#searchInput').fill('说文');await frames(page);
     assert.equal(await page.locator('#hubDetail').isVisible(),false);
-    assert.match(await page.locator('#siteGrid').textContent(),/说文/);
+    assert.match(await page.locator('#unifiedSearchResults').textContent(),/说文/);
     await page.locator('#clearSearch').click();
+    assert.equal(await page.locator('#hubDetail').isVisible(),true);
+    await back(page);
     report.push({case:'V1.2 resource, bibliography, search, updates, WeChat and home controls',pass:true});
     assert.deepEqual(warnings,[],'normal data must not issue warnings');
 

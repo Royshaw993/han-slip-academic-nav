@@ -1,4 +1,31 @@
 :root { --paper:#f5f0e5; --paper-light:#fcfaf4; --ink:#25221e; --ink-soft:#656057; --line:#d7cdbc; --vermilion:#8e3028; --vermilion-deep:#6e211c; --gold:#a47b47; --gold-pale:#e4d4b8; --shadow:0 14px 35px rgba(54,42,28,.09); }
+/* 全站检索：复用原有卡片，独立分组与原地返回。 */
+.unified-search[hidden] { display:none; }
+.unified-search { min-width:0; margin:28px 0 42px; }
+.search-results-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; padding:22px 0; border-block:1px solid var(--line); }
+.search-results-heading > div { min-width:0; }
+.search-results-heading h2,.search-empty { overflow-wrap:anywhere; }
+.search-results-heading p[role="status"] { margin:10px 0 0; color:var(--ink-soft); }
+.search-result-group { min-width:0; margin-top:28px; }
+.search-result-group > h3 { margin:0 0 14px; color:var(--vermilion); overflow-wrap:anywhere; }
+.search-result-group > h3 span { font-size:.8rem; font-weight:normal; }
+.search-result-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.search-result { min-width:0; display:flex; flex-direction:column; overflow-wrap:anywhere; }
+.search-result > article { flex:1; min-width:0; min-height:0; }
+.search-result-meta { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:7px; font-size:.72rem; color:var(--ink-soft); }
+.search-result-meta span { padding:2px 7px; background:#eee7da; }
+.search-action { min-height:44px; max-width:100%; padding:8px 14px; border:1px solid var(--line); border-radius:4px; background:var(--paper-light); color:var(--vermilion); white-space:normal; overflow-wrap:anywhere; }
+.search-action:focus-visible,.search-box button:focus-visible { outline:3px solid var(--vermilion); outline-offset:2px; }
+.search-empty { padding:26px 18px; margin-top:20px; border:1px dashed var(--line); color:var(--ink-soft); }
+.search-empty p:last-child { margin-bottom:0; }
+@media (max-width:560px) {
+  .search-results-heading { flex-direction:column; gap:12px; }
+  .search-result-grid { grid-template-columns:1fr; }
+  .search-result-group > h3 { font-size:1.05rem; }
+  .search-box { min-width:0; }
+  .search-box button { flex:none; min-height:40px; }
+  .unified-search .section-toggle { min-height:44px; max-width:100%; white-space:normal; }
+}
 /* Research Hubs：复用现有卡片，只补充详情容器与窄屏约束。 */
 .hub-detail[hidden], .section-toggle[hidden] { display:none; }
 .hub-detail { min-width:0; margin:0 0 42px; padding:28px 30px; border-top:3px solid var(--gold); background:rgba(252,250,244,.7); }
@@ -7,7 +34,7 @@
 .hub-heading > p:not(.section-kicker) { margin-bottom:8px; color:var(--ink-soft); }
 .hub-subtitle { font-family:Georgia,serif; font-size:.85rem; }
 .hub-back { max-width:100%; min-height:44px; padding:7px 14px; border:1px solid var(--line); border-radius:4px; color:var(--vermilion); background:var(--paper-light); white-space:normal; }
-.hub-back:focus-visible { outline:3px solid rgba(142,48,40,.28); outline-offset:2px; }
+.hub-back:focus-visible { outline:3px solid var(--vermilion); outline-offset:2px; }
 .hub-section { min-width:0; padding:22px 0; border-top:1px solid var(--line); }
 .hub-section > h3 { margin:0 0 16px; color:var(--vermilion); font-size:1.08rem; }
 .hub-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
@@ -18,7 +45,7 @@
 .classic-paper-card p { margin:0; }
 .classic-paper-link { align-self:flex-start; max-width:100%; min-height:44px; margin-top:auto; padding:8px 0; color:var(--vermilion); font-size:.8rem; overflow-wrap:anywhere; }
 .classic-paper-link:hover { text-decoration:underline; }
-.classic-paper-link:focus-visible { outline:3px solid rgba(142,48,40,.28); outline-offset:2px; }
+.classic-paper-link:focus-visible { outline:3px solid var(--vermilion); outline-offset:2px; }
 .research-topic-card { min-width:0; overflow-wrap:anywhere; }
 .research-topic-card .topic-button { min-height:44px; max-width:100%; text-align:left; }
 @media (max-width:560px) {
@@ -158,7 +185,7 @@ footer p:last-child { color:#cdbda8; }
 @media (max-width:560px) { .bibliography-section { margin-bottom:36px; padding-top:23px; }.bibliography-grid { grid-template-columns:1fr; }.bibliography-heading { align-items:flex-start; flex-direction:column; gap:8px; }.bibliography-heading > p { text-align:left; }.bibliography-card { padding:16px; } }
 
 /* V1.1D：栏目导航、筛选结果优先与综合资源保底 */
-.filter-button:focus-visible,.research-tag:focus-visible,.update-filter:focus-visible,.update-object-filter:focus-visible,.update-view-tab:focus-visible,.topic-button:focus-visible,.section-toggle:focus-visible,.update-filter-status button:focus-visible,.resource-filter-status button:focus-visible,.common-card:focus-visible,.wechat-panel-heading button:focus-visible { outline:3px solid rgba(142,48,40,.28); outline-offset:2px; }
+.filter-button:focus-visible,.research-tag:focus-visible,.update-filter:focus-visible,.update-object-filter:focus-visible,.update-view-tab:focus-visible,.topic-button:focus-visible,.section-toggle:focus-visible,.update-filter-status button:focus-visible,.resource-filter-status button:focus-visible,.common-card:focus-visible,.wechat-panel-heading button:focus-visible { outline:3px solid var(--vermilion); outline-offset:2px; }
 .category-feedback { margin:12px 2px 0; color:#806542; font-size:.76rem; }
 .update-view-tabs { display:flex; gap:8px; margin:20px 0 4px; padding-bottom:13px; border-bottom:1px solid var(--line); }
 .update-view-tab { min-width:112px; min-height:39px; padding:7px 16px; border:1px solid #c9b18e; color:#684c35; background:rgba(255,253,247,.7); font-size:.8rem; }
@@ -235,4 +262,60 @@ footer p:last-child { color:#cdbda8; }
   .wechat-panel-heading { align-items:flex-start; flex-direction:column; }
   .wechat-panel-heading button { min-height:42px; }
   .wechat-card { padding:16px; }
+}
+
+/* 第一轮 UI/UX：可访问性、阅读字号与内容优先的窄屏节奏。 */
+a:focus-visible,button:focus-visible,input:focus-visible { outline:3px solid var(--vermilion); outline-offset:3px; }
+.hero a:focus-visible,.hero button:focus-visible { outline-color:#d9af70; }
+.search-box input:focus-visible { outline:2px solid var(--vermilion); outline-offset:2px; }
+.date-note,.latest-update-date,.bibliography-publication,.topic-subtitle,.research-topics-heading p { color:#756553; }
+.date-note,.latest-update-date,.bibliography-publication { font-size:.8125rem; line-height:1.6; }
+.search-box input::placeholder { color:#756b5e; opacity:1; }
+.topic-description { font-size:.875rem; line-height:1.65; min-height:3.3em; }
+.topic-count { font-size:.8125rem; }
+.bibliography-author,.bibliography-note,.update-meta,.institution { font-size:.875rem; line-height:1.65; }
+.core-card .institution,.site-card .institution { font-size:.875rem; }
+.update-meta { color:#706456; }
+.hub-section.hub-section-empty { padding:12px 0; }
+.hub-section-empty > h3 { margin-bottom:5px; }
+.hub-section-empty .hub-empty { padding:0; border:0; font-size:.875rem; line-height:1.65; }
+/* 搜索只调整展示密度，不截断题名或改变结果集合。 */
+.unified-search .search-result-grid { gap:12px; }
+.unified-search .search-result > article { min-height:0; padding:14px 16px; }
+.unified-search .search-result-meta { margin-bottom:4px; }
+.unified-search .search-result-meta span:first-child,.unified-search .research-topic-card .topic-label,.unified-search .topic-subtitle { display:none; }
+.unified-search .site-card h3,.unified-search .update-card h3 { margin:7px 0; }
+.unified-search .description,.unified-search .update-summary { font-size:.875rem; margin-bottom:9px; }
+.unified-search .keywords,.unified-search .resource-tags,.unified-search .bibliography-tags { display:none; }
+.unified-search .topic-description { min-height:0; margin-bottom:6px; }
+.unified-search .topic-count,.unified-search .bibliography-author,.unified-search .update-meta { margin-bottom:6px; }
+.unified-search .visit-button,.unified-search .update-link { align-self:flex-start; min-height:40px; padding:5px 12px; }
+.unified-search .classic-paper-link,.unified-search .topic-button { min-height:44px; }
+@media (max-width:430px) {
+  .hero { min-height:0; }
+  .site-nav { padding:13px 0; }
+  .hero-content { padding:22px 0 28px; }
+  .hero .eyebrow { font-size:.625rem; line-height:1.5; letter-spacing:.1em; }
+  .intro { margin-top:12px; }
+  .seal-line { margin-top:16px; }
+  .page-shell { padding-top:25px; }
+  .search-panel { gap:12px; }
+  .filters { margin:18px 0 22px; padding:10px 0; }
+  .filter-list { gap:6px; }
+  .category-feedback { margin-top:8px; }
+  .updates-section { padding-top:18px; padding-bottom:20px; }
+  .updates-heading { gap:10px; }
+  .updates-heading .section-kicker { font-size:.625rem; line-height:1.5; letter-spacing:.1em; }
+  .updates-heading > p { font-size:.875rem; }
+  .update-view-tabs { margin-top:12px; padding-bottom:8px; }
+  .update-filter-groups { margin:10px 0 14px; padding:8px 0; }
+  .update-filter-group { gap:4px; }
+  .update-filter-group + .update-filter-group { margin-top:8px; padding-top:8px; }
+  .update-filters,.update-object-filters { gap:6px; }
+  .update-filter,.update-object-filter { padding:4px 8px; min-height:32px; font-size:.75rem; }
+  .update-filter-label { font-size:.75rem; }
+  .unified-search { margin-top:18px; }
+  .search-results-heading { padding:14px 0; }
+  .search-result-group { margin-top:20px; }
+  .unified-search .search-result > article { padding:12px 14px; }
 }

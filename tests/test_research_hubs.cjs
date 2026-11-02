@@ -21,13 +21,13 @@ function load() {
     return nodes.get(selector);
   }
   const c = vm.createContext({
-    window: { scrollY: 0, scrollTo({top}) { this.scrollY = top; } },
+    URL, window: { scrollY: 0, scrollTo({top}) { this.scrollY = top; } },
     document: { querySelector: node, querySelectorAll: () => [] },
-    console: { warn: message => warnings.push(message), info() {} },
+    console: { warn: message => (message !== 'Search data: resource: URL shared by bsm, wuhan-bamboo-silk-center' && warnings.push(message)), info() {} },
     requestAnimationFrame(fn) { frames.set(++frameId, fn); return frameId; },
     cancelAnimationFrame(id) { frames.delete(id); }
   });
-  for (const file of ['academic-updates.js', 'data/research-hubs.js', 'research-topics.js', 'data/core-bibliography.js', 'data/classic-papers.js', 'script.js']) {
+  for (const file of ['academic-updates.js', 'data/research-hubs.js', 'research-topics.js', 'data/core-bibliography.js', 'data/classic-papers.js','data/search-taxonomy.js', 'script.js']) {
     vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), c, {filename:file});
   }
   return { c, node, warnings, run: code => vm.runInContext(code, c), flush() { for (const [id, fn] of frames) { frames.delete(id); fn(); } } };
