@@ -31,7 +31,7 @@ const layout = async page => {
   assert.deepEqual(overflow, { page:false, nodes:[] });
 };
 const snapshot = page => page.evaluate(() => JSON.stringify({
-  category:activeCategory, type:activeUpdateType, object:activeUpdateObject, updates:updatesExpanded,
+  category:activeCategory, type:activeUpdateType, updates:updatesExpanded,
   resources:resourceVisibleCounts, literature:literatureVisibleCount,
   resourceHTML:coreGrid.innerHTML, literatureHTML:literatureGrid.innerHTML
 }));
@@ -74,7 +74,7 @@ const oracleStyle = page => page.locator('#coreGrid').evaluate(grid => {
       assert.equal(await page.locator('.seal-line button').count(), 5);
       assert.deepEqual(await page.locator('#coreGrid h3').allTextContents(), ['简帛网', '简牍学术资源数据共享平台', '小學堂文字學資料庫', '殷周金文暨青銅器資料庫']);
       assert.deepEqual(await page.locator('#coreGrid a').evaluateAll(es => es.map(e => e.href)), ['https://www.bsm.org.cn/', 'https://jiandu.nwnu.edu.cn/', 'https://xiaoxue.iis.sinica.edu.tw/', 'https://bronze.asdc.sinica.edu.tw/']);
-      assert.deepEqual(await page.evaluate(() => [classicPaperCatalog.papers.length, coreBibliographyData.length, sites.filter(isPeriodical).length]), [74,17,3]);
+      assert.deepEqual(await page.evaluate(() => [classicPaperCatalog.papers.length, coreBibliographyData.length, sites.filter(isPeriodical).length]), [92,17,5]);
       const source = await page.evaluate(() => JSON.stringify([sites, researchHubsData, coreBibliographyData, window.classicPapers, academicUpdatesData]));
       await layout(page);
       if (width === 390 || width === 1280) await page.screenshot({ path:path.join(output, `home-${width}.png`), fullPage:true });
@@ -82,12 +82,12 @@ const oracleStyle = page => page.locator('#coreGrid').evaluate(grid => {
         await genre(page, value);
         const order = await page.evaluate(() => [...document.querySelector('main').children].filter(e => !e.hidden && ['updatesSection','topicsSection','coreSection','literatureSection','navigationOverview','bibliographySection','papersSection'].includes(e.id)).map(e => e.querySelector('h2').textContent));
         assert.deepEqual(order, value === '石刻'
-          ? ['最新学术动态', '学术网站与数据库', '学术导航总览']
-          : ['最新学术动态', '研究专题', '学术网站与数据库', '研究文献', '学术导航总览']);
+          ? ['最新学术动态', '学术资源', '学术导航总览']
+          : ['最新学术动态', '研究专题', '学术资源', '研究文献', '学术导航总览']);
         assert.equal(await page.locator('#bibliographySection:visible, #papersSection:visible').count(), 0);
         assert.equal(await page.locator('#coreGrid article:visible').count(), 4);
         assert.equal(await page.locator('#literatureGrid article:visible').count(), value === '石刻' ? 0 : 4);
-        assert.equal(await page.locator('#updateObjectFilterGroup').isVisible(), value === '🏺 汉代简牍');
+        assert.equal(await page.locator('#updateObjectFilterGroup, [data-update-object]').count(), 0);
         if (value === '甲骨文' && hasBaseline) assert.deepEqual(await oracleStyle(page), baselineStyle, 'original compact resource cards preserved');
         if (value === '金文') {
           const expected = ['tsinghua-ctwx-20260915-a5c60393', 'zzu-www5-20261024-a7de7cf4', 'zzu-www5-20261014-ae1843b5', 'bsm-20260909-2d6b6d9e'];
@@ -150,10 +150,9 @@ const oracleStyle = page => page.locator('#coreGrid').evaluate(grid => {
         }
         if (value === '🏺 汉代简牍') {
           await page.locator('[data-update-type="新书"]').click();
-          await page.locator('[data-update-object="悬泉汉简"]').click(); await frames(page);
+          await frames(page);
           assert.equal(await page.evaluate(() => activeUpdateType), '新书');
-          assert.equal(await page.evaluate(() => activeUpdateObject), '悬泉汉简');
-          assert.deepEqual(await page.locator('#updatesGrid h3').allTextContents(), await page.evaluate(() => academicUpdatesData.filter(u => isHanUpdate(u) && u.type === '新书' && [...searchStrings(u.tags), ...searchStrings(u.topics)].includes('悬泉汉简')).map(u => u.title)));
+          assert.deepEqual(await page.locator('#updatesGrid h3').allTextContents(), await page.evaluate(() => academicUpdatesData.filter(u => isHanUpdate(u) && u.type === '新书').map(u => u.title)));
         }
         const state = await snapshot(page);
         const moduleTrigger = page.locator('#navigationOverview [data-module="papers"]');

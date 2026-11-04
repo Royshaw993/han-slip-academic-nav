@@ -29,9 +29,9 @@ async function layout(page){
       const data=await page.evaluate(()=>JSON.stringify(sites));
       assert.equal(await page.locator('#core-title').innerText(),'精选学术资源');
       assert.equal(await page.locator('#coreSection .section-kicker').innerText(),'FEATURED ACADEMIC RESOURCES');
-      assert.equal(await page.locator('#paperModuleCount').innerText(),'74篇');assert.equal(await page.locator('#bookModuleCount').innerText(),'17 本');assert.equal(await page.locator('#periodicalModuleCount').innerText(),'3 种');
+      assert.equal(await page.locator('#paperModuleCount').innerText(),'已收录 92 条');assert.equal(await page.locator('#bookModuleCount').innerText(),'已收录 17 条');assert.equal(await page.locator('#periodicalModuleCount').innerText(),'已收录 5 条');
       await page.locator('[data-genre="🏺 汉代简牍"]').click();await frames(page);
-      assert.equal(await page.locator('#core-title').innerText(),'学术网站与数据库');
+      assert.equal(await page.locator('#core-title').innerText(),'学术资源');
       assert.equal(await page.locator('#core-kicker').innerText(),'ACADEMIC RESOURCES');
       assert.equal(await page.locator('#coreGrid .site-card:visible').count(),4);
       assert.equal(await page.locator('#researchTopics .topic-button:visible').count(),4);
@@ -43,17 +43,15 @@ async function layout(page){
       assert.deepEqual(await page.evaluate(()=>[...document.querySelector('main').children].filter(e=>['topicsSection','coreSection','literatureSection','navigationOverview','updatesSection'].includes(e.id)).map(e=>e.id)),['updatesSection','topicsSection','coreSection','literatureSection','navigationOverview']);
       await layout(page);
       if(width===375||width===1280)await page.screenshot({path:path.join(output,`han-page-${width}.png`),fullPage:true});
-      await page.locator('#coreResourcesMore').focus();await page.locator('#coreResourcesMore').press('Enter');await frames(page);
-      assert.equal(await page.locator('#coreGrid .site-card:visible').count(),7);
-      assert.equal(await page.locator('#coreResourcesCollapse').evaluate(e=>e===document.activeElement),true);
+      assert.equal(await page.locator('#coreResourcesMore').isVisible(),false);
+      assert.equal(await page.locator('#coreGrid .site-card:visible').count(),4);
       await page.locator('#researchTopics .topic-button').first().click();await frames(page);
       await page.locator('[data-hub-back]').click();await frames(page);
-      assert.equal(await page.locator('#coreGrid .site-card:visible').count(),7);
+      assert.equal(await page.locator('#coreGrid .site-card:visible').count(),4);
       await page.locator('#searchInput').fill('清华简');await frames(page);
       assert.ok(await page.locator('[data-search-type="hub"][data-search-id="qinghua-slips"]').count());
       await page.locator('[data-search-exit]').click();await frames(page);
-      assert.equal(await page.locator('#coreGrid .site-card:visible').count(),7);
-      await page.locator('#coreResourcesCollapse').click();await frames(page);
+      assert.equal(await page.locator('#coreResourcesCollapse').isVisible(),false);
       assert.equal(await page.locator('#coreGrid .site-card:visible').count(),4);
       await page.locator('#literatureMore').click();await frames(page);assert.equal(await page.locator('#literatureGrid article:visible').count(),8);
       await page.locator('#literatureCollapse').click();await frames(page);assert.equal(await page.locator('#literatureGrid article:visible').count(),4);
@@ -64,7 +62,7 @@ async function layout(page){
       assert.equal(await page.locator('#coreGrid').innerHTML(),featured);
       // Regression: the original stone genre itself must show the full list before opening the directory.
       await page.locator('[data-genre="石刻"]').click();await frames(page);
-      assert.equal(await page.locator('#core-title').innerText(),'学术网站与数据库');
+      assert.equal(await page.locator('#core-title').innerText(),'学术资源');
       assert.equal(await page.locator('#coreGrid .site-card:visible').count(),4);
       await page.locator('#coreResourcesMore').scrollIntoViewIfNeeded();await page.locator('#coreResourcesMore').focus();await frames(page);
       const stoneScroll=await page.evaluate(()=>scrollY);
@@ -84,12 +82,12 @@ async function layout(page){
       assert.equal(await page.locator('[data-search-type="resource"][data-search-id="china-jinshi-zonglu"]').count(),1);
       await page.locator('[data-search-exit]').click();await frames(page);
       assert.equal(await page.locator('#coreGrid').innerHTML(),genre);
-      assert.equal(await page.locator('#core-title').innerText(),'学术网站与数据库');
+      assert.equal(await page.locator('#core-title').innerText(),'学术资源');
       await page.locator('#returnHomeButton').click();await frames(page);
       assert.equal(await page.locator('#coreGrid').innerHTML(),featured);
       assert.equal(await page.locator('#core-title').innerText(),'精选学术资源');
       await page.locator('[data-module="resources"]').click();await frames(page);
-      assert.equal(await page.locator('#resources-title').innerText(),'学术网站与数据库');
+      assert.equal(await page.locator('#resources-title').innerText(),'学术资源');
       assert.equal(await page.locator('#resourcesSection .section-kicker').innerText(),'ACADEMIC WEBSITES & DATABASES');
       assert.equal(await page.locator('#siteGrid .site-card').count(),12);
       await page.locator('#directoryResourcesMore').scrollIntoViewIfNeeded();await page.locator('#directoryResourcesMore').focus();await frames(page);
@@ -99,13 +97,15 @@ async function layout(page){
       await page.locator('#searchInput').fill('碑帖菁华');await frames(page);
       await page.locator('[data-search-exit]').click();await frames(page);assert.equal(await page.locator('#siteGrid .site-card').count(),24);
       await page.locator('#directoryResourcesCollapse').click();await frames(page);assert.equal(await page.locator('#siteGrid .site-card').count(),12);
-      await page.locator('[data-category="🪨 石刻资源"]').click();await frames(page);
+      await page.locator('[data-category="🧱 古文字数据库"]').click();
+      await page.locator('[data-direction="石刻"]').click();await frames(page);
       assert.equal(await page.locator('#siteGrid .site-card').count(),12);
       await page.locator('#directoryResourcesMore').click();await frames(page);
       assert.equal(await page.locator('#siteGrid .site-card').count(),13);
-      assert.match(await page.locator('#siteGrid').innerText(),/旧格式阅读提示/);
+      assert.match(await page.locator('#siteGrid').innerText(),/含DjVu阅读入口/);
       assert.equal(await page.locator('#coreGrid').innerHTML(),featured);
-      assert.equal(await page.locator('#categoryFilters [aria-pressed="true"]').innerText(),'🪨 石刻资源');
+      assert.equal(await page.locator('#categoryFilters [aria-pressed="true"]').innerText(),'数据库');
+      assert.equal(await page.locator('[data-direction="石刻"]').getAttribute('aria-pressed'),'true');
       const markup=await page.locator('#siteGrid').innerHTML();
       const card=page.locator('#siteGrid .site-card').filter({has:page.locator('h3',{hasText:'中国金石总录'})});
       assert.equal(await card.count(),1);assert.equal(await card.locator('a').count(),1);
@@ -128,22 +128,25 @@ async function layout(page){
       if(width===375)await page.locator('#unifiedSearchResults').screenshot({path:path.join(output,'stone-jinshi-search-375.png')});
       await page.locator('[data-search-exit]').click();await frames(page);
       assert.equal(await page.locator('#siteGrid').innerHTML(),markup);
-      assert.equal(await page.evaluate(()=>activeResourceType),'🪨 石刻资源');
+      assert.equal(await page.evaluate(()=>activeResourceType),'🧱 古文字数据库');
+      assert.equal(await page.evaluate(()=>activeDirectionTag),'石刻');
       await page.locator('#moduleBack').click();await frames(page);
       assert.equal(await page.locator('#coreGrid').innerHTML(),featured);
       // The pre-existing stone genre remains a valid route to the directory.
       await page.locator('[data-genre="石刻"]').click();await frames(page);
       assert.equal(await page.locator('#coreGrid .site-card:visible').count(),4);
       await page.locator('[data-module="resources"]').click();await frames(page);
+      await page.locator('[data-category="🧱 古文字数据库"]').click();
+      await page.locator('[data-direction="石刻"]').click();await frames(page);
       assert.equal(await page.locator('#siteGrid .site-card').count(),12);
       await page.locator('#directoryResourcesMore').click();await frames(page);
       assert.equal(await page.locator('#siteGrid .site-card').count(),13);
       await page.locator('#moduleBack').click();await frames(page);
       assert.equal(await page.evaluate(()=>activeCategory),'石刻');await layout(page);
       assert.equal(await page.locator('#coreGrid .site-card:visible').count(),4);
-      assert.equal(await page.locator('#core-title').innerText(),'学术网站与数据库');
+      assert.equal(await page.locator('#core-title').innerText(),'学术资源');
       assert.equal(await page.evaluate(()=>JSON.stringify(sites)),data);
-      checks.push(`${width}px: home 4, Han 4→7→4 and unified literature, stone 4→8→12→13, directory 12→24→12, precise Han relations, search, titles, focus and return state`);
+      checks.push(`${width}px: home 4, Han 4 and unified literature, stone 4→8→12→13, directory 12→24→12, stone database/direction facets, search, titles, focus and return state`);
     }
     assert.deepEqual(errors,[]);fs.writeFileSync(path.join(output,'result.json'),JSON.stringify({checks,errors},null,2));console.log(JSON.stringify({checks,errors,output},null,2));
   }finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}

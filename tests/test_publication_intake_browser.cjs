@@ -36,7 +36,7 @@ async function layout(page){
     fs.mkdirSync(output,{recursive:true});
     for(const width of [320,375,390,430]){
       await page.setViewportSize({width,height:900});await page.goto(`http://127.0.0.1:${server.address().port}/`);await frames(page);
-      assert.equal(await page.locator('#paperModuleCount').textContent(),'74篇');
+      assert.equal(await page.locator('#paperModuleCount').textContent(),'已收录 92 条');
       const featured=await page.locator('#coreGrid').innerHTML();
       const trigger=page.locator('[data-module="bibliography"]');await trigger.scrollIntoViewIfNeeded();await trigger.focus();await frames(page);
       const scroll=await page.evaluate(()=>scrollY);await trigger.press('Enter');await frames(page);
@@ -60,7 +60,8 @@ async function layout(page){
       assert.equal(await page.locator('#coreGrid').innerHTML(),featured);
       await page.locator('[data-module="resources"]').click();await frames(page);
       await page.locator('[data-category="📚 学术期刊"]').click();await frames(page);
-      assert.equal(await page.getByRole('link',{name:'查看刊物信息',exact:true}).count(),3);await layout(page);
+      assert.equal(await page.getByRole('link',{name:'查看刊物信息',exact:true}).count(),3);
+      assert.equal(await page.getByRole('link',{name:'查看刊物目录',exact:true}).count(),2);await layout(page);
       await page.locator('#moduleBack').click();await frames(page);
       for(const [query,title,volumes] of [['长沙走马楼西汉简牍（贰）','《长沙走马楼西汉简牍》',3],['长沙五一广场东汉简牍（玖）','《长沙五一广场东汉简牍》',2],['9787511809964','《汉代诉讼制度研究》',0]]){
         await page.locator('#searchInput').fill(query);await frames(page);

@@ -6,6 +6,9 @@
  * note 面向读者；sourceNote 仅供维护，不展示、不筛选、不排序。
  * accessType 定义按钮用途；accessNote / accessChecked 保留内部访问核验记录，不直接展示。
  * relatedSources 可选，保存辅助题录/书目；不代替主 URL 的访问类型。
+ * researchDirections 为已确认的研究方向；general 不自动关联具体材料。
+ * publicationId / resourceIds / updateIds 引用既有刊物、资源及动态的稳定 ID。
+ * articleNumber 为文章号，与 pages 页码分别维护；缺失元数据留空。
  * recommendationStatus：recommended、background、catalog-only；缺省兼容旧 featured。
  */
 window.classicPapers = [
@@ -2012,5 +2015,645 @@ window.classicPapers = [
     "accessChecked": "",
     "recommendationStatus": "background",
     "sourceNote": "用户批准第二批 E02；仅采用 reports/classic-paper-broad-intake-review-2026-11-03.md 第3节已核字段。真实性证据与待补字段见该编号，不将证据网页或本地PDF作为阅读入口。"
+  },
+  {
+    "id": "paper-dh-guji-jishu-pingshu",
+    "reviewId": "R01",
+    "title": "古籍数字化关键技术评述",
+    "author": "苏祺、胡韧奋、诸雨辰、严承希、王军",
+    "year": "2021",
+    "journal": "数字人文研究",
+    "volume": "1",
+    "issue": "3",
+    "pages": "83–88",
+    "articleNumber": "",
+    "doi": "",
+    "categories": [
+      "general"
+    ],
+    "researchDirections": [
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "digital-humanities-research-journal",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "古籍句读、分词与知识提取技术的方法综述。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://dhr.ruc.edu.cn/CN/abstract/abstract26.shtml",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[期刊题录/摘要](https://dhr.ruc.edu.cn/CN/abstract/abstract26.shtml)、[论文扫描 PDF](https://achieve.dhcn.cn/wp-content/uploads/2022/11/Gu_Ji_Shu_Zi_Hua_Guan_Jian_Ji_Shu_Ping_Shu_Su_Qi.pdf)。已取得 PDF 文本并核首页。官网引用栏将首作者写成“苏棋”，PDF 首页、作者简介均为“苏祺”，拟采用原文署名并保留冲突证据。官网直取曾超时，不据此认定收费。DOI 留空。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R01；依据 reports/digital-humanities-research-review-2026-11-04.md。**古籍数字化关键技术评述**；苏祺、胡韧奋、诸雨辰、严承希、王军；《数字人文研究》2021，1(3)：83–88；期刊论文。**A**：[期刊题录/摘要](https://dhr.ruc.edu.cn/CN/abstract/abstract26.shtml)、[论文扫描 PDF](https://achieve.dhcn.cn/wp-content/uploads/2022/11/Gu_Ji_Shu_Zi_Hua_Guan_Jian_Ji_Shu_Ping_Shu_Su_Qi.pdf)。已取得 PDF 文本并核首页。官网引用栏将首作者写成“苏棋”，PDF 首页、作者简介均为“苏祺”，拟采用原文署名并保留冲突证据。官网直取曾超时，不据此认定收费。DOI 留空。",
+    "relatedSources": [
+      {
+        "url": "https://achieve.dhcn.cn/wp-content/uploads/2022/11/Gu_Ji_Shu_Zi_Hua_Guan_Jian_Ji_Shu_Ping_Shu_Su_Qi.pdf",
+        "accessType": "scan-pdf"
+      }
+    ]
+  },
+  {
+    "id": "paper-dh-guji-shuzihua-zaizao",
+    "reviewId": "R02",
+    "title": "数智时代古籍数字化再造的逻辑与进路",
+    "author": "雷珏莹、侯西龙、王晓光",
+    "year": "2022",
+    "journal": "数字人文研究",
+    "volume": "2",
+    "issue": "2",
+    "pages": "46–56",
+    "articleNumber": "",
+    "doi": "",
+    "categories": [
+      "general"
+    ],
+    "researchDirections": [
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "digital-humanities-research-journal",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "古籍数字资源的载体记录、内容组织与应用方法研究。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://dhr.ruc.edu.cn/CN/Y2022/V2/I2/46",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[刊物题录与摘要](https://dhr.ruc.edu.cn/CN/Y2022/V2/I2/46)、[人大研究院文章](https://dh.ruc.edu.cn/xsqk/9d89a64a99a945efbd67863a540bd360.htm)、[期刊 PDF 入口](https://dhr.ruc.edu.cn/EN/article/downloadArticleFile.do?attachType=PDF&id=52)。公开页面/索引支持题录与内容；未据此承诺全刊免费。DOI 留空。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R02；依据 reports/digital-humanities-research-review-2026-11-04.md。**数智时代古籍数字化再造的逻辑与进路**；雷珏莹、侯西龙、王晓光；《数字人文研究》2022，2(2)：46–56；期刊论文。**A**：[刊物题录与摘要](https://dhr.ruc.edu.cn/CN/Y2022/V2/I2/46)、[人大研究院文章](https://dh.ruc.edu.cn/xsqk/9d89a64a99a945efbd67863a540bd360.htm)、[期刊 PDF 入口](https://dhr.ruc.edu.cn/EN/article/downloadArticleFile.do?attachType=PDF&id=52)。公开页面/索引支持题录与内容；未据此承诺全刊免费。DOI 留空。"
+  },
+  {
+    "id": "paper-dh-wenzibian-dongtai-shitu",
+    "reviewId": "R03",
+    "title": "动态视图在文字编管理系统中的应用研究",
+    "author": "马继",
+    "year": "2023",
+    "journal": "数字人文",
+    "volume": "",
+    "issue": "3",
+    "pages": "",
+    "articleNumber": "",
+    "doi": "",
+    "categories": [
+      "general"
+    ],
+    "researchDirections": [
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "集刊论文",
+    "publicationId": "digital-humanities-collected-journal",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "文字编数据管理的方法研究。",
+    "abstract": "",
+    "featured": false,
+    "url": "",
+    "accessType": "none",
+    "accessNote": "**B**：[作者高校成果表](https://lxy.tjcu.edu.cn/info/1104/3856.htm)核题名、作者和期次；[集刊专栏目录](https://www.dhcn.cn/dhjournal/202303)交叉支持。题录公开，原刊全文获取条件未核；页码、DOI 留空。当前任职高校与论文发表时机构不能混填。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R03；依据 reports/digital-humanities-research-review-2026-11-04.md。**动态视图在文字编管理系统中的应用研究**；马继；《数字人文》2023 年第 3 期；集刊论文。**B**：[作者高校成果表](https://lxy.tjcu.edu.cn/info/1104/3856.htm)核题名、作者和期次；[集刊专栏目录](https://www.dhcn.cn/dhjournal/202303)交叉支持。题录公开，原刊全文获取条件未核；页码、DOI 留空。当前任职高校与论文发表时机构不能混填。",
+    "relatedSources": [
+      {
+        "url": "https://lxy.tjcu.edu.cn/info/1104/3856.htm",
+        "accessType": "bibliography",
+        "context": "作者成果"
+      }
+    ]
+  },
+  {
+    "id": "paper-dh-guodian-shujuku-biaozhun",
+    "reviewId": "R04",
+    "title": "论郭店楚简数字化工作之得失：兼及出土文献数据库的开发标准问题",
+    "author": "张昊苏",
+    "year": "2023",
+    "journal": "数字人文",
+    "volume": "",
+    "issue": "4",
+    "pages": "",
+    "articleNumber": "",
+    "doi": "",
+    "categories": [
+      "slips"
+    ],
+    "researchDirections": [
+      "简牍",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "集刊论文",
+    "publicationId": "digital-humanities-collected-journal",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "郭店楚简数字化与出土文献数据库开发标准研究。",
+    "abstract": "",
+    "featured": false,
+    "url": "",
+    "accessType": "none",
+    "accessNote": "**B**：[南开作者成果表](https://wxy.nankai.edu.cn/2019/1104/c18395a244829/page.htm)核题录；[集刊目录](https://www.dhcn.cn/category/dhjournal/202304)交叉支持。原文未取得，模型、功能和详细结论不扩写；其他论文引文虽列页码，本表不据此补原刊页码。DOI、页码留空。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R04；依据 reports/digital-humanities-research-review-2026-11-04.md。**论郭店楚简数字化工作之得失：兼及出土文献数据库的开发标准问题**；张昊苏；《数字人文》2023 年第 4 期；集刊论文。**B**：[南开作者成果表](https://wxy.nankai.edu.cn/2019/1104/c18395a244829/page.htm)核题录；[集刊目录](https://www.dhcn.cn/category/dhjournal/202304)交叉支持。原文未取得，模型、功能和详细结论不扩写；其他论文引文虽列页码，本表不据此补原刊页码。DOI、页码留空。",
+    "relatedSources": [
+      {
+        "url": "https://wxy.nankai.edu.cn/2019/1104/c18395a244829/page.htm",
+        "accessType": "bibliography",
+        "context": "作者成果"
+      }
+    ]
+  },
+  {
+    "id": "paper-dh-liye-fenci",
+    "reviewId": "R05",
+    "title": "数字人文视域下简帛文献的分词研究——以《里耶秦简牍》为例",
+    "author": "刘铭、冯慧敏、陈镱文",
+    "year": "2024",
+    "journal": "语言文字应用",
+    "volume": "",
+    "issue": "3",
+    "pages": "",
+    "articleNumber": "",
+    "doi": "10.16499/j.cnki.1003-5397.2024.03.001",
+    "categories": [
+      "slips"
+    ],
+    "researchDirections": [
+      "简牍",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "以里耶秦简为对象的分词研究。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://www.dhcn.cn/information_technology/library_information_and_digital_libraries/26312.html",
+    "accessType": "paper-info",
+    "accessNote": "**B**：[作者高校成果表](https://hum.wnu.edu.cn/info/1264/2839.htm)核题名、来源与年期；[DHCN 题录](https://www.dhcn.cn/information_technology/library_information_and_digital_libraries/26312.html)提供完整作者及 DOI **10.16499/j.cnki.1003-5397.2024.03.001**。DOI 本轮直取未取得原文，作者全名单仍注明来自门户题录；不转录该摘要中的准确率，不保证公开全文。页码留空。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R05；依据 reports/digital-humanities-research-review-2026-11-04.md。**数字人文视域下简帛文献的分词研究——以《里耶秦简牍》为例**；刘铭、冯慧敏、陈镱文；《语言文字应用》2024 年第 3 期；期刊论文。**B**：[作者高校成果表](https://hum.wnu.edu.cn/info/1264/2839.htm)核题名、来源与年期；[DHCN 题录](https://www.dhcn.cn/information_technology/library_information_and_digital_libraries/26312.html)提供完整作者及 DOI **10.16499/j.cnki.1003-5397.2024.03.001**。DOI 本轮直取未取得原文，作者全名单仍注明来自门户题录；不转录该摘要中的准确率，不保证公开全文。页码留空。"
+  },
+  {
+    "id": "paper-dh-liye-crf",
+    "reviewId": "R06",
+    "title": "基于CRF模型的《里耶秦简》自动断句与分词研究",
+    "author": "冯慧敏、郭帅帅、刘铭",
+    "year": "2024",
+    "journal": "科技导报",
+    "volume": "42",
+    "issue": "23",
+    "pages": "135–144",
+    "articleNumber": "",
+    "doi": "10.3981/j.issn.1000-7857.2023.05.00812",
+    "categories": [
+      "slips"
+    ],
+    "researchDirections": [
+      "简牍",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "里耶秦简自动断句、分词及标注方案的比较研究。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://castjournals.cast.org.cn/joweb/kjdb/CN/1242141990951919771",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[期刊出版平台](https://castjournals.cast.org.cn/joweb/kjdb/CN/1242141990951919771)核作者、摘要、卷期页及 DOI **10.3981/j.issn.1000-7857.2023.05.00812**。按刊载年 2024 著录；DOI 中的 2023、平台另列的 2025 首发时间不替代刊载年。公开摘要和 PDF 按钮可见，未实测下载。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R06；依据 reports/digital-humanities-research-review-2026-11-04.md。**基于CRF模型的《里耶秦简》自动断句与分词研究**；冯慧敏、郭帅帅、刘铭；《科技导报》2024，42(23)：135–144；期刊论文。**A**：[期刊出版平台](https://castjournals.cast.org.cn/joweb/kjdb/CN/1242141990951919771)核作者、摘要、卷期页及 DOI **10.3981/j.issn.1000-7857.2023.05.00812**。按刊载年 2024 著录；DOI 中的 2023、平台另列的 2025 首发时间不替代刊载年。公开摘要和 PDF 按钮可见，未实测下载。"
+  },
+  {
+    "id": "paper-dh-deepjiandu",
+    "reviewId": "R07",
+    "title": "DeepJiandu Dataset for Character Detection and Recognition on Jiandu Manuscript",
+    "author": "Yiran Liu, Qiang Zhang, Ying Qi, Teng Wan, Defang Zhang, Yutong Li, Xin Zhang, Longbin Ma, Qiuyue Ruan, Huanting Guo, Yingchun Li, Xinyue Miao, Wenjun Xiao, Yongbo Li, Jiang Yuan, Shanxiong Chen",
+    "year": "2025",
+    "journal": "Scientific Data",
+    "volume": "12",
+    "issue": "",
+    "pages": "",
+    "articleNumber": "398",
+    "doi": "10.1038/s41597-025-04716-3",
+    "categories": [
+      "slips"
+    ],
+    "researchDirections": [
+      "简牍",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "",
+    "resourceIds": [
+      "nwnu-jiandu"
+    ],
+    "updateIds": [
+      "nwnu-deepjiandu"
+    ],
+    "note": "简牍字符检测与识别数据的构建、标注与技术验证。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://www.nature.com/articles/s41597-025-04716-3",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[出版方论文](https://www.nature.com/articles/s41597-025-04716-3)、[原文 PDF 入口](https://www.nature.com/articles/s41597-025-04716-3.pdf)，DOI **10.1038/s41597-025-04716-3**。作者与发表日期 2025-03-07 已核。出版方标开放获取；数据下载、数据许可证不由论文的开放许可推定，仍待核。398 是文章号。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R07；依据 reports/digital-humanities-research-review-2026-11-04.md。**DeepJiandu Dataset for Character Detection and Recognition on Jiandu Manuscript**；Yiran Liu, Qiang Zhang, Ying Qi, Teng Wan, Defang Zhang, Yutong Li, Xin Zhang, Longbin Ma, Qiuyue Ruan, Huanting Guo, Yingchun Li, Xinyue Miao, Wenjun Xiao, Yongbo Li, Jiang Yuan, Shanxiong Chen；*Scientific Data* 12，398（2025）；数据论文。**A**：[出版方论文](https://www.nature.com/articles/s41597-025-04716-3)、[原文 PDF 入口](https://www.nature.com/articles/s41597-025-04716-3.pdf)，DOI **10.1038/s41597-025-04716-3**。作者与发表日期 2025-03-07 已核。出版方标开放获取；数据下载、数据许可证不由论文的开放许可推定，仍待核。398 是文章号。"
+  },
+  {
+    "id": "paper-dh-hust-obc",
+    "reviewId": "R08",
+    "title": "An open dataset for oracle bone character recognition and decipherment",
+    "author": "Pengjie Wang, Kaile Zhang, Xinyu Wang, Shengwei Han, Yongge Liu, Jinpeng Wan, Haisu Guan, Zhebin Kuang, Lianwen Jin, Xiang Bai, Yuliang Liu",
+    "year": "2024",
+    "journal": "Scientific Data",
+    "volume": "11",
+    "issue": "",
+    "pages": "",
+    "articleNumber": "976",
+    "doi": "10.1038/s41597-024-03807-x",
+    "categories": [
+      "oracle"
+    ],
+    "researchDirections": [
+      "甲骨",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "HUST-OBC 字形数据的构建、标注与整合研究。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://www.nature.com/articles/s41597-024-03807-x",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[出版方正文及题录](https://www.nature.com/articles/s41597-024-03807-x)，DOI **10.1038/s41597-024-03807-x**，2024-09-06。论文开放获取；正文的数据许可写 CC BY-NC 4.0，论文自身许可另列，二者分开。未实际下载数据。976 是文章号。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R08；依据 reports/digital-humanities-research-review-2026-11-04.md。**An open dataset for oracle bone character recognition and decipherment**；Pengjie Wang, Kaile Zhang, Xinyu Wang, Shengwei Han, Yongge Liu, Jinpeng Wan, Haisu Guan, Zhebin Kuang, Lianwen Jin, Xiang Bai, Yuliang Liu；*Scientific Data* 11，976（2024）；数据论文。**A**：[出版方正文及题录](https://www.nature.com/articles/s41597-024-03807-x)，DOI **10.1038/s41597-024-03807-x**，2024-09-06。论文开放获取；正文的数据许可写 CC BY-NC 4.0，论文自身许可另列，二者分开。未实际下载数据。976 是文章号。"
+  },
+  {
+    "id": "paper-dh-ijcai-recognition-rejoining",
+    "reviewId": "R09",
+    "title": "AI-Powered Oracle Bone Inscriptions Recognition and Fragments Rejoining",
+    "author": "Chongsheng Zhang, Ruixing Zong, Shuang Cao, Yi Men, Bofeng Mo",
+    "year": "2020",
+    "journal": "Proceedings of the Twenty-Ninth International Joint Conference on Artificial Intelligence",
+    "volume": "",
+    "issue": "Demos",
+    "pages": "5309–5311",
+    "articleNumber": "",
+    "doi": "10.24963/ijcai.2020/779",
+    "categories": [
+      "oracle"
+    ],
+    "researchDirections": [
+      "甲骨",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "会议论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "甲骨识别、标注与残片缀合研究；IJCAI 2020 Demo 论文。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://ijcai.org/proceedings/2020/779",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[会议官方论文页](https://ijcai.org/proceedings/2020/779)，DOI **10.24963/ijcai.2020/779**；作者、摘要、页码及 PDF/BibTeX 入口明确。可公开读取摘要，未复现实验；不把摘要中的基准成绩当实际考释成功率。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R09；依据 reports/digital-humanities-research-review-2026-11-04.md。**AI-Powered Oracle Bone Inscriptions Recognition and Fragments Rejoining**；Chongsheng Zhang, Ruixing Zong, Shuang Cao, Yi Men, Bofeng Mo；*Proceedings of the Twenty-Ninth International Joint Conference on Artificial Intelligence*（IJCAI 2020），Demos：5309–5311；会议论文。**A**：[会议官方论文页](https://ijcai.org/proceedings/2020/779)，DOI **10.24963/ijcai.2020/779**；作者、摘要、页码及 PDF/BibTeX 入口明确。可公开读取摘要，未复现实验；不把摘要中的基准成绩当实际考释成功率。"
+  },
+  {
+    "id": "paper-dh-obfi-rejoining",
+    "reviewId": "R10",
+    "title": "Deep rejoining model and dataset of oracle bone fragment images",
+    "author": "Zhan Zhang, Han Zhang, An Guo, Qingju Jiao, Yongge Liu, Bang Li, Feng Gao",
+    "year": "2025",
+    "journal": "npj Heritage Science",
+    "volume": "13",
+    "issue": "",
+    "pages": "",
+    "articleNumber": "66",
+    "doi": "10.1038/s40494-025-01651-9",
+    "categories": [
+      "oracle"
+    ],
+    "researchDirections": [
+      "甲骨",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "甲骨残片图像的边缘匹配、纹理连续性评估及 OBFI 数据集研究。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://www.nature.com/articles/s40494-025-01651-9",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[出版方论文](https://www.nature.com/articles/s40494-025-01651-9)、[原文 PDF 入口](https://www.nature.com/articles/s40494-025-01651-9.pdf)，DOI **10.1038/s40494-025-01651-9**，2025-03-10。出版方标开放获取，索引可核摘要与原文；本轮 PDF 直取受重定向限制。数据/代码下载条件未实测。66 是文章号。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R10；依据 reports/digital-humanities-research-review-2026-11-04.md。**Deep rejoining model and dataset of oracle bone fragment images**；Zhan Zhang, Han Zhang, An Guo, Qingju Jiao, Yongge Liu, Bang Li, Feng Gao；*npj Heritage Science* 13，66（2025）；期刊论文。**A**：[出版方论文](https://www.nature.com/articles/s40494-025-01651-9)、[原文 PDF 入口](https://www.nature.com/articles/s40494-025-01651-9.pdf)，DOI **10.1038/s40494-025-01651-9**，2025-03-10。出版方标开放获取，索引可核摘要与原文；本轮 PDF 直取受重定向限制。数据/代码下载条件未实测。66 是文章号。"
+  },
+  {
+    "id": "paper-dh-obimd",
+    "reviewId": "R11",
+    "title": "OBIMD: A Multi-modal Dataset for Contextual Interpretation of Oracle Bone Inscriptions",
+    "author": "Bang Li, Jing Yang, Yujie Liang, Xiaobin Hu, Zengmao Ding, Xu Peng, Shengwei Han, Peichao Qin, Donghao Luo, Taisong Jin, Feng Gao, Yongge Liu, Rongrong Ji",
+    "year": "2026",
+    "journal": "Scientific Data",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "articleNumber": "",
+    "doi": "10.1038/s41597-026-06967-0",
+    "categories": [
+      "oracle"
+    ],
+    "researchDirections": [
+      "甲骨",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "联结甲骨拓片、摹本、字级标注、句组及阅读顺序的多模态数据研究。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://www.nature.com/articles/s41597-026-06967-0",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[出版方](https://www.nature.com/articles/s41597-026-06967-0)、[剑桥机构仓储](https://www.repository.cam.ac.uk/items/a4151126-465e-434c-ac41-dcf789ebeeff)、[出版方署名稿](https://www.nature.com/articles/s41597-026-06967-0_reference.pdf)，DOI **10.1038/s41597-026-06967-0**。仓储标“Published version / Peer-reviewed”，可核正式论文存在；出版方索引及机构摘要可读，直接下载未成功。卷页字段本表留空，不把未编辑稿状态或预印本年份混填为最终版本。数据和代码入口有论文说明，未实测下载许可。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R11；依据 reports/digital-humanities-research-review-2026-11-04.md。**OBIMD: A Multi-modal Dataset for Contextual Interpretation of Oracle Bone Inscriptions**；Bang Li, Jing Yang, Yujie Liang, Xiaobin Hu, Zengmao Ding, Xu Peng, Shengwei Han, Peichao Qin, Donghao Luo, Taisong Jin, Feng Gao, Yongge Liu, Rongrong Ji；*Scientific Data*（2026）；数据论文。**A**：[出版方](https://www.nature.com/articles/s41597-026-06967-0)、[剑桥机构仓储](https://www.repository.cam.ac.uk/items/a4151126-465e-434c-ac41-dcf789ebeeff)、[出版方署名稿](https://www.nature.com/articles/s41597-026-06967-0_reference.pdf)，DOI **10.1038/s41597-026-06967-0**。仓储标“Published version / Peer-reviewed”，可核正式论文存在；出版方索引及机构摘要可读，直接下载未成功。卷页字段本表留空，不把未编辑稿状态或预印本年份混填为最终版本。数据和代码入口有论文说明，未实测下载许可。"
+  },
+  {
+    "id": "paper-dh-jinwen-mingsi-chazhong",
+    "reviewId": "R12",
+    "title": "利用計算機視覺輔助金文通鑒《銘四》部分拓片查重的嘗試",
+    "author": "譚憲炳",
+    "year": "2026",
+    "journal": "复旦大学出土文献与古文字研究中心网站“学者文库”",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "articleNumber": "",
+    "doi": "",
+    "categories": [
+      "bronze"
+    ],
+    "researchDirections": [
+      "金文",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "网络研究报告",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "计算机视觉辅助金文拓片查重案例；具体算法细节另文说明。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://fdgwz.org.cn/Web/Show/13408",
+    "accessType": "full-html",
+    "accessNote": "**A**：[原始研究报告](https://fdgwz.org.cn/Web/Show/13408)公开正文、对照图及著录核查。作者明确说具体算法思路与结果另文说明；不声称本文已完整公开算法、模型或准确率。网站为发布载体，不能据此将作者单位写成复旦。DOI、刊期、页码、作者单位均留空。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R12；依据 reports/digital-humanities-research-review-2026-11-04.md。**利用計算機視覺輔助金文通鑒《銘四》部分拓片查重的嘗試**；譚憲炳；复旦大学出土文献与古文字研究中心网站“学者文库”，2026-09-21；**网络研究报告**。**A**：[原始研究报告](https://fdgwz.org.cn/Web/Show/13408)公开正文、对照图及著录核查。作者明确说具体算法思路与结果另文说明；不声称本文已完整公开算法、模型或准确率。网站为发布载体，不能据此将作者单位写成复旦。DOI、刊期、页码、作者单位均留空。"
+  },
+  {
+    "id": "paper-dh-liye-shuzhihua",
+    "reviewId": "R13",
+    "title": "简牍数智化技术进展与展望：里耶秦简的数智化探索",
+    "author": "傅倬淞、廖柏林、李建锋、龙广玉",
+    "year": "2025",
+    "journal": "吉首大学学报（自然科学版）",
+    "volume": "46",
+    "issue": "6",
+    "pages": "83–89",
+    "articleNumber": "",
+    "doi": "10.13438/j.cnki.jdzk.2025.06.011",
+    "categories": [
+      "slips"
+    ],
+    "researchDirections": [
+      "简牍",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "简牍图像增强、分割、识别与修复的方法综述，讨论里耶秦简标准化建设。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://zkxb.jsu.edu.cn/CN/10.13438/j.cnki.jdzk.2025.06.011",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[期刊论文页](https://zkxb.jsu.edu.cn/CN/10.13438/j.cnki.jdzk.2025.06.011)、[期刊下载排行题录](https://zkxb.jsu.edu.cn/CN/article/showDownloadTopList.do?year=1)交叉核卷期页，DOI **10.13438/j.cnki.jdzk.2025.06.011**。公开摘要、PDF 入口，未实测下载。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R13；依据 reports/digital-humanities-research-review-2026-11-04.md。**简牍数智化技术进展与展望：里耶秦简的数智化探索**；傅倬淞、廖柏林、李建锋、龙广玉；《吉首大学学报（自然科学版）》2025，46(6)：83–89；期刊论文。**A**：[期刊论文页](https://zkxb.jsu.edu.cn/CN/10.13438/j.cnki.jdzk.2025.06.011)、[期刊下载排行题录](https://zkxb.jsu.edu.cn/CN/article/showDownloadTopList.do?year=1)交叉核卷期页，DOI **10.13438/j.cnki.jdzk.2025.06.011**。公开摘要、PDF 入口，未实测下载。"
+  },
+  {
+    "id": "paper-dh-bamboo-virtual-unwrapping",
+    "reviewId": "R14",
+    "title": "Virtual cleaning and unwrapping of non-invasively digitized soiled bamboo scrolls",
+    "author": "Daniel Stromer, Vincent Christlein, Xiaolin Huang, Patrick Zippert, Tino Hausotte, Andreas Maier",
+    "year": "2019",
+    "journal": "Scientific Reports",
+    "volume": "9",
+    "issue": "",
+    "pages": "",
+    "articleNumber": "2311",
+    "doi": "10.1038/s41598-019-39447-0",
+    "categories": [
+      "slips"
+    ],
+    "researchDirections": [
+      "简牍",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "用三维 X 射线 CT、虚拟清理与展平处理制作的受污刻划竹简卷样本；尚非真实出土墨书简牍实验。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://www.nature.com/articles/s41598-019-39447-0",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[出版方正文](https://www.nature.com/articles/s41598-019-39447-0)、[作者机构论文 PDF](https://www5.cs.fau.de/fileadmin/research/Publikationen/2019/Stromer19-VCA.pdf)，DOI **10.1038/s41598-019-39447-0**，2019-02-19。开放论文；实验为制作的刻划样本，文中把真实历史简牍列作后续工作，不能写成已读出真实出土墨书竹简。数据/代码页面及仪器条件未实测。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R14；依据 reports/digital-humanities-research-review-2026-11-04.md。**Virtual cleaning and unwrapping of non-invasively digitized soiled bamboo scrolls**；Daniel Stromer, Vincent Christlein, Xiaolin Huang, Patrick Zippert, Tino Hausotte, Andreas Maier；*Scientific Reports* 9，2311（2019）；期刊论文。**A**：[出版方正文](https://www.nature.com/articles/s41598-019-39447-0)、[作者机构论文 PDF](https://www5.cs.fau.de/fileadmin/research/Publikationen/2019/Stromer19-VCA.pdf)，DOI **10.1038/s41598-019-39447-0**，2019-02-19。开放论文；实验为制作的刻划样本，文中把真实历史简牍列作后续工作，不能写成已读出真实出土墨书竹简。数据/代码页面及仪器条件未实测。"
+  },
+  {
+    "id": "paper-dh-jiandu-image-acquisition",
+    "reviewId": "R15",
+    "title": "简牍图像信息采集过程中的保护及要求",
+    "author": "赵桂芳、贾连翔",
+    "year": "2023",
+    "journal": "出土文献",
+    "volume": "",
+    "issue": "1",
+    "pages": "",
+    "articleNumber": "",
+    "doi": "",
+    "categories": [
+      "slips"
+    ],
+    "researchDirections": [
+      "简牍",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "chutu-wenxian-journal",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "简牍图像信息采集与文物保护要求研究。",
+    "abstract": "",
+    "featured": false,
+    "url": "",
+    "accessType": "none",
+    "accessNote": "**A/B**：[清华中心原刊目录](https://www.ctwx.tsinghua.edu.cn/info/1072/2947.htm)核作者、题名、年期，列“文物保护与信息采集”；[作者官方成果表](https://www.ctwx.tsinghua.edu.cn/info/1054/2563.htm)交叉支持。仅核目录/题录，非公开全文已核。目录列起页 13，完整页码和 DOI 留空。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R15；依据 reports/digital-humanities-research-review-2026-11-04.md。**简牍图像信息采集过程中的保护及要求**；赵桂芳、贾连翔；《出土文献》2023 年第 1 期；期刊论文。**A/B**：[清华中心原刊目录](https://www.ctwx.tsinghua.edu.cn/info/1072/2947.htm)核作者、题名、年期，列“文物保护与信息采集”；[作者官方成果表](https://www.ctwx.tsinghua.edu.cn/info/1054/2563.htm)交叉支持。仅核目录/题录，非公开全文已核。目录列起页 13，完整页码和 DOI 留空。",
+    "relatedSources": [
+      {
+        "url": "https://www.ctwx.tsinghua.edu.cn/info/1072/2947.htm",
+        "accessType": "bibliography",
+        "context": "刊期目录"
+      }
+    ]
+  },
+  {
+    "id": "paper-dh-beike-semantic-organization",
+    "reviewId": "R16",
+    "title": "碑刻资源语义化组织研究",
+    "author": "李永升、刘心范、周树斌、屠纪军",
+    "year": "2021",
+    "journal": "数字图书馆论坛",
+    "volume": "",
+    "issue": "12",
+    "pages": "41–49",
+    "articleNumber": "",
+    "doi": "10.3772/j.issn.1673-2286.2021.12.007",
+    "categories": [
+      "stone"
+    ],
+    "researchDirections": [
+      "石刻",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "以焦山碑林为例的关联数据、IIIF 与碑刻资源语义组织研究。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://journals.istic.ac.cn/dlf/ch/reader/view_abstract.aspx?file_no=202112008",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[期刊摘要页](https://journals.istic.ac.cn/dlf/ch/reader/view_abstract.aspx?file_no=202112008)、[原刊 PDF](https://dlf.istic.ac.cn/dlf/ch/reader/download_pdf_file.aspx?file_name=3618e016c89268ecfa9e873b81ccbdcb33f5e0990dfa6ce26009bea7d54eda2e04cfe487ae3b2e4b3fc2c71d51eb1caaba9d429b2f94dd021ef1483b62012626&file_no=202112008&journal_id=dlf&open_type=self)，DOI **10.3772/j.issn.1673-2286.2021.12.007**。原文索引可核作者、摘要、引文格式；文章公开入口不代表案例平台当前可用。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R16；依据 reports/digital-humanities-research-review-2026-11-04.md。**碑刻资源语义化组织研究**；李永升、刘心范、周树斌、屠纪军；《数字图书馆论坛》2021(12)：41–49；期刊论文。**A**：[期刊摘要页](https://journals.istic.ac.cn/dlf/ch/reader/view_abstract.aspx?file_no=202112008)、[原刊 PDF](https://dlf.istic.ac.cn/dlf/ch/reader/download_pdf_file.aspx?file_name=3618e016c89268ecfa9e873b81ccbdcb33f5e0990dfa6ce26009bea7d54eda2e04cfe487ae3b2e4b3fc2c71d51eb1caaba9d429b2f94dd021ef1483b62012626&file_no=202112008&journal_id=dlf&open_type=self)，DOI **10.3772/j.issn.1673-2286.2021.12.007**。原文索引可核作者、摘要、引文格式；文章公开入口不代表案例平台当前可用。"
+  },
+  {
+    "id": "paper-dh-stone-digital-rubbings",
+    "reviewId": "R17",
+    "title": "Research on the extraction of inscription rubbings information of stone carved cultural relics based on 3D fine models",
+    "author": "Chunmei Hu, Yang Han, Guofang Xia, Yang Wang, Xinjian Ma",
+    "year": "2025",
+    "journal": "npj Heritage Science",
+    "volume": "13",
+    "issue": "",
+    "pages": "",
+    "articleNumber": "36",
+    "doi": "10.1038/s40494-025-01610-4",
+    "categories": [
+      "stone"
+    ],
+    "researchDirections": [
+      "石刻",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "期刊论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "从精细三维模型提取深度并生成石刻数字拓片信息。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://www.nature.com/articles/s40494-025-01610-4",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[出版方正文与题录](https://www.nature.com/articles/s40494-025-01610-4)，DOI **10.1038/s40494-025-01610-4**，2025-02-24。出版方标开放获取，正文/摘要索引可核；未核软件、数据对外许可或部署方式。36 是文章号。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R17；依据 reports/digital-humanities-research-review-2026-11-04.md。**Research on the extraction of inscription rubbings information of stone carved cultural relics based on 3D fine models**；Chunmei Hu, Yang Han, Guofang Xia, Yang Wang, Xinjian Ma；*npj Heritage Science* 13，36（2025）；期刊论文。**A**：[出版方正文与题录](https://www.nature.com/articles/s40494-025-01610-4)，DOI **10.1038/s40494-025-01610-4**，2025-02-24。出版方标开放获取，正文/摘要索引可核；未核软件、数据对外许可或部署方式。36 是文章号。"
+  },
+  {
+    "id": "paper-dh-inscribernet",
+    "reviewId": "R18",
+    "title": "InscriberNet: A Novel Framework for Chinese Character Recognition in Stone Inscriptions using CNNs and Swin Transformer",
+    "author": "Akanksha Jain, Jaehong Ahn",
+    "year": "2025",
+    "journal": "The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences",
+    "volume": "XLVIII-M-9-2025",
+    "issue": "",
+    "pages": "629–636",
+    "articleNumber": "",
+    "doi": "10.5194/isprs-archives-XLVIII-M-9-2025-629-2025",
+    "categories": [
+      "stone"
+    ],
+    "researchDirections": [
+      "石刻",
+      "数字人文"
+    ],
+    "hubIds": [],
+    "type": "会议论文",
+    "publicationId": "",
+    "resourceIds": [],
+    "updateIds": [],
+    "note": "以韩国 Hwaeom Stone Sutra 材料评估石刻汉字识别方法。",
+    "abstract": "",
+    "featured": false,
+    "url": "https://isprs-archives.copernicus.org/articles/XLVIII-M-9-2025/629/2025/",
+    "accessType": "paper-info",
+    "accessNote": "**A**：[会议论文出版页](https://isprs-archives.copernicus.org/articles/XLVIII-M-9-2025/629/2025/)，DOI **10.5194/isprs-archives-XLVIII-M-9-2025-629-2025**。官方页明确作者、摘要、页码、2025-10-01及 CC BY 4.0，PDF 可见；未复现实验，数据/代码权限未核。",
+    "accessChecked": "2026-11-04",
+    "recommendationStatus": "background",
+    "sourceNote": "用户批准数字人文成果 R18；依据 reports/digital-humanities-research-review-2026-11-04.md。**InscriberNet: A Novel Framework for Chinese Character Recognition in Stone Inscriptions using CNNs and Swin Transformer**；Akanksha Jain, Jaehong Ahn；*The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences*，XLVIII-M-9-2025：629–636（2025）；**会议论文**。**A**：[会议论文出版页](https://isprs-archives.copernicus.org/articles/XLVIII-M-9-2025/629/2025/)，DOI **10.5194/isprs-archives-XLVIII-M-9-2025-629-2025**。官方页明确作者、摘要、页码、2025-10-01及 CC BY 4.0，PDF 可见；未复现实验，数据/代码权限未核。"
   }
 ];

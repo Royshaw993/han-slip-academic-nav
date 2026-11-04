@@ -2,6 +2,25 @@
 
 本文件用于记录如何把本地静态网站上传到 GitHub，并通过 GitHub Pages 发布成可以公开访问的网址。
 
+## V1.3 正式数据与候选材料的发布范围
+
+当前网站运行文件除下文基础示例外，还必须包含：
+
+```text
+data/research-hubs.js
+data/core-bibliography.js
+data/classic-papers.js
+data/search-taxonomy.js
+```
+
+不要排除整个 `data/` 目录。上述 JS 是正式数据；`data/candidate-updates.json` 是待审核候选，不能当作正式动态发布，也不应进入静态站点输出。
+
+仓库根目录的 `_config.yml` 为本文的 `main + /(root)`、默认 Jekyll 构建配置了排除规则：候选及维护 JSON、`reports/`、`tests/`、`tools/`、`logs/`、`tmp/` 不进入站点输出；正式页面、样式、脚本及 `data/*.js` 保留。候选材料仍保存在本地及原有版本管理中，没有删除或转为正式数据。
+
+该规则只约束 Jekyll 的站点输出，不隐藏公开 Git 仓库中的源文件，也不适用于绕过 Jekyll 的整目录复制、`.nojekyll` 或自定义 Actions 上传流程。本轮未读取远端 Pages 设置或触发部署；如实际部署方式与本文不同，必须单独核对输出范围，不能假定此配置已经阻止线上访问。
+
+配置依据：[GitHub Pages 与 Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll)、[Jekyll 排除配置](https://jekyllrb.com/docs/configuration/options/)。
+
 ---
 
 ## 一、适用的网站类型
@@ -179,7 +198,10 @@ han-slip-academic-nav
 
 ```text
 tools/
-data/
+data/candidate-updates.json
+data/sources.json
+data/wechat-sources.json
+data/seen-items.json
 REVIEW_RULES.md
 MAINTENANCE_GUIDE.md
 GITHUB_PUBLISH_GUIDE.md
@@ -745,7 +767,10 @@ favicon.svg
 
 ```text
 tools/
-data/
+data/candidate-updates.json
+data/sources.json
+data/wechat-sources.json
+data/seen-items.json
 REVIEW_RULES.md
 MAINTENANCE_GUIDE.md
 GITHUB_PUBLISH_GUIDE.md

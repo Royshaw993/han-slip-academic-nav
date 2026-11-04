@@ -1,0 +1,22 @@
+# GitHub Pages branch/root Jekyll build: keep review material out of the site.
+# Explicitly list maintenance JSON; data/*.js remains public runtime data.
+exclude:
+  - data/candidate-updates.json
+  - data/candidate-updates.review-backup.json
+  - data/candidate-updates.review.lock
+  - data/sources.json
+  - data/wechat-sources.json
+  - data/seen-items.json
+  - reports/
+  - tests/
+  - tools/
+  - logs/
+  - tmp/
+  # Keep standard build/dependency exclusions when using Jekyll 3.
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/

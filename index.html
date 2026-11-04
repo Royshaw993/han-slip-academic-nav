@@ -51,16 +51,12 @@
             <span class="update-filter-label">动态类型</span>
             <div id="updateFilters" class="update-filters" aria-label="学术动态类型筛选"></div>
           </div>
-          <div id="updateObjectFilterGroup" class="update-filter-group update-object-filter-group">
-            <span class="update-filter-label">研究对象</span>
-            <div id="updateObjectFilters" class="update-object-filters" aria-label="学术动态研究对象筛选"></div>
-          </div>
         </div>
         <div id="updateFilterStatus" class="update-filter-status" hidden>
           <p><strong>当前筛选结果</strong><span id="updateFilterSummary"></span></p>
           <div class="update-filter-actions"><button id="backToTopics" type="button" hidden>返回专题列表</button><button id="resetUpdateView" type="button">返回默认视图</button><button id="clearUpdateFilters" type="button">清除筛选</button></div>
         </div>
-        <!-- 动态内容保存在 academic-updates.js，类型与研究对象可以叠加筛选。 -->
+        <!-- 动态内容保存在 academic-updates.js；按动态类型筛选，研究对象标签仍用于学科关联与统一搜索。 -->
         <div id="updatesGrid" class="updates-grid"></div>
         <button id="updatesToggle" class="section-toggle" type="button" hidden>查看更多动态</button>
         <p id="updateSearchNote" class="date-note" hidden>动态已恢复默认；搜索词仍作用于其他资源，修改搜索词可重新搜索动态。</p>
@@ -90,12 +86,12 @@
     <section id="navigationOverview" class="navigation-overview" aria-labelledby="overview-title">
       <div class="section-heading"><div><p class="section-kicker">ACADEMIC DIRECTORY</p><h2 id="overview-title">学术导航总览</h2></div></div>
       <ul class="overview-list">
-        <li><span>学术网站与数据库</span><small id="resourceModuleCount"></small><button class="search-action" type="button" data-module="resources">进入</button></li>
-        <li><span>学术期刊与集刊</span><small id="periodicalModuleCount"></small><button class="search-action" type="button" data-open-periodicals>查看</button></li>
-        <li><span>研究著作与整理本</span><small id="bookModuleCount"></small><button class="search-action" type="button" data-module="bibliography">查看</button></li>
+        <li><span>学术资源</span><small id="resourceModuleCount"></small><button class="search-action" type="button" data-module="resources">进入</button></li>
+        <li><span>学术刊物</span><small id="periodicalModuleCount"></small><button class="search-action" type="button" data-open-periodicals>查看</button></li>
+        <li><span>研究书目</span><small id="bookModuleCount"></small><button class="search-action" type="button" data-module="bibliography">查看</button></li>
         <li><span>学术公众号</span><small id="wechatModuleCount"></small><button class="search-action" type="button" data-module="wechat">查看</button></li>
         <li><span>学术论文</span><small id="paperModuleCount"></small><button class="search-action" type="button" data-module="papers">查看</button></li>
-        <li><span>数字人文工具</span><small>整理中</small><button class="search-action" type="button" disabled aria-label="数字人文工具：整理中">查看</button></li>
+        <li><span>数字人文</span><small id="digitalHumanitiesModuleCount"></small><button class="search-action" type="button" data-open-digital-humanities>查看</button></li>
         <li><span>网站使用说明</span><button class="search-action" type="button" data-module="guide">查看</button></li>
       </ul>
     </section>
@@ -106,20 +102,15 @@
 
     <section class="resources-section" id="resourcesSection" aria-labelledby="resources-title" hidden>
       <div class="section-heading">
-        <div><p class="section-kicker">ACADEMIC WEBSITES &amp; DATABASES</p><h2 id="resources-title" tabindex="-1">学术网站与数据库</h2></div>
+        <div><p class="section-kicker">ACADEMIC WEBSITES &amp; DATABASES</p><h2 id="resources-title" tabindex="-1">学术资源</h2></div>
 
       </div>
-    <section class="filters" aria-label="资源类型筛选器">
-      <div id="categoryFilters" class="filter-list"></div>
-      <p id="categoryFeedback" class="category-feedback sr-only" aria-live="polite"></p>
-    </section>
-      <details class="library-tools"><summary>研究方向</summary>
-      <div class="research-tags-wrap">
-        <span class="tag-label">研究方向标签</span>
-        <div id="researchTags" class="research-tags" aria-label="研究方向标签"></div>
-        <button id="researchTagsToggle" class="section-toggle" type="button">更多研究方向</button>
-      </div>
-      </details>
+      <section class="filters" aria-label="学术资源筛选器">
+        <div class="resource-facet-row"><span class="tag-label">资源类型</span><div id="categoryFilters" class="filter-list" aria-label="资源类型"></div></div>
+        <div class="resource-facet-row"><span class="tag-label">研究方向</span><div id="researchTags" class="research-tags" aria-label="研究方向"></div></div>
+        <p id="categoryFeedback" class="category-feedback sr-only" aria-live="polite"></p>
+        <button id="researchTagsToggle" type="button" hidden>更多研究方向</button>
+      </section>
       <div id="resourceFilterStatus" class="resource-filter-status" hidden aria-live="polite">
         <p><strong id="resourceFilterLabel"></strong><span id="resourceFilterSummary"></span></p>
         <button id="clearResourceFilter" type="button" hidden>清除资源筛选</button>
@@ -134,7 +125,7 @@
 
     <section class="bibliography-section" id="bibliographySection" aria-labelledby="bibliography-title" hidden>
       <div class="section-heading bibliography-heading">
-        <div><p class="section-kicker">RESEARCH BOOKS &amp; EDITIONS</p><h2 id="bibliography-title" tabindex="-1">研究著作与整理本</h2></div>
+        <div><p class="section-kicker">RESEARCH BOOKS &amp; EDITIONS</p><h2 id="bibliography-title" tabindex="-1">研究书目</h2></div>
 
       </div>
       <div id="bibliographyGrid" class="bibliography-grid"></div>
@@ -207,7 +198,7 @@
     </aside>
   </main>
 
-  <footer><p>🏺 古文字学术导航 · V1.2</p><p>个人学习与研究使用 · 汉代简牍重点整理中</p><p>链接核验：<span id="linksLastChecked">正在读取…</span></p><p>如发现链接失效或资料信息错误，欢迎反馈。</p></footer>
+  <footer><p>🏺 古文字学术导航 · V1.3</p><p>个人学习与研究使用 · 汉代简牍重点整理中</p><p>链接核验：<span id="linksLastChecked">正在读取…</span></p><p>如发现链接失效或资料信息错误，欢迎反馈。</p></footer>
   <script src="academic-updates.js"></script>
   <script src="data/research-hubs.js"></script>
   <script src="research-topics.js"></script>

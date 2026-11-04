@@ -391,3 +391,12 @@ summary.path-heading:focus-visible { outline:3px solid var(--vermilion); outline
 .periodical-papers { min-width:0; margin:0 20px 20px; border-top:1px solid var(--line); }
 .periodical-papers summary { min-height:44px; padding:12px 0; color:var(--vermilion); cursor:pointer; overflow-wrap:anywhere; }
 @media (max-width:560px) { .periodical-papers { margin:0 16px 16px; } }
+
+/* 两个独立筛选维度复用原有按钮与配色。 */
+.resource-facet-row { display:flex; align-items:flex-start; gap:14px; min-width:0; }
+.resource-facet-row + .resource-facet-row { margin-top:16px; }
+.resource-facet-row > .filter-list,.resource-facet-row > .research-tags { flex:1; min-width:0; }
+@media (max-width:600px) {
+  .resource-facet-row { flex-direction:column; gap:8px; }
+  .resource-facet-row > .filter-list,.resource-facet-row > .research-tags { width:100%; }
+}

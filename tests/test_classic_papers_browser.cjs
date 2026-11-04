@@ -63,7 +63,7 @@ async function layout(page,label){
     page.on('console',m=>{if(m.type()==='warning' && m.text() !== 'Search data: resource: URL shared by bsm, wuhan-bamboo-silk-center')warnings.push(m.text());});
     const url=`http://127.0.0.1:${server.address().port}/`;
     await page.goto(url);
-    assert.equal(await page.evaluate(()=>classicPaperCatalog.papers.length),74);
+    assert.equal(await page.evaluate(()=>classicPaperCatalog.papers.length),92);
     assert.equal(await page.locator(section).count(),0);
     pass('production source loads; paper list stays behind homepage entry');
     for(const id of await page.evaluate(()=>researchHubsData.map(h=>h.id))){
@@ -113,13 +113,13 @@ async function layout(page,label){
       assert.equal(await page.locator('#papersCollapse').isVisible(),false);
       let count=12;
       while(await page.locator('#papersMore').isVisible()){
-        await page.locator('#papersMore').click();await frames(page);count=Math.min(count+12,74);
+        await page.locator('#papersMore').click();await frames(page);count=Math.min(count+12,92);
         assert.equal(await page.locator('#papersGrid [data-paper-id]').count(),count);
       }
       const allIds=await page.locator('#papersGrid [data-paper-id]').evaluateAll(nodes=>nodes.map(n=>n.dataset.paperId));
-      assert.equal(new Set(allIds).size,74);
+      assert.equal(new Set(allIds).size,92);
       assert.deepEqual([...allIds].sort(),await page.evaluate(()=>window.classicPapers.map(p=>p.id).sort()));
-      assert.equal(await page.locator('#papersStatus').innerText(),'已显示 74 / 74 篇');
+      assert.equal(await page.locator('#papersStatus').isVisible(),false);
       const production=await page.evaluate(()=>window.classicPapers.slice(9));
       for(const paper of production){
         const card=page.locator('#papersGrid [data-paper-id="'+paper.id+'"]');
@@ -127,7 +127,7 @@ async function layout(page,label){
         if(paper.url){
           const labels={'scan-pdf':'阅读原文（扫描PDF）','full-pdf':'阅读原文（PDF）','paper-info':'查看论文信息','full-html':'阅读原文'};
           assert.equal(await primary.innerText(),labels[paper.accessType]+' ↗');assert.equal(await primary.getAttribute('href'),paper.url);
-        }else assert.equal(await card.locator('a').count(),0);
+        }else assert.equal(await card.locator('[data-paper-source="primary"]').count(),0);
         if(paper.type.endsWith('学位论文'))assert.ok((await card.innerText()).includes('学位授予单位：'+paper.journal));
       }
       await layout(page,width+' full production directory');
@@ -146,7 +146,7 @@ async function layout(page,label){
       await page.evaluate(()=>{const input=document.querySelector('#searchInput');input.value='高敏';input.dispatchEvent(new Event('input',{bubbles:true}));});await frames(page);
       assert.equal(await page.locator('[data-search-type="paper"][data-search-id="paper-e01"]').count(),1);
       await page.locator('#clearSearch').click();await frames(page);
-      assert.equal(await page.locator('#papersGrid [data-paper-id]').count(),74);
+      assert.equal(await page.locator('#papersGrid [data-paper-id]').count(),92);
       assert.ok(Math.abs(await page.evaluate(()=>window.scrollY)-scroll)<2);
       await page.locator('#papersCollapse').click();await frames(page);
       assert.equal(await page.locator('#papersGrid [data-paper-id]').count(),12);
@@ -157,7 +157,7 @@ async function layout(page,label){
       assert.equal(await page.locator('#coreGrid').innerHTML(),homeCore);
       assert.ok(Math.abs(await page.evaluate(()=>window.scrollY)-origin.scrollY)<2);
       assert.equal(await entry.evaluate(el=>el===document.activeElement),true);
-      pass(width+': all 74 directory records, 65 access conditions, degree labels, expansion/search/back state and homepage unchanged');
+      pass(width+': all 92 directory records, primary access conditions, degree labels, expansion/search/back state and homepage unchanged');
     }
 
     // Route substitutes only this browser's response; no project data is edited.

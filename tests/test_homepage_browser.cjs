@@ -21,7 +21,7 @@ const frames=page=>page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>re
     const url='http://127.0.0.1:'+server.address().port+'/';
     const height=()=>page.evaluate(()=>document.documentElement.scrollHeight);
     const count=selector=>page.locator(selector+':visible').count();
-    const state=()=>page.evaluate(()=>({category:activeCategory,updateType:activeUpdateType,updateObject:activeUpdateObject,expanded:updatesExpanded,query:searchInput.value}));
+    const state=()=>page.evaluate(()=>({category:activeCategory,updateType:activeUpdateType,expanded:updatesExpanded,query:searchInput.value}));
     const layout=async()=>{
       const result=await page.evaluate(()=>({page:document.documentElement.scrollWidth>document.documentElement.clientWidth,
         nodes:[...document.querySelectorAll('main article, main article h3, main button, .overview-list li, .portal-topic span, summary')].filter(e=>e.getClientRects().length).filter(e=>{const r=e.getBoundingClientRect();return r.left < -1||r.right>document.documentElement.clientWidth+1||e.scrollWidth>e.clientWidth+1;}).map(e=>e.id||e.className)}));
@@ -44,7 +44,7 @@ const frames=page=>page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>re
       assert.equal(await count('#guide'),0);assert.equal(await count('.filters'),0);
       assert.equal(await page.locator('#commonSection, [data-update-view], #coreToggle, #sitesToggle').count(),0);
       assert.equal(await page.locator('#navigationOverview li').count(),7);
-      assert.equal(await page.locator('#navigationOverview button:disabled').count(),1);
+      assert.equal(await page.locator('#navigationOverview button:disabled').count(),0);
       assert.match(await page.locator('#wechatModuleCount').textContent(),/14/);
       assert.equal(await page.locator('[data-genre]').count(),5);
       const ids=await page.locator('#researchTopics [data-research-topic]').evaluateAll(es=>es.map(e=>e.dataset.researchTopic));
@@ -67,26 +67,26 @@ const frames=page=>page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>re
         assert.equal(await count('#navigationOverview'),0);assert.equal(await count('#updatesGrid .update-card'),0);assert.equal(await count('#researchTopics .research-topic-card'),0);
         if(name==='resources'){
           assert.equal(await count('#siteGrid .site-card'),12);
-          assert.equal(await count('.filters'),1);assert.equal(await page.locator('#categoryFilters button').count(),9);
+          assert.equal(await count('.filters'),1);assert.equal(await page.locator('#categoryFilters button').count(),6);
           assert.equal(await page.locator('#categoryFilters [data-category="🏺 汉代简牍"]').count(),0);
           const homeCards=await page.locator('#coreGrid').innerHTML();
-          for(const type of ['🤖 AI & 数字人文','🧱 古文字数据库','🛠️ 学术工具','全部']){
+          for(const type of ['📚 学术期刊','🧱 古文字数据库','🛠️ 学术工具','全部']){
             await page.locator('[data-category="'+type+'"]').click();await frames(page);
             assert.deepEqual(await state(),origin);assert.equal(await page.evaluate(()=>activeModule),'resources');
             const names=await page.locator('#siteGrid h3').allTextContents();
-            const expected=await page.evaluate(type=>sites.filter(s=>!s.commonOnly&&(type==='全部'||s.category===type||(s.resourceCategories||[]).includes(type))).slice(0,12).map(s=>s.name),type);
+            const expected=await page.evaluate(()=>sites.filter(matchesResourceBase).filter(matchesResourceDirection).slice(0,12).map(s=>s.name));
             assert.deepEqual(names,expected);assert.equal(await page.locator('#coreGrid').innerHTML(),homeCards);
           }
-          assert.ok(await page.locator('#siteGrid .fit-for').count()>0,'complete resource details retain use cases');
+          assert.equal(await page.locator('#siteGrid .fit-for').count(),0,'resource cards hide internal use-case notes');
         }
         if(name==='bibliography')assert.equal(await count('#bibliographyGrid .bibliography-card'),17);
         if(name==='papers'){
           assert.equal(await count('#papersGrid [data-paper-id]'),12);
           while(await page.locator('#papersMore').isVisible()){await page.locator('#papersMore').click();await frames(page);}
-          assert.equal(await count('#papersGrid [data-paper-id]'),74);
-          assert.match(await page.locator('#paperModuleCount').textContent(),/^74篇$/);
+          assert.equal(await count('#papersGrid [data-paper-id]'),92);
+          assert.equal(await page.locator('#paperModuleCount').textContent(),'已收录 92 条');
           const paperIds=await page.locator('#papersGrid [data-paper-id]').evaluateAll(es=>es.map(e=>e.dataset.paperId));
-          assert.equal(new Set(paperIds).size,74);
+          assert.equal(new Set(paperIds).size,92);
           assert.deepEqual(paperIds.slice(0,2),['dongzuobin-jiaguwen-duandai-yanjiuli','xuyahui-xizhou-qingtong-liqi-jinwen-jiantao']);
           assert.deepEqual(paperIds.slice(-2),['liuguozhong-lixueqin-yu-qinghuajian','chengwei-wuyi-donghan-zhengli-yanjiu-qianjing']);
           assert.equal(await page.locator('#papersGrid .bibliography-level').filter({hasText:'补充题录'}).count(),2);

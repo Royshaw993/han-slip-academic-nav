@@ -40,8 +40,8 @@ const frames = page => page.evaluate(()=>new Promise(r=>requestAnimationFrame(()
       assert.ok(await focus(page.locator('[data-category="🧱 古文字数据库"]')));
       await keyboard(page.locator('[data-genre="金文"]'));assert.ok(await focus(page.locator('[data-genre="金文"]')));
       await keyboard(page.locator('#returnHomeButton'));assert.ok(await focus(page.locator('.brand')));pass(width,'category, genre and home keyboard focus');
-      for(const [attr,value] of [['data-direction','释文'],['data-update-type','新论文'],['data-update-object','张家山汉简']]) {
-        await page.goto(url);if(attr==='data-direction'){await keyboard(page.locator('[data-module="resources"]'));await page.locator('.library-tools > summary').click();}const target=page.locator('['+attr+'="'+value+'"]');await keyboard(target);
+      for(const [attr,value] of [['data-direction','简牍'],['data-update-type','新论文']]) {
+        await page.goto(url);if(attr==='data-direction')await keyboard(page.locator('[data-module="resources"]'));const target=page.locator('['+attr+'="'+value+'"]');await keyboard(target);
         assert.ok(await focus(target));assert.equal(await target.getAttribute('aria-pressed'),'true');
         const states=await page.locator('['+attr+']').evaluateAll(es=>es.every(e=>e.getAttribute('aria-pressed')===String(e.classList.contains('is-active'))));assert.ok(states);
       }

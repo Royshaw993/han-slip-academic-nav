@@ -22,7 +22,7 @@ const inputAtCurrentScroll = async (page,value) => {
   await page.evaluate(value=>{searchInput.value=value;searchInput.dispatchEvent(new Event('input',{bubbles:true}));},value);await frames(page);
 };
 const state = page => page.evaluate(()=>({
-  activeCategory,activeResourceCategory,activeResourceType,activeModule,moduleReturnContext,activeDirectionTag,activeUpdateType,activeUpdateObject,activeUpdateView,
+  activeCategory,activeResourceCategory,activeResourceType,activeModule,moduleReturnContext,activeDirectionTag,activeUpdateType,activeUpdateView,
   updatesExpanded,researchTagsExpanded,sitesExpanded,topicSelectionActive,updateSearchIgnored,wechatExpanded,
   bibliographyExpanded,hubsExpanded,activeHubId,hubReturnContext,hubExpandedSections:[...hubExpandedSections],
   hidden:searchBrowseSections().map(s=>s.hidden),scrollY:window.scrollY
@@ -95,7 +95,7 @@ async function layout(page,label){
       }
     }
     await query(page,'批准候选');assert.match(await page.locator('#unifiedSearchResults').innerText(),/找到 0 项/);
-    pass('all 74 papers searchable by title and author with accurate access labels, limits and safe links; C records retained');
+    pass('all 92 papers searchable by title and author with accurate access labels, limits and safe links; C records retained');
     await query(page,'清华简');
     await page.locator('#unifiedSearchResults [data-research-topic="qinghua-slips"]').click();await frames(page);
     assert.equal(await page.locator('#hubDetail [data-paper-id="liuguozhong-lixueqin-yu-qinghuajian"]').count(),0);

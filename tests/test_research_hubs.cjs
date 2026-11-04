@@ -23,7 +23,7 @@ function load() {
   const c = vm.createContext({
     URL, window: { scrollY: 0, scrollTo({top}) { this.scrollY = top; } },
     document: { querySelector: node, querySelectorAll: () => [] },
-    console: { warn: message => (message !== 'Search data: resource: URL shared by bsm, wuhan-bamboo-silk-center' && warnings.push(message)), info() {} },
+    console: { warn: message => warnings.push(message), info() {} },
     requestAnimationFrame(fn) { frames.set(++frameId, fn); return frameId; },
     cancelAnimationFrame(id) { frames.delete(id); }
   });
@@ -45,15 +45,16 @@ test('eight unique hubs, valid schema and categories, reference-only records', (
   }
   assert.deepEqual(warnings, []);
 });
-test('51 explicit unique persistent resource IDs', () => {
+test('65 explicit unique persistent resource IDs', () => {
   const {run} = load(), sites = run('sites');
-  assert.equal(sites.length,51); assert.equal(new Set(sites.map(s=>s.id)).size,51);
+  assert.equal(sites.length,65); assert.equal(new Set(sites.map(s=>s.id)).size,65);
   sites.forEach(s=>assert.match(s.id,/^[a-z][a-z0-9-]+$/));
   const source = fs.readFileSync(path.join(root,'script.js'),'utf8').split('const categories =')[0];
-  assert.equal((source.match(/\{ id:"/g)||[]).length,51);
+  assert.equal((source.match(/\{ id:"/g)||[]).length,65);
   // Persistent keys are intentionally pinned independently of names/descriptions/URLs.
   const persistentIds = ['chutu-wenxian-journal','chutu-wenxian-yanjiu','chutu-wenxian-falvshi','nwnu-jiandu','bsm','ihp-woodslip','guanlian-hanqing','xiaoxue','yinxu-oracle-database','ihp-oracle-rubbings','tsinghua-ctwx','wuhan-bamboo-silk-center','cnki','china-archaeology','cssn','google-scholar','jstor','cinii','brill','zotero','ctext','zdic','zi-tools','openalex','semantic-scholar','bnu-shuowen','bnu-hanzi','ytenx','ccl-corpus','xiaoxue-oracle','xiaoxue-oracle-sources','chant-oracle','xiaoxue-bronze','ihp-bronze','ihp-preqin-vocabulary','shangzhou-bronze-query','ihp-bronze-rubbings','zju-epitaphs','ihp-han-stone-rubbings','ihp-buddhist-stone-rubbings','ihp-liao-jin-yuan-rubbings','ihp-song-rubbings','bnu-inscriptions','academic-wechat'];
   persistentIds.push('nlc-beitie-jinghua','shl-beitie','ncl-stone-rubbings','pku-rare-books','shukutoku-stone-rubbings','kyoto-stone-rubbings','china-jinshi-zonglu');
+  persistentIds.push("digital-humanities-research-journal","digital-humanities-collected-journal","ruc-digital-humanities-institute","tsinghua-cnki-digital-humanities-center","dhcn","fudan-zhuiyu-lianzhu","fudan-sifang-huitong","shidian-guji","imagej-fiji","collatex","epidoc","escriptorium","markus","docusky");
   assert.deepEqual(plain(sites.map(s=>s.id).sort()), persistentIds.sort());
 });
 test('resource identity survives renaming, description and URL edits', () => {
@@ -146,7 +147,7 @@ test('home and top genre navigation exit detail without stale hidden sections',(
 });
 test('detail independent of list filters, content source updates reflected on render',()=>{
   const {run,node}=load();
-  run(`activeUpdateType='新书';activeUpdateObject='悬泉汉简';searchInput.value='不存在';openResearchHub('zhangjiashan-hanjian')`);
+  run(`activeUpdateType='新书';searchInput.value='不存在';openResearchHub('zhangjiashan-hanjian')`);
   assert.equal((node('#hubDetail').innerHTML.match(/class="update-card"/g)||[]).length,3);
   run(`hubBooksById.get('zhangjiashan-hanmu-zhujian-247').title='书目修订测试';renderHubDetail()`);assert.match(node('#hubDetail').innerHTML,/书目修订测试/);
 });

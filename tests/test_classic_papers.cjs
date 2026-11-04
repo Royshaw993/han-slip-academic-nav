@@ -27,15 +27,15 @@ function load() {
   const run=code=>vm.runInContext(code,c);
   return {c,run,get,warnings,validate(items){c.testItems=items;return run('validateClassicPapers(testItems)');},inject(items){c.testItems=items;run('const testCatalog=validateClassicPapers(testItems);classicPaperCatalog.byHub.clear();testCatalog.byHub.forEach((list,id)=>classicPaperCatalog.byHub.set(id,list));');}};
 }
-test('production keeps nine original stable records within 74 papers and fills only verified Lin Yun metadata',()=>{
+test('production keeps nine original stable records within 92 papers and fills only verified Lin Yun metadata',()=>{
   const {c,run,warnings}=load(), records=plain(c.window.classicPapers);
-  assert.equal(records.length,74);assert.equal(records[0].id,'linyun-xianqin-pianpang');
+  assert.equal(records.length,92);assert.equal(records[0].id,'linyun-xianqin-pianpang');
   assert.equal(records[0].author,'林澐');assert.equal(records[0].title,'先秦古文字中待探索的偏旁');
   assert.equal(records[0].year,'2001');assert.equal(records[0].journal,'古文字研究');assert.equal(records[0].issue,'第21辑');
   for(const key of ['url','volume','pages'])assert.ok(!records[0][key]);
   assert.deepEqual(records[0].categories,['general']);assert.deepEqual(records[0].hubIds,[]);
   assert.match(records[0].sourceNote,/本轮用户确认/);assert.equal(records[0].featured,false);
-  assert.deepEqual(warnings,[]);assert.equal(run('classicPaperCatalog.papers.length'),74);
+  assert.deepEqual(warnings,[]);assert.equal(run('classicPaperCatalog.papers.length'),92);
 });
 test('all production IDs, relationships, categories, types, years and featured flags validate',()=>{
   const {c,validate}=load();const result=validate(c.window.classicPapers);
@@ -208,16 +208,16 @@ test('catalog-only overrides featured in previews while full hub and directory k
   assert.deepEqual([...app.get('#hubDetail').innerHTML.matchAll(/data-paper-id="([^"]+)"/g)].map(m=>m[1]),['test-a','test-b']);
   app.run(`hubExpandedSections.add('papers');renderHubDetail()`);
   assert.deepEqual([...app.get('#hubDetail').innerHTML.matchAll(/data-paper-id="([^"]+)"/g)].map(m=>m[1]),['test-a','test-b','test-c']);
-  app.run('papersVisibleCount=74;renderClassicPapers()');
+  app.run('papersVisibleCount=92;renderClassicPapers()');
   const ids=[...app.get('#papersGrid').innerHTML.matchAll(/data-paper-id="([^"]+)"/g)].map(m=>m[1]);
-  assert.equal(ids.length,74);assert.deepEqual(ids.slice(-2),['liuguozhong-lixueqin-yu-qinghuajian','chengwei-wuyi-donghan-zhengli-yanjiu-qianjing']);
+  assert.equal(ids.length,92);assert.deepEqual(ids.slice(-2),['liuguozhong-lixueqin-yu-qinghuajian','chengwei-wuyi-donghan-zhengli-yanjiu-qianjing']);
 });
 
 test('the 65 intake rows retain verified fields and only gain source links declared in this review',()=>{
-  const app=load(), records=plain(app.c.window.classicPapers), added=records.slice(9);
+  const app=load(), records=plain(app.c.window.classicPapers), added=records.slice(9,74);
   const report=fs.readFileSync(path.join(root,'reports/classic-paper-broad-intake-review-2026-11-03.md'),'utf8').split('## 3. 拟正式论文清单')[1].split('## 4.')[0];
   const rows=report.split(/\r?\n/).filter(l=>/^\| [A-Z]\d+ \| (期刊论文|论文集文章|学术论文|硕士学位论文|博士学位论文|报纸文章) \|/.test(l)).map(l=>l.split('|').map(c=>c.trim()));
-  assert.equal(rows.length,65);assert.equal(added.length,65);assert.equal(records.length,74);
+  assert.equal(rows.length,65);assert.equal(added.length,65);assert.equal(records.length,92);
   assert.equal(new Set(added.map(p=>p.reviewId)).size,65);
   assert.deepEqual(added.map(p=>p.reviewId),rows.map(r=>r[1]));
   for(const row of rows){
@@ -251,7 +251,7 @@ test('the 65 intake rows retain verified fields and only gain source links decla
 test('all source changes are declared in the review report; no internal evidence renders in cards',()=>{
   const app=load(),records=plain(app.c.window.classicPapers);
   assert.equal(linkedPapers.size,14);
-  assert.equal(records.filter(p=>p.url).length,25);assert.equal(records.filter(p=>!p.url).length,49);
+  assert.equal(records.filter(p=>p.url).length,40);assert.equal(records.filter(p=>!p.url).length,52);
   for(const paper of records){
     app.c.testPaper=paper;const html=app.run('classicPaperCardTemplate(testPaper)');
     assert.doesNotMatch(html,/classic-paper-access|题录已核|暂无经核验|未核实无登录|目标报纸文章HTML正文|非期刊PDF/);
@@ -273,8 +273,57 @@ test('directory grows by 12, collapses, preserves limit on rerender and never li
   app.get('#papersMore').listeners.click();assert.equal(count().length,24);
   app.run('renderClassicPapers()');assert.equal(count().length,24);
   while(!app.get('#papersMore').hidden)app.get('#papersMore').listeners.click();
-  assert.equal(count().length,74);assert.equal(new Set(count()).size,74);assert.equal(app.get('#papersStatus').textContent,'已显示 74 / 74 篇');
-  assert.equal(app.run('unifiedSearchCatalog.entries.filter(e=>e.type==="paper").length'),74);
+  assert.equal(count().length,92);assert.equal(new Set(count()).size,92);assert.equal(app.get('#papersStatus').textContent,'已显示 92 / 92 篇');
+  assert.equal(app.run('unifiedSearchCatalog.entries.filter(e=>e.type==="paper").length'),92);
   app.get('#papersCollapse').listeners.click();assert.equal(count().length,12);assert.equal(app.get('#papersMore').hidden,false);
   assert.equal(app.get('#papersMore').attributes['aria-expanded'],'false');
+});
+
+test('R01-R18 match the approved research report with actual types, conservative links and no invented fields',()=>{
+  const app=load(),records=plain(app.c.window.classicPapers);
+  const report=fs.readFileSync(path.join(root,'reports/digital-humanities-research-review-2026-11-04.md'),'utf8');
+  const rows=[...report.matchAll(/^\| \*\*R(\d{2}) ([^\n]+?)\*\*([^\n]*)/gm)];
+  const added=records.filter(p=>p.id.startsWith('paper-dh-'));
+  assert.equal(records.length,92);assert.equal(added.length,18);assert.equal(rows.length,18);
+  assert.equal(new Set(records.map(p=>p.id)).size,92);
+  assert.deepEqual(added.reduce((o,p)=>(o[p.type]=(o[p.type]||0)+1,o),{}),{'期刊论文':13,'集刊论文':2,'会议论文':2,'网络研究报告':1});
+  for(const row of rows){
+    const code='R'+row[1],paper=added.find(p=>p.reviewId===code);
+    assert.ok(paper,code);assert.equal(paper.title,row[2]);assert.equal(paper.author,row[3].split('；')[1]);
+    assert.equal(paper.year,row[3].match(/(?:19|20)\d{2}/)[0]);
+    assert.ok(row[0].includes(paper.journal),code+': carrier');
+    if(paper.doi)assert.ok(row[0].includes(paper.doi),code+': DOI');
+    for(const url of [paper.url,...(paper.relatedSources||[]).map(s=>s.url)].filter(Boolean))assert.ok(row[0].includes(url),code+': verified URL');
+    assert.equal(paper.abstract,'');assert.equal(paper.featured,false);assert.deepEqual(paper.hubIds,[]);
+    app.c.testPaper=paper;const html=app.run('classicPaperCardTemplate(testPaper)');
+    assert.doesNotMatch(html,/sourceNote|accessNote|核验|未核|本轮|批准|2026-11-04/);
+    assert.equal((html.match(/data-paper-source="primary"/g)||[]).length,paper.url?1:0);
+    if(!paper.url)assert.doesNotMatch(html,/阅读原文/);
+  }
+  for(const code of ['R01','R02','R03','R04','R12','R15'])assert.equal(added.find(p=>p.reviewId===code).doi,'');
+  assert.equal(added.find(p=>p.reviewId==='R01').author,'苏祺、胡韧奋、诸雨辰、严承希、王军');
+  assert.match(added.find(p=>p.reviewId==='R01').sourceNote,/苏棋/);
+  assert.match(added.find(p=>p.reviewId==='R12').note,/算法细节另文说明/);
+  assert.match(added.find(p=>p.reviewId==='R14').note,/制作的.*样本.*尚非真实出土/);
+  for(const paper of added.filter(p=>p.articleNumber))assert.equal(paper.pages,'');
+  assert.deepEqual(added.reduce((o,p)=>(o[p.categories[0]]=(o[p.categories[0]]||0)+1,o),{}),{general:3,slips:7,oracle:4,bronze:1,stone:3});
+  for(const paper of added.slice(0,3))assert.deepEqual(paper.researchDirections,['数字人文']);
+  assert.ok(added.every(p=>!p.categories.includes('silk')));
+  for(const reviewId of ['N06','E03',...Array.from({length:16},(_,i)=>'C'+String(i+1).padStart(2,'0')),...['D01','D02','D03']])assert.ok(!records.some(p=>p.reviewId===reviewId));
+});
+
+test('publication, platform and update links resolve existing stable IDs; invalid research references are rejected',()=>{
+  const app=load(),added=plain(app.c.window.classicPapers).filter(p=>p.id.startsWith('paper-dh-'));
+  for(const [reviewId,id] of [['R01','digital-humanities-research-journal'],['R02','digital-humanities-research-journal'],['R03','digital-humanities-collected-journal'],['R04','digital-humanities-collected-journal'],['R15','chutu-wenxian-journal']]){
+    const paper=added.find(p=>p.reviewId===reviewId);assert.equal(paper.publicationId,id);
+    app.c.relationPaper=paper;app.c.relationId=id;
+    assert.equal(app.run('papersForPeriodical(hubResourcesById.get(relationId)).some(p=>p.id===relationPaper.id)'),true);
+  }
+  const deep=added.find(p=>p.reviewId==='R07');assert.deepEqual(deep.resourceIds,['nwnu-jiandu']);assert.deepEqual(deep.updateIds,['nwnu-deepjiandu']);
+  app.c.testPaper=deep;const html=app.run('classicPaperCardTemplate(testPaper)');
+  assert.match(html,/data-related-id="nwnu-jiandu"/);assert.match(html,/data-related-id="nwnu-deepjiandu"/);
+  assert.match(html,/https:\/\/jiandu.nwnu.edu.cn\/article\/229.html/);
+  for(const changes of [{publicationId:'cnki'},{publicationId:'missing'},{resourceIds:['missing']},{updateIds:['missing']},{researchDirections:['帛书识别']},{articleNumber:398}]){
+    const r=app.validate([sample(changes)]);assert.equal(r.papers.length,0);assert.ok(r.warnings.length);
+  }
 });
