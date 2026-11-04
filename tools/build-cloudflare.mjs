@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 export const PUBLIC_FILES = Object.freeze([
   "index.html",
+  "404.html",
   "style.css",
   "script.js",
   "academic-updates.js",

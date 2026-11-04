@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>页面未找到｜古文字学术导航</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f0e5;
+      --paper-light: #fcfaf4;
+      --ink: #25221e;
+      --ink-soft: #656057;
+      --line: #d7cdbc;
+      --vermilion: #8e3028;
+      --vermilion-deep: #6e211c;
+      --gold: #a47b47;
+    }
+    * { box-sizing: border-box; }
+    body {
+      display: grid;
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+      place-items: center;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: radial-gradient(rgba(84, 61, 36, .045) .8px, transparent .8px);
+      background-size: 10px 10px;
+      font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+      line-height: 1.7;
+    }
+    main {
+      width: min(620px, 100%);
+      padding: clamp(30px, 7vw, 58px);
+      border-top: 4px solid var(--gold);
+      background: var(--paper-light);
+      box-shadow: 0 14px 35px rgba(54, 42, 28, .09);
+      text-align: center;
+    }
+    .kicker { margin: 0 0 5px; color: var(--gold); font: 700 .75rem Georgia, serif; letter-spacing: .18em; }
+    .code { margin: 0; color: var(--vermilion); font: 700 clamp(4rem, 18vw, 7rem)/1 Georgia, serif; letter-spacing: .04em; }
+    h1 { margin: 20px 0 8px; font-size: clamp(1.35rem, 5vw, 1.8rem); }
+    p { margin: 0 0 24px; color: var(--ink-soft); }
+    a {
+      display: inline-block;
+      min-height: 44px;
+      padding: 9px 20px;
+      border: 1px solid var(--vermilion);
+      border-radius: 3px;
+      color: #fff9ed;
+      background: var(--vermilion);
+      text-decoration: none;
+    }
+    a:hover { border-color: var(--vermilion-deep); background: var(--vermilion-deep); }
+    a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="kicker">ANCIENT CHINESE WRITING · RESEARCH NAVIGATION</p>
+    <p class="code" aria-hidden="true">404</p>
+    <h1>页面未找到</h1>
+    <p>您访问的地址不存在，或已从本站移除。</p>
+    <a id="home-link" href="/">返回首页</a>
+  </main>
+  <script>
+    if (location.hostname === "royshaw993.github.io") {
+      document.getElementById("home-link").href = "/han-slip-academic-nav/";
+    }
+  </script>
+</body>
+</html>
