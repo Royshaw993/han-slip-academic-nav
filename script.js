@@ -2,6 +2,9 @@
 // id 是人工确定的持久引用键：改名、改描述或小幅更新 URL 均不重建 id。
 // 禁止使用数组索引或从名称动态生成；冲突须人工确定稳定语义 id。
 const sites = [
+  { id:"chutu-wenxian-journal", name:"《出土文献》", institution:"清华大学出土文献研究与保护中心、中西书局", category:"📚 学术期刊", displayCategory:"学术期刊", description:"2020年创刊的出土文献专业学术期刊，前身为2010年创办的同名辑刊。刊载甲骨、金文、战国秦汉简帛等出土文献及相关交叉研究。", keywords:["出土文献","期刊","古文字","甲骨","金文","简帛"], url:"https://www.ctwx.tsinghua.edu.cn/info/1068/1832.htm", buttonLabel:"查看刊物信息", sourceNote:"清华大学中心期刊稿约及创刊号公告已实际获取；2020年期刊与2010—2019年辑刊沿革合并维护，非另建两条记录。" },
+  { id:"chutu-wenxian-yanjiu", name:"《出土文献研究》", institution:"中国文化遗产研究院 编", category:"📚 学术期刊", displayCategory:"学术集刊", description:"以出土文献为主要研究对象的连续出版集刊，刊载古文字、简牍帛书等材料的整理与研究。", keywords:["出土文献研究","集刊","简牍","帛书","古文字"], url:"https://m.ncpssd.cn/journal/details?gch=73019X&langType=1&nav=1", buttonLabel:"查看刊物信息", sourceNote:"NSSD整体刊物页实际获取并核对名称、简介与历年目录；北大考古文博学院上架书目第39期列第十四辑、中国文化遗产研究院编、中西书局2015。NSSD误将单辑ISBN列作ISSN，未移录。" },
+  { id:"chutu-wenxian-falvshi", name:"《出土文献与法律史研究》", institution:"华东政法大学法律古籍整理研究所", category:"📚 学术期刊", displayCategory:"学术集刊", description:"围绕甲骨、金文、简牍等出土法律文献与法律史研究的连续出版集刊。", keywords:["出土文献与法律史研究","集刊","法律史","秦汉简牍"], url:"https://m.ncpssd.cn/journal/details?gch=11178X&langType=1&nav=1", buttonLabel:"查看刊物信息", sourceNote:"NSSD整体刊物页已由网页工具实际获取并核对名称、机构、简介及目录；本地直连一次连接重置。华东政法大学成立三十周年公告亦确认连续出版。各辑出版社不同，不将单辑出版社或ISBN用作系列统一字段。" },
   { id:"nwnu-jiandu", name:"简牍学术资源数据共享平台", institution:"西北师范大学", category:"🏺 汉代简牍", core:true, priority:true, description:"面向简牍研究的数字资源平台，提供实物、释文、字形、著录、文献与专家等资源，涵盖居延汉简、居延新简、悬泉汉简、敦煌汉简、玉门关汉简、地湾汉简、武威汉简、额济纳汉简等。", fitFor:"实物、释文、字形、著录、文献、专家信息的综合检索。", keywords:["汉代简牍","居延汉简","悬泉汉简","敦煌汉简","释文","字形","著录","实物","图版","检索","学者"], researchTags:["居延汉简","居延新简","悬泉汉简","敦煌汉简","玉门关汉简","武威汉简","张家山汉简","五一广场东汉简","走马楼西汉简","汉代简牍文字","释文","字形","著录","图版","实物","检索","学者","数字人文"], url:"https://jiandu.nwnu.edu.cn/", buttonLabel:"进入资源平台 ↗" },
   { id:"bsm", name:"简帛网", institution:"武汉大学简帛研究中心", category:"🏺 汉代简牍", core:true, priority:true, description:"武汉大学简帛研究中心主办的简帛学术网站，适合跟踪简帛研读、研究札记、学术动态以及汉简等出土文献研究成果。", fitFor:"简帛研究动态、研究文章、汉简资料、学术交流和最新研究成果。", keywords:["简帛","汉简","简牍","研读","研究札记","学术动态","论文","检索"], researchTags:["居延汉简","敦煌汉简","肩水金关","张家山汉简","五一广场东汉简","走马楼西汉简","银雀山汉简","汉代简牍文字","论文","检索","数字人文"], url:"https://www.bsm.org.cn/", buttonLabel:"进入简帛网 ↗" },
   { id:"ihp-woodslip", name:"简牍字典", subtitle:"史语所藏居延汉简资料库", institution:"中央研究院历史语言研究所", category:"🏺 汉代简牍", core:true, description:"以居延汉简为核心的数字资料库，可检索简号、释文、时代、遗址等信息，并提供简牍图像与字形相关资料。", fitFor:"居延汉简的简号、释文、字形、图像与遗址信息查询。", keywords:["居延汉简","简牍字典","字形","释文","简号","遗址","图像","图版","检索","出土地"], researchTags:["居延汉简","居延新简","肩水金关","汉代简牍文字","释文","字形","图版","检索","出土地"], url:"https://wcd-ihp.ascdc.sinica.edu.tw/woodslip/", buttonLabel:"查询简牍字典 ↗" },
@@ -37,23 +40,34 @@ const sites = [
   { id:"ihp-preqin-vocabulary", name:"先秦甲骨金文簡牘詞彙資料庫", institution:"中央研究院历史语言研究所金文工作室", category:"🧱 古文字数据库", resourceCategories:["金文","帛书"], resourceGroup:"数据库与检索", genreOnly:true, description:"提供甲骨、金文及简牍词汇与全文检索，其中收录《楚帛书》甲乙丙本，可作跨材料检索。", keywords:["金文","帛书","楚帛书","词汇","释文","全文检索"], url:"https://w9.ihp.sinica.edu.tw/bronze/pages/263", buttonLabel:"查看官方说明 ↗" },
   { id:"shangzhou-bronze-query", name:"商周金文数字查询平台", institution:"", category:"🧱 古文字数据库", resourceCategories:["金文"], genreOnly:true, description:"商周金文数字查询入口。", keywords:["商周","金文","查询"], url:"https://jwdcdbz.ancientbooks.cn/dictionary" },
   { id:"ihp-bronze-rubbings", name:"青銅器拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🧱 古文字数据库", resourceCategories:["金文"], genreOnly:true, description:"收藏青铜器全形拓片与铭文拓片，可供器物、铭文与拓片影像研究使用。", keywords:["金文","青铜器","拓片","铭文","器影"], url:"https://dap.ihp.sinica.edu.tw/database/4/", buttonLabel:"进入数据库 ↗" },
-  { id:"zju-epitaphs", name:"中国历代墓志数据库", institution:"浙江大学图书馆古籍碑帖研究与保护中心", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, accessNote:"不限 IP", resourceTags:["墓志","拓片"], description:"历代墓志、拓片、全文与图像检索，校内外均可访问。", keywords:["墓志","石刻","拓片","全文","图像","检索"], url:"http://csid.zju.edu.cn", buttonLabel:"进入数据库 ↗" },
+  { id:"zju-epitaphs", name:"中国历代墓志数据库", institution:"浙江大学图书馆古籍碑帖研究与保护中心", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, readerNote:"请使用繁体字检索。", accessNote:"检索页可访问；图书馆标注不限 IP。影像权限以平台提示为准。", resourceTags:["墓志","拓片","释文","石刻数据库"], description:"整合馆藏拓片与已发表墓志资料，提供题名、责任者、年代、地点与录文等检索线索。", keywords:["墓志","碑刻","石刻","拓片","录文","全文","图像","检索"], url:"http://csid.zju.edu.cn/tomb/stone", buttonLabel:"检索墓志与碑拓 ↗", accessChecked:"2026-11-03", sourceNote:"原定8项候选第3项，沿用原ID。浙江大学图书馆 https://libdb.zju.edu.cn/s/lib/libtb/show/1516 核名称、制作机构及不限IP说明；本轮HTTP GET 200，Edge打开碑拓检索页，核子库与录文等字段；外站报iFrameHeight未定义，未验证检索结果或全量影像下载。HTTPS握手失败，保留官方HTTP入口。未移录历史藏量。" },
   { id:"ihp-han-stone-rubbings", name:"漢代石刻畫象拓本資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["石刻画像","拓片"], description:"收录汉代石刻画像拓本，可用于汉代社会、信仰、建筑与生活文化史研究。", keywords:["汉代","石刻画像","拓本","拓片","图像"], url:"https://dap.ihp.sinica.edu.tw/database/5/", buttonLabel:"查看官方说明 ↗" },
   { id:"ihp-buddhist-stone-rubbings", name:"佛教石刻造像拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["佛教造像","拓片"], description:"收藏佛教石刻造像拓片，支持按题名、原刻地点、年代与释文关键词检索。", keywords:["佛教","石刻造像","拓片","释文","检索"], url:"https://dap.ihp.sinica.edu.tw/database/6/", buttonLabel:"查看官方说明 ↗" },
   { id:"ihp-liao-jin-yuan-rubbings", name:"遼金元拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["拓片"], description:"收录辽金元三朝碑拓，提供基本资料、释文与影像浏览。", keywords:["辽金元","碑拓","拓片","释文","影像"], url:"https://dap.ihp.sinica.edu.tw/database/7/", buttonLabel:"查看官方说明 ↗" },
   { id:"ihp-song-rubbings", name:"五代及宋拓片資料庫", institution:"中央研究院历史语言研究所傅斯年图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["墓志","拓片"], description:"以五代及宋拓片为主，优先收录墓志主题，支持题名、墓主、年代、地点与释文检索。", keywords:["五代","宋代","墓志","拓片","释文","检索"], url:"https://dap.ihp.sinica.edu.tw/database/8/", buttonLabel:"查看官方说明 ↗" },
   { id:"bnu-inscriptions", name:"历代碑刻典藏与应用平台", institution:"北京师范大学汉字汉语实验室相关团队", category:"🪨 石刻资源", displayCategory:"石刻核心资源 / 古文字数据库", resourceCategories:["石刻"], genreOnly:true, resourceTags:["碑刻","拓片","释文","字形"], description:"提供历代碑刻、拓片与碑刻文字资料，可用于释文和字形检索。", keywords:["历代碑刻","碑刻","拓片","碑刻文字","释文","字形","检索"], url:"https://ldbk.bnu.edu.cn/", buttonLabel:"进入碑刻平台 ↗" },
+  // 石刻专项审核结果仍只维护在 sites；说明页与数据库入口通过按钮文案区分。
+  { id:"nlc-beitie-jinghua", name:"碑帖菁华", institution:"中国国家图书馆", category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["碑刻","墓志","拓片","石刻数据库"], description:"中华古籍资源库中的拓片资源，提供年代导航与碑刻题录，适合查找碑名、责任者、刻立地和现藏地。", keywords:["国家图书馆","国图","碑帖","碑刻","墓志","拓片","题录","年代","著录"], url:"http://read.nlc.cn/allSearch/searchList?searchType=34&showType=1&pageNo=1", buttonLabel:"查看碑帖资源 ↗", accessNote:"2026-11-03 核验：目录可读取，浏览器加载超时；影像权限待复核。", accessChecked:"2026-11-03", sourceNote:"原定候选第1项。官方入口GET 200，正文有碑帖菁华、年代导航及重修城隍廟碑等12条记录；Edge初次DOMContentLoaded超时。https://www.nlc.cn/pcab/zy/szzy/ 与 https://www.nlc.cn/web/yejiefuwu/newtsgj/newgjgx/hzxm/20111031_54107.shtml 证实资源，旧免费说明不作为当前权限保证；未移录藏量、元数据与影像数量。" },
+  { id:"shl-beitie", name:"上海图书馆碑帖知识库", institution:"上海图书馆", aliases:["上海图书馆碑帖"], category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["碑刻","拓片","字形","综合资源"], description:"围绕馆藏珍本碑帖组织作品、单字和人物等知识，适合碑帖版本、书法字形与相关人物的对照研究。", keywords:["上海图书馆","碑帖","碑刻","拓片","单字","字形","人物","数字人文"], url:"https://beitie.library.sh.cn/home", buttonLabel:"进入碑帖知识库 ↗", accessNote:"2026-11-03 核验：连接超时，交互与影像权限待复核。", accessChecked:"2026-11-03", sourceNote:"原定候选第2项。入口网页工具可读title及JavaScript提示，实际GET连接超时、Edge导航超时。上海图书馆 https://www.library.sh.cn/service/service/11 列碑帖知识库；上海图书馆系统网络中心数字人文项目组供稿 https://www.calsp.cn/2024/01/22/bulletin-202401-03/ 核URL及作品/单字/人物功能；未将清单免费和45/77件数量移作当前状态。" },
+  { id:"ncl-stone-rubbings", name:"金石拓片資料庫", subtitle:"古籍與特藏文獻資源", institution:"國家圖書館（臺灣）", aliases:["台湾国家图书馆金石拓片数据库","台湾国图","古籍与金石特藏文献资源"], category:"🪨 石刻资源", resourceCategories:["石刻","金文"], genreOnly:true, resourceTags:["碑刻","墓志","拓片","石刻数据库"], description:"馆藏金石拓片检索入口，涵盖碑志、摩崖、题记与金文拓片，可按题名、撰文者、版本、类型及有无影像查找。", keywords:["金石拓片","碑刻","墓志","金文","摩崖","题记","图像","检索"], url:"https://rbook.ncl.edu.tw/NCLSearch/Search/Index/5", buttonLabel:"检索金石拓片 ↗", accessNote:"检索页无需登录即可打开；单件影像及使用授权以馆方说明为准。", accessChecked:"2026-11-03", sourceNote:"原定候选第4项。原URL带tab=3，GET和Edge均200；从 https://rbook.ncl.edu.tw/NCLSearch 的金石拓片資料链接核规范入口，去掉tab参数。官网 https://www.ncl.edu.tw/collections 与子库简介核内容及机构。简介藏量为历史说明，本轮不转填为当前上线数，未验证全量下载或永久免费。" },
+  { id:"pku-rare-books", name:"祕籍琳琅——北京大学数字图书馆古文献资源库", institution:"北京大学图书馆", aliases:["秘籍琳琅","秘籍琳琅"], category:"🪨 石刻资源", displayCategory:"综合资源 / 古文献", resourceCategories:["石刻"], genreOnly:true, resourceTags:["拓片","综合资源"], description:"北京大学馆藏古文献综合平台，涵盖元数据、古籍书影、电子图书、拓片与舆图图像，可作拓片馆藏查找的补充入口。", keywords:["北京大学","北大","古文献","古籍","拓片","舆图","馆藏","综合资源"], url:"https://www.lib.pku.edu.cn/3wxbz/34gwxzy/349dyxs/index.htm", buttonLabel:"查看官方资源说明 ↗", accessNote:"官方说明页可访问；2026-11-03 核验数据库入口超时，图像权限未核。", accessChecked:"2026-11-03", sourceNote:"原定候选第5项。用户所列URL为北大图书馆点阅线上官方说明页，GET及Edge均200，核全名、机构与拓片内容；非石刻专库。实际链接为 http://rbdl.calis.edu.cn/aopac/indexold.jsp ，网页工具自动HTTPS后超时，实际访问另核；不把说明页冒充数据库或标为免费。" },
+  { id:"shukutoku-stone-rubbings", name:"中国石刻拓本デジタルア－カイブズ", subtitle:"中国石刻拓本数字档案", institution:"淑徳大学書学文化センター", aliases:["日本淑德大学收藏的中国石刻拓片资源","淑德大学中国石刻拓本"], category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["碑刻","墓志","拓片"], description:"按年代与专题浏览中国石刻拓本，设天放楼藏拓、画像石砖与昭陵墓志等目录，支持从目录进入拓本图像。", keywords:["淑德大学","日本","中国石刻拓本","天放楼","碑刻","墓志","拓片","画像石","图像"], url:"https://www.shukutoku.ac.jp/university/facilities/syogaku/takuhon/", buttonLabel:"浏览拓本目录 ↗", accessNote:"目录无需登录即可浏览；图像使用遵循馆方规定。", accessChecked:"2026-11-03", sourceNote:"原定候选第6项。官网GET及Edge 200，核原文名称、書学文化センター、年代/专题目录、图像放大说明与官方目録PDF；北魏目录 https://www.shukutoku.ac.jp/university/facilities/syogaku/takuhon/hokugi.html 可读。未移录6000余件、531件或免费使用/下载承诺。" },
+  { id:"kyoto-stone-rubbings", name:"京都大学人文科学研究所所蔵石刻拓本資料", institution:"京都大学人文科学研究所", aliases:["京都大学人文科学研究所所藏石刻拓本数据库","京都大学石刻拓本"], category:"🪨 石刻资源", resourceCategories:["石刻"], genreOnly:true, resourceTags:["碑刻","拓片","石刻数据库"], description:"提供画像石与文字拓本两类馆藏目录，可作碑刻图像与刻文研究的资料线索。", keywords:["京都大学","日本","石刻拓本","碑刻","拓片","画像石","文字拓本","图像","目录"], url:"http://kanji.zinbun.kyoto-u.ac.jp/db-machine/imgsrv/takuhon/index.html", buttonLabel:"浏览石刻拓本目录 ↗", readerNote:"旧格式阅读提示：含 DjVu 阅读入口。", accessNote:"目录可访问；旧站含 DjVu 阅读入口，现代浏览器兼容性需留意。", accessChecked:"2026-11-03", sourceNote:"原定候选第7项。HTTP GET及Edge 200，浏览器按iso-2022-jp正确显示原文全名，核畫像石/文字拓本目录、DjVu插件链接及版权说明；https://www.ciih.zinbun.kyoto-u.ac.jp/library/collect.html 交叉核馆藏。未承诺所有影像均能在现代浏览器打开或任意下载，未移录五千/三千幅数量。" },
+  { id:"china-jinshi-zonglu", name:"中国金石总录", institution:"", category:"🪨 石刻资源", resourceCategories:["石刻","金文"], genreOnly:true, resourceTags:["碑刻","墓志","拓片","释文","石刻数据库","综合资源"], description:"汇集历代金文与石刻文献，配合拓本、录文和叙录，适合碑刻、墓志及相关历史文献的查找与对读。", keywords:["中国金石总录","金石","金文","碑刻","墓志","拓片","释文","录文","叙录","全文检索"], url:"http://121.89.86.151:6722/home", originalUrl:"http://www.ch5000.com.cn/", buttonLabel:"进入数据库", readerNote:"试用库入口。", accessNote:"补充核验：新入口HTTP 200，浏览器可显示试用库首页与搜索入口；未验证完整检索结果、下载或注册权限。", accessChecked:"2026-11-03", sourceNote:"原定候选第8项，真实资源保留资料条目。官方地址 http://www.ch5000.com.cn/ 经苏州大学图书馆 https://library.suda.edu.cn/c2/1a/c4807a705050/page.htm （2026-07-09更新）确认；本机GET 22秒超时，Edge22秒超时。馆方列校园IP内注册及校外VPN，不等于所有用户免费；发行商列甘肃省古籍文献整理编译中心，未据此认定维护公司，institution留空。未核实甘肃五凉公司归属及当前期数、数量，不移录。 2026-11-03 核验：官网连接超时；可向所在图书馆核实访问权限。 2026-11-03补充：用户提供新地址 http://121.89.86.151:6722/home；Edge实际访问HTTP 200，页面标题“中國金石總錄試用庫”，正文显示开始搜索、关于中国金石总录、总库目录、试用目录及编辑单位甘肃省古籍文献编译整理中心，未登录或注册。首次仅加载到标题，复查成功显示正文且无页面脚本错误。保留原官网 http://www.ch5000.com.cn/ 于originalUrl，主链接改用新入口，HTTP及IP地址可能变化，不保证永久稳定或全部功能/权限。" },
   { id:"academic-wechat", name:"学术公众号", institution:"微信内学术资讯入口", category:"学术资讯", commonOnly:true, commonAction:"wechat", description:"古文字微刊、出土文献、简牍学等学术公众号入口。", keywords:["公众号","古文字","出土文献","简牍"] }
 ];
 
-const categories = ["全部","🏺 汉代简牍","🧱 古文字数据库","📜 出土文献","📚 学术期刊","🎓 学术会议","🏛️ 学术机构","🌏 海外汉学","🤖 AI & 数字人文","🛠️ 学术工具"];
+const categories = ["全部","🧱 古文字数据库","🪨 石刻资源","📜 出土文献","📚 学术期刊","🏛️ 学术机构","🌏 海外汉学","🤖 AI & 数字人文","🛠️ 学术工具"];
 const resourceGenres = ["甲骨文", "金文", "石刻", "帛书"];
 const heroGenreViews = new Set([...resourceGenres, "🏺 汉代简牍"]);
+const disciplineViews = new Set(["甲骨文", "金文", "石刻", "🏺 汉代简牍"]);
+// 首页推荐独立于 core 标记、专题引用和搜索索引，只引用既有持久 ID。
+const homepageFeaturedIds = ["bsm", "nwnu-jiandu", "xiaoxue", "ihp-bronze"];
 const bibliographyCategoryCodes = Object.fromEntries(Object.entries(window.searchTaxonomy.categories).flatMap(([code, item]) => [item.label, ...item.aliases].map(label => [label, code])));
 const updateGenreDefinitions = {
   "甲骨文": { code:"oracle", label:"甲骨文", matches:["甲骨文", "甲骨"] },
   "金文": { code:"bronze", label:"金文", matches:["金文", "青铜器", "青銅器"] },
-  "石刻": { code:"stone", label:"石刻", matches:["石刻", "碑刻", "墓志", "墓誌", "拓片"] },
+  "石刻": { code:"stone", label:"石刻", matches:["石刻", "碑刻", "墓志", "墓誌"] },
   "帛书": { code:"silk", label:"帛书", matches:["帛书", "帛書", "楚帛书", "楚帛書"] }
 };
 const silkResourceGroups = ["核心材料", "数据库与检索", "整理与出版", "最新研究动态"];
@@ -61,7 +75,7 @@ const directionTags = ["居延汉简","居延新简","悬泉汉简","敦煌汉�
 const updateTypes = ["全部","新论文","新书","新资料","学术会议","学术讲座","研究动态","数据库更新"];
 const updateObjects = ["全部简牍","居延汉简","悬泉汉简","敦煌汉简","肩水金关","武威汉简","张家山汉简","五一广场东汉简","走马楼西汉简","秦汉简牍文字","汉代简牍文字"];
 const searchTitles = {
-  "全部": "从一枚汉简，抵达一片学术天地",
+  "全部": "从文字与文献，通向学术研究",
   "甲骨文": "从一片甲骨，探寻早期文字",
   "金文": "从一件青铜器，读懂金文世界",
   "石刻": "从一方碑刻，走近历史现场",
@@ -76,14 +90,11 @@ let activeUpdateType = "全部";
 let activeUpdateObject = "全部简牍";
 const siteGrid = document.querySelector("#siteGrid");
 const coreGrid = document.querySelector("#coreGrid");
-const commonSites = document.querySelector("#commonSites");
 const filters = document.querySelector("#categoryFilters");
 const tagsContainer = document.querySelector("#researchTags");
 const searchInput = document.querySelector("#searchInput");
 const emptyState = document.querySelector("#emptyState");
 const coreSection = document.querySelector("#coreSection");
-const coreEmpty = document.querySelector("#coreEmpty");
-const resultCount = document.querySelector("#resultCount");
 const searchTitle = document.querySelector("#search-title");
 const resourceFilterStatus = document.querySelector("#resourceFilterStatus");
 const resourceFilterLabel = document.querySelector("#resourceFilterLabel");
@@ -97,37 +108,47 @@ const updateObjectFilterGroup = document.querySelector("#updateObjectFilterGroup
 const updateEmpty = document.querySelector("#updateEmpty");
 const updatesKicker = document.querySelector("#updates-kicker");
 const updatesTitle = document.querySelector("#updates-title");
-const updatesIntro = document.querySelector("#updates-intro");
 const latestUpdateDateElement = document.querySelector("#latestUpdateDate");
-const updateDateNote = document.querySelector("#updateDateNote");
 const linksLastCheckedElement = document.querySelector("#linksLastChecked");
 const updatesToggle = document.querySelector("#updatesToggle");
 const researchTagsToggle = document.querySelector("#researchTagsToggle");
-const sitesToggle = document.querySelector("#sitesToggle");
 const categoryFeedback = document.querySelector("#categoryFeedback");
 const returnHomeButton = document.querySelector("#returnHomeButton");
 const updateFilterStatus = document.querySelector("#updateFilterStatus");
 const updateFilterSummary = document.querySelector("#updateFilterSummary");
 const clearUpdateFilters = document.querySelector("#clearUpdateFilters");
 const backToTopics = document.querySelector("#backToTopics");
-const updateViewTabs = document.querySelector("#updateViewTabs");
 const latestUpdatesView = document.querySelector("#latestUpdatesView");
-const topicsView = document.querySelector("#topicsView");
 const updatesSection = document.querySelector(".updates-section");
-const commonSection = document.querySelector("#commonSection");
 const resourcesSection = document.querySelector("#resourcesSection");
 const genreStructure = document.querySelector("#genreStructure");
 const wechatPanel = document.querySelector("#wechatPanel");
-const wechatCollapse = document.querySelector("#wechatCollapse");
 const bibliographySection = document.querySelector("#bibliographySection");
+const papersSection = document.querySelector("#papersSection");
+const papersGrid = document.querySelector("#papersGrid");
+const papersMore = document.querySelector("#papersMore");
+const papersCollapse = document.querySelector("#papersCollapse");
+const papersStatus = document.querySelector("#papersStatus");
+const paperPageSize = 12;
+let papersVisibleCount = paperPageSize;
+let resourceVisibleCounts = { oracle:4, bronze:4, han:4, stone:4, directory:12 };
+const literatureSection = document.querySelector("#literatureSection");
+const literatureGrid = document.querySelector("#literatureGrid");
+const literatureMore = document.querySelector("#literatureMore");
+const literatureCollapse = document.querySelector("#literatureCollapse");
+let literatureVisibleCount = 4;
+const coreResourcesMore = document.querySelector("#coreResourcesMore");
+const coreResourcesCollapse = document.querySelector("#coreResourcesCollapse");
+const directoryResourcesMore = document.querySelector("#directoryResourcesMore");
+const directoryResourcesCollapse = document.querySelector("#directoryResourcesCollapse");
+const bibliographyToggle = document.querySelector("#bibliographyToggle");
 const bibliographyTitle = document.querySelector("#bibliography-title");
-const bibliographyIntro = document.querySelector("#bibliographyIntro");
 const bibliographyGrid = document.querySelector("#bibliographyGrid");
 const bibliographyEmpty = document.querySelector("#bibliographyEmpty");
-const bibliographyToggle = document.querySelector("#bibliographyToggle");
 let updatesExpanded = false;
 let researchTagsExpanded = false;
 let sitesExpanded = false;
+let coreExpanded = false;
 let activeUpdateView = "latest";
 let topicSelectionActive = false;
 // 返回默认动态时只解除动态区的搜索，不改变其他资源区的全站搜索。
@@ -145,9 +166,16 @@ const coreBibliographyData = Array.isArray(window.coreBibliography) ? window.cor
 const researchHubsData = Array.isArray(window.researchHubs) ? window.researchHubs : [];
 const hubCategoryLabels = Object.fromEntries(Object.entries(window.searchTaxonomy.categories).map(([code, item]) => [code, item.label]));
 const hubDetail = document.querySelector("#hubDetail");
-const hubsToggle = document.querySelector("#hubsToggle");
 let hubsExpanded = false;
 let activeHubId = "";
+let activeModule = "";
+let moduleReturnContext = null;
+let activeResourceType = "全部";
+const topicsSection = document.querySelector("#topicsSection");
+const navigationOverview = document.querySelector("#navigationOverview");
+const moduleHeader = document.querySelector("#moduleHeader");
+const moduleBack = document.querySelector("#moduleBack");
+const guideSection = document.querySelector("#guide");
 let hubReturnContext = null;
 let hubExpandedSections = new Set();
 let hubNavigationFrame = 0;
@@ -181,11 +209,28 @@ function classicPaperUrl(value) {
     return url.href;
   } catch { return ""; }
 }
+const paperAccessLabels = {
+  "scan-pdf": "阅读原文（扫描PDF）", "full-pdf": "阅读原文（PDF）",
+  "full-html": "阅读原文", excerpt: "阅读节选", "paper-info": "查看论文信息", bibliography: "查看出版信息"
+};
+function paperRecommendationRank(paper) {
+  return { recommended: 0, background: 1, "catalog-only": 2 }[paper.recommendationStatus] ?? (paper.featured ? 0 : 1);
+}
+function comparePaperRecommendations(a, b) {
+  return paperRecommendationRank(a) - paperRecommendationRank(b);
+}
+function classicPaperSourceLink(source, role) {
+  const url = classicPaperUrl(source.url);
+  if (!url || source.accessType === "none") return "";
+  const label = Object.hasOwn(paperAccessLabels, source.accessType) ? paperAccessLabels[source.accessType] : "查看来源（内容未核验）";
+  const context = source.context ? `（${source.context}）` : "";
+  return `<a class="classic-paper-link" data-paper-source="${role}" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label + context)} ↗</a>`;
+}
 function validateClassicPapers(items, hubIndex = hubsById) {
   const papers = [], byHub = new Map(), warnings = [];
   const ids = new Set(), identities = new Set();
   const categories = new Set(["oracle", "bronze", "stone", "slips", "silk", "general"]);
-  const types = new Set(["经典论文", "研究史", "重要综述"]);
+  const types = new Set(["经典论文", "研究史", "重要综述", "期刊论文", "论文集文章", "硕士学位论文", "博士学位论文", "报纸文章", "学术论文"]);
   const normalize = value => value.normalize("NFKC").replace(/[\p{P}\s]/gu, "").toLowerCase();
   if (!Array.isArray(items)) return { papers, byHub, warnings: ["论文数据必须为数组"] };
   items.forEach((paper, index) => {
@@ -202,9 +247,17 @@ function validateClassicPapers(items, hubIndex = hubsById) {
     if (typeof paper.featured !== "boolean") { fail("featured 必须为布尔值"); return; }
     if (!Array.isArray(paper.categories) || !paper.categories.length || paper.categories.some(code => !categories.has(code))) { fail("门类编码不合法"); return; }
     if (!Array.isArray(paper.hubIds) || paper.hubIds.some(id => typeof id !== "string" || !id)) { fail("hubIds 必须为非空字符串组成的数组，可为空数组"); return; }
-    if (["volume", "issue", "pages", "url", "sourceNote"].some(key => paper[key] !== undefined && typeof paper[key] !== "string")) { fail("可选字段必须为字符串"); return; }
+    if (["volume", "issue", "pages", "doi", "abstract", "reviewId", "url", "sourceNote", "accessNote", "accessChecked"].some(key => paper[key] !== undefined && typeof paper[key] !== "string")) { fail("可选字段必须为字符串"); return; }
+    if (paper.accessType !== undefined && paper.accessType !== "none" && !Object.hasOwn(paperAccessLabels, paper.accessType)) { fail("来源访问类型不合法"); return; }
+    if (paper.recommendationStatus !== undefined && !["recommended", "background", "catalog-only"].includes(paper.recommendationStatus)) { fail("推荐状态不合法"); return; }
     const url = classicPaperUrl(paper.url);
     if (paper.url && !url) { fail("URL 无效或包含占位地址"); return; }
+    if (paper.accessType === "none" && url) { fail("无公开入口不能同时填写主URL"); return; }
+    if (paper.relatedSources !== undefined && !Array.isArray(paper.relatedSources)) { fail("辅助来源必须为数组"); return; }
+    const relatedSources = (paper.relatedSources || []).filter(source => {
+      if (source && classicPaperUrl(source.url) && Object.hasOwn(paperAccessLabels, source.accessType) && (source.context === undefined || typeof source.context === "string")) return true;
+      fail("辅助来源无效，已跳过"); return false;
+    });
     const identity = `${normalize(paper.author)}\u0000${normalize(paper.title)}`;
     if (identities.has(identity)) { fail(`作者与题名疑似重复，需人工核对：${paper.id}`); return; }
     identities.add(identity);
@@ -213,15 +266,15 @@ function validateClassicPapers(items, hubIndex = hubsById) {
       fail(`未找到专题引用 ${id}`);
       return false;
     });
-    const valid = { ...paper, url, hubIds };
+    const valid = { ...paper, url, hubIds, relatedSources };
     papers.push(valid);
     hubIds.forEach(id => {
       if (!byHub.has(id)) byHub.set(id, []);
       byHub.get(id).push(valid);
     });
   });
-  // 精选优先，其余保留人工编排顺序；年份和内部来源说明不决定顺序。
-  byHub.forEach(list => list.sort((a, b) => Number(b.featured) - Number(a.featured)));
+  // 推荐状态优先；旧记录仍按 featured 排序，同级保留人工编排顺序。
+  byHub.forEach(list => list.sort(comparePaperRecommendations));
   return { papers, byHub, warnings };
 }
 const classicPaperCatalog = validateClassicPapers(window.classicPapers || []);
@@ -230,9 +283,14 @@ function classicPapersForHub(hubId, catalog = classicPaperCatalog) {
   return catalog.byHub.get(hubId) || [];
 }
 function classicPaperCardTemplate(paper) {
-  const publication = [paper.journal, paper.year, paper.volume ? `卷：${paper.volume}` : "", paper.issue ? `期：${paper.issue}` : "", paper.pages ? `页：${paper.pages}` : ""].filter(Boolean).map(escapeHtml).join(" · ");
-  const url = classicPaperUrl(paper.url);
-  return `<article class="classic-paper-card bibliography-card" data-paper-id="${escapeHtml(paper.id)}"><div class="bibliography-meta"><span class="bibliography-type">${escapeHtml(paper.type)}</span></div><h4>${escapeHtml(paper.title)}</h4>${paper.author ? `<p class="bibliography-author">${escapeHtml(paper.author)}</p>` : ""}${publication ? `<p class="bibliography-publication">${publication}</p>` : ""}${paper.note ? `<p class="bibliography-note">${escapeHtml(paper.note)}</p>` : ""}${url ? `<a class="classic-paper-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">查看来源 ↗</a>` : ""}</article>`;
+  const carrier = paper.journal ? (paper.type.endsWith("学位论文") ? `学位授予单位：${paper.journal}` : paper.type === "论文集文章" ? `载于：${paper.journal}` : paper.type === "报纸文章" ? `报纸：${paper.journal}` : paper.journal) : "";
+  const publication = [carrier, paper.year, paper.volume ? `卷：${paper.volume}` : "", paper.issue ? `${paper.type === "论文集文章" ? "辑/卷" : "期"}：${paper.issue}` : "", paper.pages ? `页：${paper.pages}` : "", paper.doi ? `DOI：${paper.doi}` : ""].filter(Boolean).map(part => `<span class="paper-citation-part">${escapeHtml(part)}</span>`).join(" · ");
+  const sources = (Array.isArray(paper.relatedSources) ? paper.relatedSources : []).filter(source => source && Object.hasOwn(paperAccessLabels, source.accessType) && (source.context === undefined || typeof source.context === "string"));
+  const links = classicPaperSourceLink(paper, "primary") + sources.map(source => classicPaperSourceLink(source, "related")).join("");
+  // note / abstract 面向读者；accessNote / sourceNote 保留内部核验依据，不进入卡片。
+  const description = paper.abstract || paper.note;
+  const status = paper.recommendationStatus === "catalog-only" ? `<span class="bibliography-level">补充题录</span>` : "";
+  return `<article class="classic-paper-card bibliography-card" data-paper-id="${escapeHtml(paper.id)}"><div class="bibliography-meta"><span class="bibliography-type">${escapeHtml(paper.type)}</span>${status}</div><h4>${escapeHtml(paper.title)}</h4>${paper.author ? `<p class="bibliography-author">${escapeHtml(paper.author)}</p>` : ""}${publication ? `<p class="bibliography-publication">${publication}</p>` : ""}${description ? `<p class="bibliography-note">${escapeHtml(description)}</p>` : ""}${links ? `<div class="classic-paper-actions">${links}</div>` : ""}</article>`;
 }
 function resolveHubReferences(ids, index, kind) {
   return [...new Set(Array.isArray(ids) ? ids : [])].flatMap(id => {
@@ -249,9 +307,33 @@ function availableHub(hub) {
 }
 function hubsForCategory(category) {
   const hubs = [...hubsById.values()].filter(availableHub);
-  // 首页默认面向简牍研究；“全部”只代表首页资源总览，不是跨门类专题索引。
-  const code = category === "全部" ? "slips" : bibliographyCategoryCodes[category];
+  if (category === "全部") return hubs;
+  if (category === "🏺 汉代简牍") return hubs.filter(isHanHub);
+  const code = bibliographyCategoryCodes[category];
   return code ? hubs.filter(hub => hubCategories(hub).includes(code)) : [];
+}
+function isHanView() { return activeCategory === "🏺 汉代简牍"; }
+function isDisciplineView() { return disciplineViews.has(activeCategory); }
+function disciplineResourceKey() { return isHanView() ? "han" : bibliographyCategoryCodes[activeCategory]; }
+function isHanHub(hub) {
+  return searchCategoryCode(hub.category) === "slips" && searchStrings(hub.updateTags).some(tag => researchObjectTags.has(tag));
+}
+function hanHubs() { return researchHubsData.filter(hub => availableHub(hub) && isHanHub(hub)); }
+function hanResources() {
+  const ids = new Set(hanHubs().flatMap(hub => hub.resourceIds));
+  const journals = new Set(hanPapers().map(paper => normalizeSearch(paper.journal)));
+  return sites.filter(site => site.category === "🏺 汉代简牍" || ids.has(site.id) || (isPeriodical(site) && journals.has(normalizeSearch(site.name))));
+}
+function hanBooks() {
+  const ids = new Set(hanHubs().flatMap(hub => hub.bibliographyIds));
+  return coreBibliographyData.filter(book => ids.has(book.id));
+}
+function hanPapers() {
+  const ids = new Set(hanHubs().map(hub => hub.id));
+  return classicPaperCatalog.papers.filter(paper => paper.hubIds.some(id => ids.has(id)));
+}
+function isHanUpdate(update) {
+  return [...searchStrings(update.tags), ...searchStrings(update.topics)].some(tag => researchObjectTags.has(tag));
 }
 function updatesForHub(hub) {
   const terms = new Set(Array.isArray(hub.updateTags) ? hub.updateTags : []);
@@ -268,10 +350,12 @@ function hubCardTemplate(hub) {
   const labels = hubCategories(hub).map(code => hubCategoryLabels[code]).filter(Boolean).join(" / ");
   return `<article class="research-topic-card"><span class="topic-label">${escapeHtml(labels)} · ${hub.status === "preparing" ? "整理中" : "研究专题"}</span><h3>${escapeHtml(hub.title)}</h3>${hub.subtitle ? `<p class="topic-subtitle">${escapeHtml(hub.subtitle)}</p>` : ""}<p class="topic-description">${escapeHtml(hub.description)}</p><p class="topic-count">当前收录 ${updatesForHub(hub).length} 条研究动态</p><button class="topic-button" type="button" data-research-topic="${escapeHtml(hub.id)}" aria-label="查看${escapeHtml(hub.title)}">查看专题 →</button></article>`;
 }
-function hubSectionTemplate(key, title, items, template, emptyText, limit = 4) {
+function hubSectionTemplate(key, title, items, template, emptyText, limit = 4, previewItems = null) {
   const expanded = hubExpandedSections.has(key);
-  const content = items.length ? `<div class="hub-grid">${(expanded ? items : items.slice(0, limit)).map(template).join("")}</div>` : `<p class="hub-empty">${emptyText}</p>`;
-  const toggle = items.length > limit ? `<button type="button" class="section-toggle" data-hub-expand="${key}" aria-expanded="${expanded}">${expanded ? "收起" : `展开更多（${items.length}）`}</button>` : "";
+  const preview = previewItems ?? items.slice(0, limit);
+  const visible = expanded ? items : preview;
+  const content = visible.length ? `<div class="hub-grid">${visible.map(template).join("")}</div>` : `<p class="hub-empty">${items.length ? "本专题另有补充题录，可展开查看。" : emptyText}</p>`;
+  const toggle = items.length > preview.length ? `<button type="button" class="section-toggle" data-hub-expand="${key}" aria-expanded="${expanded}">${expanded ? "收起" : `展开更多（${items.length}）`}</button>` : "";
   return `<section class="hub-section${items.length ? "" : " hub-section-empty"}" data-hub-section="${key}" aria-labelledby="hub-${key}-title"><h3 id="hub-${key}-title">${title}</h3>${content}${toggle}</section>`;
 }
 function renderHubDetail() {
@@ -280,15 +364,17 @@ function renderHubDetail() {
   const resources = resolveHubReferences(hub.resourceIds, hubResourcesById, "resource");
   const books = resolveHubReferences(hub.bibliographyIds, hubBooksById, "bibliography");
   const related = resolveHubReferences(hub.relatedHubIds, hubsById, "hub").filter(item => item.id !== hub.id && availableHub(item));
+  const papers = classicPapersForHub(hub.id);
   const returnLabel = searchSession ? "返回搜索结果" : hubReturnContext?.category === "全部" ? "返回首页" : "返回当前门类";
   hubDetail.innerHTML = `<button type="button" class="hub-back" data-hub-back>← ${returnLabel}</button><header class="hub-heading"><p class="section-kicker">RESEARCH HUB · ${escapeHtml(hubCategories(hub).map(code => hubCategoryLabels[code]).filter(Boolean).join(" / "))}</p><h2 id="hubTitle" tabindex="-1">${escapeHtml(hub.title)}</h2>${hub.subtitle ? `<p class="hub-subtitle">${escapeHtml(hub.subtitle)}</p>` : ""}<p>${escapeHtml(hub.description)}</p></header>`
     + hubSectionTemplate("resources", "核心资源", resources, siteCardTemplate, "核心资源整理中。")
-    + hubSectionTemplate("bibliography", "核心工具书 / 基础书目", books, bibliographyCardTemplate, "核心书目整理中。")
-    + hubSectionTemplate("papers", "经典论文 / 研究史", classicPapersForHub(hub.id), classicPaperCardTemplate, "当前暂无已整理的经典论文与研究史资料。", 3)
+    + hubSectionTemplate("bibliography", "研究著作与整理本", books, bibliographyCardTemplate, "核心书目整理中。")
+    + hubSectionTemplate("papers", "学术论文", papers, classicPaperCardTemplate, "当前暂无已整理的学术论文。", 3, papers.filter(paper => paper.recommendationStatus !== "catalog-only").slice(0, 3))
     + hubSectionTemplate("updates", "最新学术动态", updatesForHub(hub), update => updateCardTemplate({ ...update, tags: Array.isArray(update.tags) ? update.tags : [] }), "当前暂无已收录的相关学术动态。")
     + hubSectionTemplate("related", "相关专题", related, hubCardTemplate, "相关专题整理中。");
   hubDetail.hidden = false;
-  [updatesSection, coreSection, commonSection, resourcesSection, bibliographySection].forEach(section => { section.hidden = true; });
+  searchBrowseSections().forEach(section => { section.hidden = true; });
+  hubDetail.hidden = false;
 }
 function openResearchHub(id) {
   const hub = hubsById.get(id);
@@ -328,14 +414,25 @@ function dismissResearchHub(restore = false) {
 
 // 统一处理文本，保证日后新增资料时特殊字符不会影响卡片结构。
 function escapeHtml(text) { return String(text || "").replace(/[&<>'"]/g, char => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", "'":"&#039;", '"':"&quot;" })[char]); }
-function linkTemplate(site) { return isTodo(site) ? `<span class="visit-button is-todo">网址待补</span>` : `<a class="visit-button" href="${site.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(site.buttonLabel || "访问网站 ↗")}</a>`; }
+function linkTemplate(site) { return !site.url || isTodo(site) ? "" : `<a class="visit-button" href="${escapeHtml(site.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(site.buttonLabel || "访问网站 ↗")}</a>`; }
 function keywordsTemplate(site) { return `<div class="keywords" aria-label="关键词">${site.keywords.map(word => `<span class="keyword">${escapeHtml(word)}</span>`).join("")}</div>`; }
-function coreCardTemplate(site, matchesDirection = false) { const matchText = researchObjectTags.has(activeDirectionTag) ? "匹配当前研究对象" : "匹配当前用途"; return `<article class="core-card ${site.priority ? "priority-core" : ""} ${matchesDirection ? "matches-direction" : ""}"><div class="core-meta">${matchesDirection ? `<span class="match-label">${matchText}</span>` : site.priority ? `<span class="priority-label">优先入口</span>` : `<span class="core-label">综合核心资源</span>`}<span class="category-badge">${escapeHtml(site.category)}</span></div><p class="institution">${escapeHtml(site.institution)}</p><h3>${escapeHtml(site.name)}</h3>${site.subtitle ? `<p class="core-subtitle">${escapeHtml(site.subtitle)}</p>` : ""}<p class="description">${escapeHtml(site.description)}</p><p class="fit-for"><strong>适合：</strong>${escapeHtml(site.fitFor)}</p>${keywordsTemplate(site)}${linkTemplate(site)}</article>`; }
+function coreCardTemplate(site) {
+  const summary = site.description.split(/[，；。]/)[0] + "。";
+  return '<article class="core-card site-card featured-card"><span class="category-badge">' + escapeHtml(site.displayCategory || site.category) + '</span><h3>' + escapeHtml(site.name) + '</h3><p class="institution">' + escapeHtml(site.institution) + '</p><p class="description">' + escapeHtml(summary) + '</p>' + (!site.url || isTodo(site) ? '' : '<a class="visit-button" href="' + escapeHtml(site.url) + '" target="_blank" rel="noopener noreferrer">进入 ↗</a>') + '</article>';
+}
 function resourceTagsTemplate(site) { return Array.isArray(site.resourceTags) && site.resourceTags.length ? `<div class="resource-tags" aria-label="资源类型">${site.resourceTags.map(tag => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""; }
 function siteCardTemplate(site) { return renderSiteCard(site, activeResourceCategory); }
-function renderSiteCard(site, resourceCategory) { return `<article class="site-card"><span class="category-badge">${escapeHtml(site.displayCategory || site.category)}</span>${resourceCategory === "帛书" && site.resourceGroup ? `<span class="resource-group-label">${escapeHtml(site.resourceGroup)}</span>` : ""}<h3>${escapeHtml(site.name)}</h3>${site.englishName ? `<p class="core-subtitle">${escapeHtml(site.englishName)}</p>` : ""}${site.institution ? `<p class="institution">${escapeHtml(site.institution)}</p>` : ""}${site.accessNote ? `<span class="access-note">${escapeHtml(site.accessNote)}</span>` : ""}${resourceTagsTemplate(site)}<p class="description">${escapeHtml(site.description)}</p>${keywordsTemplate(site)}${linkTemplate(site)}</article>`; }
+function renderSiteCard(site, resourceCategory) { const readerNote = site.readerNote || (!site.accessChecked ? site.accessNote : ""); return `<article class="site-card"><span class="category-badge">${escapeHtml(site.displayCategory || (site.category === "📚 学术期刊" ? "学术检索与资讯" : site.category))}</span>${resourceCategory === "帛书" && site.resourceGroup ? `<span class="resource-group-label">${escapeHtml(site.resourceGroup)}</span>` : ""}<h3>${escapeHtml(site.name)}</h3>${site.subtitle || site.englishName ? `<p class="core-subtitle">${escapeHtml(site.subtitle || site.englishName)}</p>` : ""}${site.institution ? `<p class="institution">${escapeHtml(site.institution)}</p>` : ""}${readerNote ? `<span class="access-note">${escapeHtml(readerNote)}</span>` : ""}${resourceTagsTemplate(site)}<p class="description">${escapeHtml(site.description)}</p>${site.fitFor ? `<p class="fit-for"><strong>适合：</strong>${escapeHtml(site.fitFor)}</p>` : ""}${keywordsTemplate(site)}${linkTemplate(site)}</article>`; }
+function isPeriodical(site) { return ["学术期刊", "学术集刊"].includes(site.displayCategory); }
+function papersForPeriodical(site) {
+  return isPeriodical(site) ? classicPaperCatalog.papers.filter(paper => normalizeSearch(paper.journal) === normalizeSearch(site.name)).sort(comparePaperRecommendations) : [];
+}
+function periodicalCardTemplate(site) {
+  const papers = papersForPeriodical(site);
+  return `<section class="periodical-record" data-periodical-id="${escapeHtml(site.id)}">${siteCardTemplate(site)}<details class="periodical-papers"><summary>${escapeHtml(site.name)} · 本站关联论文（${papers.length}）</summary>${papers.length ? `<div class="hub-grid">${papers.map(classicPaperCardTemplate).join("")}</div>` : `<p class="hub-empty">本站暂未收录该刊论文。</p>`}</details></section>`;
+}
 function bibliographyItemsFor(category) {
-  if (category === "全部") return coreBibliographyData.filter(book => book.featured === true).slice(0, 4);
+  if (category === "全部") return coreBibliographyData.slice().sort((a, b) => Number(b.featured === true) - Number(a.featured === true));
   const code = bibliographyCategoryCodes[category];
   if (!code) return [];
   const direct = coreBibliographyData.filter(book => Array.isArray(book.categories) && book.categories.includes(code));
@@ -348,25 +445,92 @@ function bibliographyCardTemplate(book) {
   const level = book.level ? `<span class="bibliography-level">${escapeHtml(book.level)}</span>` : "";
   const useFor = Array.isArray(book.useFor) ? `<div class="bibliography-tags" aria-label="适用方向">${book.useFor.map(item => `<span>${escapeHtml(item)}</span>`).join("")}</div>` : "";
   const publication = [book.publisher, book.year].filter(Boolean).map(escapeHtml).join(" · ");
-  return `<article class="bibliography-card"><div class="bibliography-meta"><span class="bibliography-type">${escapeHtml(book.type)}</span>${level}</div><h3>${escapeHtml(book.title)}</h3>${author}${useFor}${book.note ? `<p class="bibliography-note">${escapeHtml(book.note)}</p>` : ""}${publication ? `<p class="bibliography-publication">${publication}</p>` : ""}</article>`;
+  const isbn = book.isbn ? `<p class="bibliography-isbn">ISBN ${escapeHtml(book.isbn)}</p>` : "";
+  const volumes = Array.isArray(book.volumes) && book.volumes.length ? `<details class="bibliography-volumes"><summary>已收录卷册（${book.volumes.length}）</summary><ul>${book.volumes.map(volume => `<li><span>${escapeHtml(volume.title)}</span>${volume.year || volume.isbn ? `<small>${escapeHtml([volume.year, volume.isbn ? `ISBN ${volume.isbn}` : ""].filter(Boolean).join(" · "))}</small>` : ""}</li>`).join("")}</ul></details>` : "";
+  const link = book.url ? `<a class="visit-button bibliography-link" href="${escapeHtml(book.url)}" target="_blank" rel="noopener noreferrer">查看馆藏信息</a>` : "";
+  return `<article class="bibliography-card"><div class="bibliography-meta"><span class="bibliography-type">${escapeHtml(book.type)}</span>${level}</div><h3>${escapeHtml(book.title)}</h3>${author}${useFor}${book.note ? `<p class="bibliography-note">${escapeHtml(book.note)}</p>` : ""}${publication ? `<p class="bibliography-publication">${publication}</p>` : ""}${isbn}${volumes}${link}</article>`;
+}
+// 仅建立展示用引用列表，不写回或复制正式题录；通用书目不自动分配给具体学科。
+function disciplineLiterature() {
+  if (!isDisciplineView()) return [];
+  const code = bibliographyCategoryCodes[activeCategory];
+  const bookIds = new Set(hubsForCategory(activeCategory).flatMap(hub => hub.bibliographyIds));
+  const books = coreBibliographyData.filter(book => bookIds.has(book.id) || (!isHanView() && searchStrings(book.categories).includes(code)));
+  const papers = (isHanView() ? hanPapers() : classicPaperCatalog.papers.filter(paper => paper.categories.includes(code))).slice().sort(comparePaperRecommendations);
+  const items = [];
+  // 首屏兼顾论文与书目，完整列表仍只出现每条正式题录一次。
+  for (let i = 0; i < Math.max(books.length, papers.length); i++) {
+    if (papers[i]) items.push({ kind:"paper", item:papers[i] });
+    if (books[i]) items.push({ kind:"bibliography", item:books[i] });
+  }
+  return items;
+}
+function renderDisciplineLiterature() {
+  const items = disciplineLiterature();
+  const count = Math.min(literatureVisibleCount, items.length);
+  literatureGrid.innerHTML = items.slice(0, count).map(({ kind, item }) => kind === "paper"
+    ? classicPaperCardTemplate(item)
+    : bibliographyCardTemplate(item).replace('<article class="bibliography-card">', `<article class="bibliography-card" data-bibliography-id="${escapeHtml(item.id)}">`)).join("");
+  renderPagedControls(literatureMore, literatureCollapse, document.querySelector("#literatureStatus"), count, items.length, 4, "文献", "项", "查看更多文献");
 }
 function renderBibliography() {
-  const visibleSection = activeCategory === "全部" || heroGenreViews.has(activeCategory);
-  bibliographySection.hidden = !visibleSection;
-  if (!visibleSection) return;
-  const allItems = bibliographyItemsFor(activeCategory);
-  const isHome = activeCategory === "全部";
-  const visibleItems = isHome || !bibliographyExpanded ? allItems.slice(0, 4) : allItems;
-  const genreLabel = activeCategory === "🏺 汉代简牍" ? "简牍" : activeCategory;
-  bibliographyTitle.textContent = isHome ? "核心工具书 / 基础书目" : `${genreLabel} · 核心工具书 / 基础书目`;
-  bibliographyIntro.textContent = isHome ? "精选常用工具书与基础读物，不求穷尽。" : `显示${genreLabel}专属书目，并以综合工具书适量补充。`;
-  bibliographyGrid.innerHTML = visibleItems.map(bibliographyCardTemplate).join("");
+  const han = isHanView() && activeModule !== "bibliography";
+  const allItems = han ? hanBooks() : bibliographyItemsFor(activeModule === "bibliography" ? "全部" : activeCategory);
+  bibliographyTitle.textContent = han ? "汉简研究著作与整理本" : "研究著作与整理本";
+  document.querySelector("#bibliographySection .section-kicker").textContent = han ? "HAN SLIPS · BOOKS & EDITIONS" : "RESEARCH BOOKS & EDITIONS";
+  bibliographyGrid.innerHTML = (han && !bibliographyExpanded ? allItems.slice(0, 3) : allItems).map(bibliographyCardTemplate).join("");
+  bibliographyToggle.hidden = !han || allItems.length <= 3;
+  bibliographyToggle.textContent = bibliographyExpanded ? "收起著作" : `查看更多著作（${allItems.length}）`;
+  bibliographyToggle.setAttribute("aria-expanded", String(bibliographyExpanded));
   bibliographyEmpty.hidden = allItems.length !== 0;
   bibliographyEmpty.textContent = activeCategory === "石刻" ? "当前暂无已整理的石刻核心书目。" : activeCategory === "帛书" ? "当前暂无已整理的帛书核心书目。" : "当前暂无已整理的核心书目。";
-  bibliographyToggle.hidden = isHome || allItems.length <= 4;
-  bibliographyToggle.textContent = bibliographyExpanded ? "收起书目" : `展开全部书目（${allItems.length}）`;
-  bibliographyToggle.setAttribute("aria-expanded", String(bibliographyExpanded));
 }
+function renderClassicPapers() {
+  const han = isHanView() && activeModule !== "papers";
+  const papers = [...(han ? hanPapers() : classicPaperCatalog.papers)].sort(comparePaperRecommendations);
+  document.querySelector("#papers-title").textContent = han ? "汉简相关学术论文" : "学术论文";
+  document.querySelector("#papersSection .section-kicker").textContent = han ? "HAN SLIPS · RESEARCH PAPERS" : "ACADEMIC PAPERS";
+  const count = Math.min(papersVisibleCount, papers.length);
+  papersGrid.innerHTML = papers.slice(0, count).map(classicPaperCardTemplate).join("");
+  renderPagedControls(papersMore, papersCollapse, papersStatus, count, papers.length, han ? 3 : paperPageSize, "论文", "篇", "显示更多");
+}
+// 同一套分批展示与焦点处理供论文、门类资源和完整目录复用。
+function renderPagedControls(more, collapse, status, count, total, step, label, unit = "项", verb = "查看更多资源") {
+  status.textContent = `已显示 ${count} / ${total} ${unit}`;
+  more.hidden = count >= total;
+  more.textContent = `${verb}（${Math.min(step, Math.max(0, total - count))}${unit}）`;
+  more.setAttribute("aria-expanded", String(count > step));
+  collapse.hidden = count <= step;
+  collapse.textContent = `收起${label}`;
+  collapse.setAttribute("aria-expanded", String(count > step));
+}
+function bindPagedList(more, collapse, section, getCount, setCount, getStep, render) {
+  more.addEventListener("click", () => {
+    const scroll = window.scrollY;
+    setCount(getCount() + getStep());
+    render();
+    (more.hidden ? collapse : more).focus({ preventScroll:true });
+    window.scrollTo({ top:scroll, behavior:"instant" });
+  });
+  collapse.addEventListener("click", () => {
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    setCount(getStep());
+    render();
+    more.focus({ preventScroll:true });
+    if (window.scrollY > sectionTop) window.scrollTo({ top:Math.max(0, sectionTop - 16), behavior:"instant" });
+  });
+}
+bindPagedList(papersMore, papersCollapse, papersSection, () => papersVisibleCount, value => { papersVisibleCount = value; }, () => isHanView() && activeModule !== "papers" ? 3 : paperPageSize, renderClassicPapers);
+bindPagedList(coreResourcesMore, coreResourcesCollapse, coreSection, () => resourceVisibleCounts[disciplineResourceKey()], value => { resourceVisibleCounts[disciplineResourceKey()] = value; }, () => 4, renderSites);
+bindPagedList(literatureMore, literatureCollapse, literatureSection, () => literatureVisibleCount, value => { literatureVisibleCount = value; }, () => 4, renderDisciplineLiterature);
+bindPagedList(directoryResourcesMore, directoryResourcesCollapse, resourcesSection, () => resourceVisibleCounts.directory, value => { resourceVisibleCounts.directory = value; }, () => 12, renderSites);
+bibliographyToggle.addEventListener("click", () => {
+  const sectionTop = bibliographySection.getBoundingClientRect().top + window.scrollY;
+  bibliographyExpanded = !bibliographyExpanded;
+  renderBibliography();
+  bibliographyToggle.focus({ preventScroll:true });
+  if (!bibliographyExpanded && window.scrollY > sectionTop) window.scrollTo({ top:Math.max(0, sectionTop - 16), behavior:"instant" });
+});
 // 控件重绘时保留键盘位置，不触发滚动；数据与筛选逻辑保持独立。
 function replaceControls(container, markup, attribute) {
   const active = document.activeElement;
@@ -377,7 +541,7 @@ function replaceControls(container, markup, attribute) {
   }
 }
 function renderFilters() {
-  replaceControls(filters, categories.map(category => `<button class="filter-button ${category === activeCategory ? "is-active" : ""}" type="button" data-category="${category}" aria-current="${category === activeCategory ? "true" : "false"}">${category === "🏺 汉代简牍" ? "🏺 简牍" : category}</button>`).join(""), "data-category");
+  replaceControls(filters, categories.map(category => `<button class="filter-button ${category === activeResourceType ? "is-active" : ""}" type="button" data-category="${category}" aria-current="${category === activeResourceType ? "true" : "false"}" aria-pressed="${category === activeResourceType}">${category === "📚 学术期刊" ? "学术期刊与集刊" : category}</button>`).join(""), "data-category");
   document.querySelectorAll("[data-genre]").forEach(button => {
     const active = button.dataset.genre === activeCategory;
     button.classList.toggle("is-active", active);
@@ -405,14 +569,7 @@ function renderUpdateObjectFilters() {
   replaceControls(updateObjectFilters, updateObjects.map(object => `<button class="update-object-filter ${object === activeUpdateObject ? "is-active" : ""}" type="button" data-update-object="${object}" aria-pressed="${object === activeUpdateObject}">${object}</button>`).join(""), "data-update-object");
 }
 function renderUpdateView() {
-  const showingLatest = activeUpdateView === "latest";
-  latestUpdatesView.hidden = !showingLatest;
-  topicsView.hidden = showingLatest;
-  updateViewTabs.querySelectorAll("[data-update-view]").forEach(button => {
-    const isActive = button.dataset.updateView === activeUpdateView;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-pressed", String(isActive));
-  });
+  latestUpdatesView.hidden = false;
   renderUpdateContext();
 }
 function updateMatchesGenre(update, definition) {
@@ -421,44 +578,32 @@ function updateMatchesGenre(update, definition) {
     ...(update.category ? [update.category] : [])
   ].map(value => String(value));
   if (explicitCategories.some(value => [definition.code, definition.label, ...definition.matches].includes(value))) return true;
-  const indexedValues = [...(Array.isArray(update.tags) ? update.tags : []), ...(Array.isArray(update.topics) ? update.topics : [])].map(value => String(value));
-  return indexedValues.some(value => definition.matches.some(term => value.includes(term)));
+  // 只接受明确门类和研究对象，不以来源网站、宽泛关键词或子串推断学科。
+  const objects = new Set(definition.matches);
+  researchHubsData.filter(hub => hubCategories(hub).includes(definition.code)).forEach(hub => {
+    searchStrings(hub.updateTags).forEach(tag => objects.add(tag));
+  });
+  return [...searchStrings(update.tags), ...searchStrings(update.topics)].some(value => objects.has(value));
 }
 function renderUpdateContext() {
   searchTitle.textContent = searchTitles[activeCategory] || searchTitles["全部"];
   renderUpdateObjectFilters();
-  if (activeUpdateView === "topics") {
-    const label = hubCategoryLabels[bibliographyCategoryCodes[activeCategory]];
-    updatesKicker.textContent = "RESEARCH HUBS";
-    updatesTitle.textContent = label ? `${label} · 研究专题` : "研究专题";
-    updatesIntro.textContent = "汇集已收录的专题资源、基础书目与相关学术动态。";
-    latestUpdateDateElement.hidden = true;
-    updateDateNote.hidden = true;
-    return;
-  }
   const definition = updateGenreDefinitions[activeCategory];
   if (definition) {
     updatesKicker.textContent = `${definition.code.toUpperCase()} · LATEST RESEARCH`;
-    updatesTitle.textContent = `${definition.label} · 最新学术动态`;
-    updatesIntro.textContent = `持续整理${definition.label}相关数据库、研究成果与最新学术动态。`;
+    updatesTitle.textContent = isDisciplineView() ? "最新学术动态" : `${definition.label} · 最新学术动态`;
     latestUpdateDateElement.hidden = true;
-    updateDateNote.hidden = true;
     return;
   }
-  updatesKicker.textContent = "HAN DYNASTY WOODEN SLIPS · LATEST RESEARCH";
-  updatesTitle.textContent = "汉代简牍 · 最新学术动态";
-  updatesIntro.textContent = "持续追踪汉代简牍研究、出土材料、论文、会议与学术成果。";
+  updatesKicker.textContent = isHanView() ? "HAN SLIPS · LATEST RESEARCH" : "ACADEMIC UPDATES";
+  updatesTitle.textContent = "最新学术动态";
   latestUpdateDateElement.hidden = false;
-  updateDateNote.hidden = false;
 }
 function renderResearchTopics() {
   const items = hubsForCategory(activeCategory);
-  const initial = items.slice(0, 4);
-  const visible = hubsExpanded ? items : initial;
-  researchTopicsContainer.innerHTML = visible.length ? visible.map(hubCardTemplate).join("") : `<p class="research-topics-empty">当前暂无已整理的${escapeHtml(hubCategoryLabels[bibliographyCategoryCodes[activeCategory]] || "")}研究专题。</p>`;
-  hubsToggle.hidden = items.length <= initial.length;
-  hubsToggle.textContent = hubsExpanded ? "收起专题" : `展开更多专题（${items.length}）`;
-  hubsToggle.setAttribute("aria-expanded", String(hubsExpanded));
+  document.querySelector("#research-topics-title").textContent = "研究专题";
+  document.querySelector("#topicsSection .section-kicker").textContent = isHanView() ? "HAN SLIPS · RESEARCH HUBS" : "RESEARCH HUBS";
+  researchTopicsContainer.innerHTML = items.length ? items.map(hub => `<article class="research-topic-card portal-topic"><button class="topic-button" type="button" data-research-topic="${escapeHtml(hub.id)}" aria-label="查看${escapeHtml(hub.title)}"><span>${escapeHtml(hub.title)}</span><span aria-hidden="true">→</span></button></article>`).join("") : `<p class="research-topics-empty">当前暂无已整理的${escapeHtml(hubCategoryLabels[bibliographyCategoryCodes[activeCategory]] || "")}研究专题。</p>`;
 }
 function parseUpdateDate(dateText) {
   const match = String(dateText || "").match(/\d{4}-\d{2}(?:-\d{2})?/);
@@ -520,13 +665,12 @@ function renderLatestUpdateDate() {
   const latestEvent = eventDates.length ? eventDates[eventDates.length - 1] : "暂无记录";
   latestUpdateDateElement.textContent = `数据更新：${lastUpdated} · 最近事件：${latestEvent}`;
 }
-function renderCommonSites() { replaceControls(commonSites, sites.filter(site => commonNames.includes(site.name)).map(site => { const isWechat = site.commonAction === "wechat"; const content = `<span>${escapeHtml(site.displayCategory || site.category)}</span><h3>${escapeHtml(site.name)} <small>${isWechat ? (wechatExpanded ? "↑" : "↓") : "↗"}</small></h3>${site.englishName ? `<p>${escapeHtml(site.englishName)}</p>` : ""}`; return isWechat ? `<button class="common-card common-action" type="button" data-common-action="wechat" aria-expanded="${wechatExpanded}">${content}</button>` : isTodo(site) ? `<div class="common-card">${content}</div>` : `<a class="common-card" href="${site.url}" target="_blank" rel="noopener noreferrer">${content}</a>`; }).join(""), "data-common-action"); }
 function renderWechatPanel() {
-  wechatPanel.hidden = !wechatExpanded;
-  renderCommonSites();
+  wechatPanel.querySelectorAll(".wechat-card").forEach(card => { card.hidden = false; });
 }
 function updateCardTemplate(update) {
-  const link = update.sourceUrl ? `<a class="update-link" href="${update.sourceUrl}" target="_blank" rel="noopener noreferrer">查看原文 ↗</a>` : `<span class="update-link is-disabled">示例数据 · 暂无原文</span>`;
+  const label = update.type === "新论文" ? "查看论文信息" : update.type === "新书" ? "查看出版信息" : "阅读原文";
+  const link = update.sourceUrl ? `<a class="update-link" href="${escapeHtml(update.sourceUrl)}" target="_blank" rel="noopener noreferrer">${label} ↗</a>` : "";
   const objects = searchStrings(update.tags).filter(tag => updateObjects.includes(tag));
   const objectTags = objects.length ? `<div class="update-object-list">${objects.map(object => `<span>${escapeHtml(object)}</span>`).join("")}</div>` : "";
   const historyLabel = update.historical === true ? `<span class="historical-label">历史补录</span>` : "";
@@ -539,7 +683,7 @@ function renderUpdates() {
   const query = updateSearchIgnored ? "" : searchInput.value.trim().toLowerCase();
   const definition = updateGenreDefinitions[activeCategory];
   const validUpdates = academicUpdatesData.filter(update => update && typeof update === "object");
-  const genreUpdates = definition ? validUpdates.filter(update => updateMatchesGenre(update, definition)) : validUpdates;
+  const genreUpdates = definition ? validUpdates.filter(update => updateMatchesGenre(update, definition)) : isHanView() ? validUpdates.filter(isHanUpdate) : validUpdates;
   const filteredUpdates = genreUpdates.filter(update => {
     const typeMatches = activeUpdateType === "全部" || update.type === activeUpdateType;
     const objectMatches = !objectFilterVisible || activeUpdateObject === "全部简牍" || (Array.isArray(update.tags) && update.tags.includes(activeUpdateObject)) || (Array.isArray(update.topics) && update.topics.includes(activeUpdateObject));
@@ -566,12 +710,11 @@ function renderUpdates() {
 }
 
 function siteSearchText(site) {
-  return [site.name,site.englishName,site.subtitle,site.institution,site.description,site.category,site.displayCategory,...(site.keywords || []),...(site.researchTags || [])].join(" ").toLowerCase();
+  return [site.name,site.englishName,site.subtitle,site.institution,site.description,site.category,site.displayCategory,...(site.keywords || []),...(site.researchTags || []),...(site.resourceTags || [])].join(" ").toLowerCase();
 }
 function matchesResourceBase(site) {
-  const query = searchInput.value.trim().toLowerCase();
-  const categoryMatches = activeResourceCategory === "全部" || site.category === activeResourceCategory || (site.resourceCategories || []).includes(activeResourceCategory);
-  return !site.commonOnly && categoryMatches && siteSearchText(site).includes(query);
+  const typeMatches = activeResourceType === "📚 学术期刊" ? isPeriodical(site) : activeResourceType === "全部" || site.category === activeResourceType || (site.resourceCategories || []).includes(activeResourceType);
+  return !site.commonOnly && typeMatches;
 }
 function directlyMatchesDirection(site) {
   return Boolean(activeDirectionTag) && Array.isArray(site.researchTags) && site.researchTags.includes(activeDirectionTag);
@@ -597,131 +740,143 @@ function renderSilkResourceStructure(resourceSites) {
   }).join("");
 }
 function renderSites() {
-  const baseMatching = sites.filter(matchesResourceBase);
-  const core = baseMatching.filter(site => site.core).sort((left, right) => Number(directlyMatchesDirection(right)) - Number(directlyMatchesDirection(left)));
-  const allOrdinary = baseMatching.filter(site => !site.core && (!site.genreOnly || resourceGenres.includes(activeResourceCategory)) && (!activeDirectionTag || siteSearchText(site).includes(activeDirectionTag.toLowerCase())));
-  const hasResourceFilter = searchInput.value.trim() || activeResourceCategory !== "全部" || activeDirectionTag;
-  const ordinary = (sitesExpanded || hasResourceFilter) ? allOrdinary : allOrdinary.slice(0, 6);
-  coreGrid.innerHTML = core.map(site => coreCardTemplate(site, directlyMatchesDirection(site))).join("");
-  const hasDirectCoreMatch = core.some(directlyMatchesDirection);
-  coreEmpty.hidden = !activeDirectionTag || core.length === 0;
-  coreEmpty.textContent = hasDirectCoreMatch
-    ? `已优先显示与“${activeDirectionTag}”直接匹配的核心资源，其余综合资源仍保留。`
-    : researchObjectTags.has(activeDirectionTag)
-      ? `暂未收录“${activeDirectionTag}”的专门核心资源，以下为仍可使用的综合简牍资源。`
-      : `暂无与“${activeDirectionTag}”完全对应的核心资源，以下综合资源仍可继续使用。`;
-  renderSilkResourceStructure(ordinary);
-  siteGrid.innerHTML = activeResourceCategory === "帛书" ? "" : ordinary.map(siteCardTemplate).join("");
-  sitesToggle.hidden = allOrdinary.length <= 6 || Boolean(hasResourceFilter);
-  sitesToggle.textContent = sitesExpanded ? "收起资源" : `展开全部资源（${allOrdinary.length}）`;
-  sitesToggle.setAttribute("aria-expanded", String(sitesExpanded));
+  // 折叠只限制当前视图，搜索索引始终使用完整 sites。
+  const paged = isDisciplineView();
+  const categoryResources = activeCategory === "全部" ? resolveHubReferences(homepageFeaturedIds, hubResourcesById, "resource") : (isHanView() ? hanResources() : sites.filter(site => !site.commonOnly && (site.resourceCategories || []).includes(activeCategory)))
+    .sort((a, b) => Number(Boolean(b.priority)) - Number(Boolean(a.priority)) || (isHanView() ? Number(isPeriodical(a)) - Number(isPeriodical(b)) : 0));
+  const featured = categoryResources.slice(0, 4);
+  const count = Math.min(resourceVisibleCounts[disciplineResourceKey()] || 4, categoryResources.length);
+  coreGrid.classList.toggle("featured-grid", true);
+  coreGrid.classList.toggle("core-grid", true);
+  coreGrid.classList.toggle("site-grid", false);
+  coreGrid.innerHTML = (paged ? categoryResources.slice(0, count) : featured).map(coreCardTemplate).join("");
+  document.querySelector("#core-title").textContent = activeCategory === "全部" ? "精选学术资源" : "学术网站与数据库";
+  document.querySelector("#core-kicker").textContent = activeCategory === "全部" ? "FEATURED ACADEMIC RESOURCES" : "ACADEMIC RESOURCES";
+  const coreStatus = document.querySelector("#coreResourceStatus");
+  renderPagedControls(coreResourcesMore, coreResourcesCollapse, coreStatus, count, categoryResources.length, 4, "资源");
+  coreStatus.hidden = !paged;
+  if (!paged) { coreResourcesMore.hidden = true; coreResourcesCollapse.hidden = true; }
+  const matches = sites.filter(matchesResourceBase).filter(site => !activeDirectionTag || siteSearchText(site).includes(activeDirectionTag.toLowerCase()));
+  const periodicals = activeResourceType === "📚 学术期刊";
+  siteGrid.classList.toggle("periodical-grid", periodicals);
+  const directoryCount = Math.min(resourceVisibleCounts.directory, matches.length);
+  siteGrid.innerHTML = matches.slice(0, directoryCount).map(periodicals ? periodicalCardTemplate : siteCardTemplate).join("");
+  renderPagedControls(directoryResourcesMore, directoryResourcesCollapse, document.querySelector("#directoryResourceStatus"), directoryCount, matches.length, 12, "资源");
+  genreStructure.hidden = true;
+  genreStructure.innerHTML = "";
   resourceFilterStatus.hidden = !activeDirectionTag;
-  resourceFilterStatus.classList.toggle("is-empty", Boolean(activeDirectionTag) && allOrdinary.length === 0);
-  resourceFilterLabel.textContent = activeDirectionTag ? `当前筛选：${activeDirectionTag}` : "";
-  resourceFilterSummary.textContent = activeDirectionTag
-    ? allOrdinary.length
-      ? `· 匹配 ${allOrdinary.length} 条`
-      : `暂无符合“${activeDirectionTag}”的其他学术资源。`
-    : "";
-  clearResourceFilter.hidden = !activeDirectionTag || allOrdinary.length !== 0;
-  emptyState.hidden = Boolean(activeDirectionTag) || ordinary.length !== 0 || core.length !== 0;
-  const genreUnfilled = ["石刻", "帛书"].includes(activeResourceCategory) && !sites.some(site => (site.resourceCategories || []).includes(activeResourceCategory));
-  document.querySelector("#genreEmpty").hidden = !genreUnfilled;
-  if (genreUnfilled) emptyState.hidden = true;
-  // 分别显示普通资源数量与全页匹配数，避免把上方核心卡片误认为底部资源缺失。
-  resultCount.textContent = `其他资源 ${ordinary.length} 个 · 当前可见 ${ordinary.length + core.length} 个`;
-  document.querySelector("#resources-title").textContent = resourceGenres.includes(activeResourceCategory) ? `${activeResourceCategory} · 资源` : "其他学术资源";
-  applyCategoryVisibility(core.length > 0);
+  resourceFilterStatus.classList.toggle("is-empty", Boolean(activeDirectionTag) && matches.length === 0);
+  resourceFilterLabel.textContent = activeDirectionTag ? "当前筛选：" + activeDirectionTag : "";
+  resourceFilterSummary.textContent = activeDirectionTag ? "· 匹配 " + matches.length + " 条" : "";
+  clearResourceFilter.hidden = !activeDirectionTag;
+  emptyState.hidden = matches.length !== 0;
+  document.querySelector("#genreEmpty").hidden = true;
+  document.querySelector("#resources-title").textContent = periodicals ? "学术期刊与集刊" : "学术网站与数据库";
+  document.querySelector("#resourcesSection .section-kicker").textContent = periodicals ? "ACADEMIC PERIODICALS" : "ACADEMIC WEBSITES & DATABASES";
+  renderDisciplineLiterature();
+  applyCategoryVisibility();
 }
-function applyCategoryVisibility(hasCoreResources = coreGrid.childElementCount > 0) {
-  const resourceCategoryActive = !["全部", "🏺 汉代简牍", "🎓 学术会议"].includes(activeCategory);
-  const standaloneGenreActive = resourceGenres.includes(activeCategory);
-  updatesSection.hidden = resourceCategoryActive && !standaloneGenreActive;
-  coreSection.hidden = activeCategory === "🎓 学术会议" || resourceCategoryActive || !hasCoreResources;
-  commonSection.hidden = activeCategory !== "全部";
-  resourcesSection.hidden = activeCategory === "🏺 汉代简牍" || activeCategory === "🎓 学术会议";
+function applyCategoryVisibility() {
+  // 复用已有节点，阅读顺序与键盘顺序一致。
+  const main = document.querySelector("main");
+  const ordered = [updatesSection, topicsSection, coreSection, literatureSection];
+  ordered.forEach(section => main.insertBefore?.(section, navigationOverview));
+  searchBrowseSections().forEach(section => { section.hidden = true; });
+  if (activeHubId) { hubDetail.hidden = false; return; }
+  if (activeModule) {
+    moduleHeader.hidden = false;
+    ({ resources:resourcesSection, bibliography:bibliographySection, papers:papersSection, wechat:wechatPanel, guide:guideSection })[activeModule].hidden = false;
+    if (activeModule === "resources") document.querySelector(".filters").hidden = false;
+    renderModuleBackLabel();
+    return;
+  }
+  updatesSection.hidden = false;
+  topicsSection.hidden = isDisciplineView() && hubsForCategory(activeCategory).length === 0;
+  coreSection.hidden = coreGrid.childElementCount === 0;
+  navigationOverview.hidden = false;
+  literatureSection.hidden = !isDisciplineView() || disciplineLiterature().length === 0;
+}
+function renderModuleBackLabel() {
+  moduleBack.textContent = moduleReturnContext?.fromSearch ? "← 返回搜索结果" : moduleReturnContext?.category && moduleReturnContext.category !== "全部" ? "← 返回当前门类" : "← 返回首页";
 }
 function activateCategory(category) {
+  if (category !== "全部" && !heroGenreViews.has(category)) return;
   if (searchSession) exitUnifiedSearch(false);
   dismissResearchHub();
-  hubsExpanded = false;
+  activeModule = "";
+  moduleReturnContext = null;
   activeCategory = category;
+  activeResourceCategory = resourceGenres.includes(category) ? category : "全部";
+  activeUpdateType = "全部";
+  activeUpdateObject = "全部简牍";
+  activeUpdateView = "latest";
+  topicSelectionActive = false;
+  updatesExpanded = false;
+  if (isDisciplineView()) resourceVisibleCounts[disciplineResourceKey()] = 4;
+  literatureVisibleCount = 4;
+  papersVisibleCount = isHanView() ? 3 : paperPageSize;
   bibliographyExpanded = false;
-  if (!isSlipsUpdateCategory()) {
-    activeUpdateObject = "全部简牍";
-    topicSelectionActive = false;
-  }
-  const resourceCategories = new Set(["🧱 古文字数据库",...resourceGenres,"📜 出土文献","📚 学术期刊","🏛️ 学术机构","🌏 海外汉学","🤖 AI & 数字人文","🛠️ 学术工具"]);
-  if (resourceCategories.has(category)) {
-    activeResourceCategory = category;
-    activeDirectionTag = "";
-    if (heroGenreViews.has(category)) {
-      activeUpdateType = "全部";
-      activeUpdateObject = "全部简牍";
-      updatesExpanded = false;
-      activeUpdateView = "latest";
-      topicSelectionActive = false;
-      renderUpdateFilters();
-      renderUpdateObjectFilters();
-      renderResearchTopics();
-      renderUpdateView();
-      renderUpdates();
-    }
-    renderDirectionTags();
-    renderSites();
-    categoryFeedback.textContent = `当前栏目：${category.replace(/^\S+\s+/, "")} · 内容已在下方原地切换`;
-  } else if (category === "🎓 学术会议") {
-    activeResourceCategory = "全部";
-    activeUpdateType = "学术会议";
-    activeUpdateObject = "全部简牍";
-    updatesExpanded = true;
-    activeUpdateView = "latest";
-    topicSelectionActive = false;
-    renderUpdateFilters();
-    renderUpdateObjectFilters();
-    renderResearchTopics();
-    renderUpdateView();
-    renderUpdates();
-    renderSites();
-    categoryFeedback.textContent = "当前栏目：学术会议 · 动态内容已在下方原地切换";
-  } else if (category === "🏺 汉代简牍") {
-    activeResourceCategory = "全部";
-    activeUpdateType = "全部";
-    activeUpdateObject = "全部简牍";
-    updatesExpanded = false;
-    activeUpdateView = "latest";
-    topicSelectionActive = false;
-    renderUpdateFilters();
-    renderUpdateObjectFilters();
-    renderResearchTopics();
-    renderUpdateView();
-    renderUpdates();
-    renderSites();
-    categoryFeedback.textContent = "当前栏目：简牍 · 最新动态与核心资源已在下方显示";
-  } else {
-    activeResourceCategory = "全部";
-    activeDirectionTag = "";
-    activeUpdateType = "全部";
-    activeUpdateObject = "全部简牍";
-    updatesExpanded = false;
-    activeUpdateView = "latest";
-    topicSelectionActive = false;
-    wechatExpanded = false;
-    renderDirectionTags();
-    renderUpdateFilters();
-    renderUpdateObjectFilters();
-    renderResearchTopics();
-    renderUpdateView();
-    renderWechatPanel();
-    renderUpdates();
-    renderSites();
-    categoryFeedback.textContent = "栏目导航：已返回主要资源总览。";
-  }
-  renderBibliography();
+  renderUpdateFilters(); renderUpdateObjectFilters(); renderResearchTopics(); renderUpdateView();
+  renderUpdates(); renderSites(); renderBibliography(); renderClassicPapers(); renderFilters();
+}
+function setResourceType(category) {
+  if (activeModule !== "resources" || !categories.includes(category)) return;
+  activeResourceType = category;
+  resourceVisibleCounts.directory = 12;
   renderFilters();
+  renderSites();
+  categoryFeedback.textContent = "资源类型：" + (category === "📚 学术期刊" ? "学术期刊与集刊" : category) + "，" + siteGrid.childElementCount + " 项";
+}
+function openContentModule(name, options = {}) {
+  if (!["resources", "bibliography", "papers", "wechat", "guide"].includes(name)) return;
+  const preset = name === "resources" && categories.includes(options.resourceType);
+  moduleReturnContext = { module:activeModule, previous:moduleReturnContext, category:activeCategory, hubId:activeHubId, scrollY:window.scrollY, fromSearch:Boolean(searchSession), trigger:name, triggerSelector:options.triggerSelector, resourceCounts:{...resourceVisibleCounts}, papersVisibleCount, bibliographyExpanded, resourcePreset:preset ? { type:activeResourceType, direction:activeDirectionTag } : null };
+  if (preset) { activeResourceType = options.resourceType; activeDirectionTag = ""; }
+  activeModule = name;
+  if (name === "resources") resourceVisibleCounts.directory = 12;
+  if (name === "papers") papersVisibleCount = paperPageSize;
+  activeHubId = "";
+  searchResults.hidden = true;
+  renderSites(); renderBibliography(); renderClassicPapers(); renderWechatPanel(); renderFilters();
+  applyCategoryVisibility();
+  requestAnimationFrame(() => {
+    moduleBack.focus({ preventScroll:true });
+    window.scrollTo({ top:Math.max(0,moduleHeader.getBoundingClientRect().top + window.scrollY - 16), behavior:"instant" });
+  });
+}
+function returnFromContentModule() {
+  const context = moduleReturnContext;
+  if (!context) return;
+  activeModule = context.module;
+  activeHubId = context.hubId;
+  moduleReturnContext = context.previous;
+  resourceVisibleCounts = {...context.resourceCounts};
+  papersVisibleCount = context.papersVisibleCount;
+  bibliographyExpanded = context.bibliographyExpanded;
+  if (context.resourcePreset) { activeResourceType = context.resourcePreset.type; activeDirectionTag = context.resourcePreset.direction; renderFilters(); }
+  if (context.fromSearch && searchSession) {
+    searchBrowseSections().forEach(section => { section.hidden = true; });
+    renderUnifiedSearch();
+  } else {
+    renderSites(); renderBibliography(); renderClassicPapers(); renderWechatPanel();
+  }
+  requestAnimationFrame(() => {
+    const trigger = context.fromSearch ? searchResults.querySelector("[data-search-wechat]") : navigationOverview.querySelector(context.triggerSelector || '[data-module="' + context.trigger + '"]');
+    trigger?.focus({ preventScroll:true });
+    window.scrollTo({ top:context.scrollY, behavior:"instant" });
+  });
+}
+function renderNavigationOverview() {
+  document.querySelector("#resourceModuleCount").textContent = sites.filter(site => !site.commonOnly).length + " 项";
+  document.querySelector("#bookModuleCount").textContent = coreBibliographyData.length + " 本";
+  document.querySelector("#periodicalModuleCount").textContent = sites.filter(isPeriodical).length + " 种";
+  const papers = classicPaperCatalog.papers;
+  const catalogOnly = papers.filter(paper => paper.recommendationStatus === "catalog-only").length;
+  document.querySelector("#paperModuleCount").textContent = papers.length + "篇";
+  document.querySelector("#wechatModuleCount").textContent = "已整理 " + wechatPanel.querySelectorAll(".wechat-card").length + " 个";
 }
 // 全站检索：白名单字段建立一次运行时索引，原始内容仍由各数据源维护。
-const searchTypeLabels = { hub:"研究专题", resource:"学术资源", bibliography:"核心书目", paper:"经典论文 / 研究史", update:"学术动态" };
+const searchTypeLabels = { hub:"研究专题", resource:"学术网站与数据库", bibliography:"研究著作与整理本", paper:"学术论文", update:"学术动态" };
 const searchGroupLimit = 4;
 const searchFields = new WeakMap();
 const searchResults = document.querySelector("#unifiedSearchResults");
@@ -839,7 +994,11 @@ function buildSearchCatalog(sources = { resource:sites, hub:researchHubsData, bi
       body = [source.description, source.fitFor]; codes = [source.category, ...searchStrings(source.resourceCategories)];
       for (const hub of maps.hub.values()) if (references.get(hub.id)?.resources.includes(source)) codes.push(hub.category);
     } else if (type === "bibliography") {
-      people = [source.author]; tags = [source.type, ...searchStrings(source.useFor)]; body = [source.note]; codes = searchStrings(source.categories);
+      const volumes = Array.isArray(source.volumes) ? source.volumes : [];
+      titleOther = volumes.map(volume => volume.title);
+      people = [source.author, ...volumes.map(volume => volume.author)];
+      tags = [source.type, source.publisher, source.year, source.isbn, ...searchStrings(source.useFor), ...volumes.flatMap(volume => [volume.publisher, volume.year, volume.isbn])];
+      body = [source.note]; codes = searchStrings(source.categories);
     } else if (type === "paper") {
       people = [source.author]; tags = [source.type, source.journal, source.year]; body = [source.note]; codes = searchStrings(source.categories);
       for (const id of searchStrings(source.hubIds)) {
@@ -923,11 +1082,12 @@ function renderUnifiedSearch() {
   searchResults.innerHTML = `<div class="search-results-heading"><div><p class="section-kicker">全站学术检索</p><h2 id="unifiedSearchTitle">搜索：“${escapeHtml(searchQuery)}”</h2><p role="status" aria-live="polite">找到 ${items.length} 项相关内容</p></div><button class="search-action" type="button" data-search-exit>退出搜索 · 返回原位置</button></div>${groups || `<div class="search-empty"><p>未找到与“${escapeHtml(searchQuery)}”相关的内容。</p><p>尝试使用研究对象、材料名称、作者或机构名称搜索。</p></div>`}`;
   searchResults.hidden = false;
 }
-function searchBrowseSections() { return [updatesSection, coreSection, commonSection, resourcesSection, bibliographySection, hubDetail, document.querySelector(".filters")]; }
+function searchBrowseSections() { return [updatesSection, topicsSection, coreSection, literatureSection, navigationOverview, wechatPanel, resourcesSection, bibliographySection, papersSection, guideSection, moduleHeader, hubDetail, document.querySelector(".filters")]; }
 function captureSearchContext() {
   return {
-    activeCategory, activeResourceCategory, activeDirectionTag, activeUpdateType, activeUpdateObject, activeUpdateView,
-    updatesExpanded, researchTagsExpanded, sitesExpanded, topicSelectionActive, updateSearchIgnored, wechatExpanded,
+    activeCategory, activeResourceCategory, activeResourceType, activeModule, moduleReturnContext, activeDirectionTag, activeUpdateType, activeUpdateObject, activeUpdateView,
+    updatesExpanded, researchTagsExpanded, sitesExpanded, coreExpanded, topicSelectionActive, updateSearchIgnored, wechatExpanded,
+    resourceVisibleCounts:{...resourceVisibleCounts}, papersVisibleCount, literatureVisibleCount,
     bibliographyExpanded, hubsExpanded, activeHubId, hubReturnContext:hubReturnContext ? { ...hubReturnContext } : null,
     hubExpandedSections:new Set(hubExpandedSections), scrollY:window.scrollY,
     hidden:searchBrowseSections().map(section => section.hidden),
@@ -952,13 +1112,17 @@ function exitUnifiedSearch(restoreScroll = true) {
   const original = searchSession;
   cancelAnimationFrame(hubNavigationFrame);
   cancelAnimationFrame(searchFrame);
-  ({ activeCategory, activeResourceCategory, activeDirectionTag, activeUpdateType, activeUpdateObject, activeUpdateView,
-    updatesExpanded, researchTagsExpanded, sitesExpanded, topicSelectionActive, updateSearchIgnored, wechatExpanded,
+  ({ activeCategory, activeResourceCategory, activeResourceType, activeModule, moduleReturnContext, activeDirectionTag, activeUpdateType, activeUpdateObject, activeUpdateView,
+    updatesExpanded, researchTagsExpanded, sitesExpanded, coreExpanded, topicSelectionActive, updateSearchIgnored, wechatExpanded,
     bibliographyExpanded, hubsExpanded, activeHubId, hubReturnContext } = original);
   hubExpandedSections = new Set(original.hubExpandedSections);
+  resourceVisibleCounts = {...original.resourceVisibleCounts};
+  papersVisibleCount = original.papersVisibleCount;
+  literatureVisibleCount = original.literatureVisibleCount;
   hubDetail.innerHTML = original.hubHTML;
   searchBrowseSections().forEach((section, index) => { section.hidden = original.hidden[index]; });
   returnHomeButton.hidden = original.homeHidden;
+  renderModuleBackLabel();
   // 内部公众号操作可能临时更新了共用容器。
   renderWechatPanel();
   searchResults.hidden = true;
@@ -992,9 +1156,7 @@ searchResults.addEventListener("click", event => {
   const hub = event.target.closest("[data-research-topic]");
   if (hub) { openSearchHub(hub.dataset.researchTopic); return; }
   if (event.target.closest("[data-search-wechat]")) {
-    wechatExpanded = true;
-    renderWechatPanel(); commonSection.hidden = false;
-    commonSection.querySelector("#wechat-title")?.scrollIntoView({ block:"center", behavior:"instant" });
+    openContentModule("wechat");
     return;
   }
   const toggle = event.target.closest("[data-search-expand]");
@@ -1007,7 +1169,7 @@ searchResults.addEventListener("click", event => {
   if (!searchExpandedGroups.has(type) && window.scrollY > sectionTop) window.scrollTo({ top:sectionTop - 16, behavior:"instant" });
 });
 
-filters.addEventListener("click", event => { const button = event.target.closest("[data-category]"); if (!button) return; activateCategory(button.dataset.category); });
+filters.addEventListener("click", event => { const button = event.target.closest("[data-category]"); if (!button) return; setResourceType(button.dataset.category); });
 returnHomeButton.addEventListener("click", () => {
   if (searchSession) exitUnifiedSearch(false);
   searchInput.value = "";
@@ -1016,7 +1178,7 @@ returnHomeButton.addEventListener("click", () => {
   researchTagsExpanded = false;
   sitesExpanded = false;
   activateCategory("全部");
-  filters.querySelector("[data-category]")?.focus({ preventScroll:true });
+  document.querySelector(".brand")?.focus({ preventScroll:true });
 });
 document.querySelector(".seal-line").addEventListener("click", event => {
   const button = event.target.closest("[data-genre]");
@@ -1030,14 +1192,8 @@ document.querySelector(".seal-line").addEventListener("click", event => {
   activateCategory(button.dataset.genre);
   button.focus({ preventScroll:true });
 });
-tagsContainer.addEventListener("click", event => { const button = event.target.closest("[data-direction]"); if (!button) return; activeDirectionTag = activeDirectionTag === button.dataset.direction ? "" : button.dataset.direction; renderDirectionTags(); renderSites(); });
-clearResourceFilter.addEventListener("click", () => { activeDirectionTag = ""; renderDirectionTags(); renderSites(); tagsContainer.querySelector("[data-direction]")?.focus(); });
-updateViewTabs.addEventListener("click", event => {
-  const button = event.target.closest("[data-update-view]");
-  if (!button) return;
-  activeUpdateView = button.dataset.updateView;
-  renderUpdateView();
-});
+tagsContainer.addEventListener("click", event => { const button = event.target.closest("[data-direction]"); if (!button) return; activeDirectionTag = activeDirectionTag === button.dataset.direction ? "" : button.dataset.direction; resourceVisibleCounts.directory = 12; renderDirectionTags(); renderSites(); });
+clearResourceFilter.addEventListener("click", () => { activeDirectionTag = ""; resourceVisibleCounts.directory = 12; renderDirectionTags(); renderSites(); tagsContainer.querySelector("[data-direction]")?.focus(); });
 updateFilters.addEventListener("click", event => { const button = event.target.closest("[data-update-type]"); if (!button) return; activeUpdateType = button.dataset.updateType; topicSelectionActive = false; renderUpdateFilters(); renderUpdates(); });
 updateObjectFilters.addEventListener("click", event => { const button = event.target.closest("[data-update-object]"); if (!button) return; activeUpdateObject = button.dataset.updateObject; topicSelectionActive = false; updatesExpanded = activeUpdateObject !== "全部简牍" || updatesExpanded; renderUpdateObjectFilters(); renderResearchTopics(); renderUpdates(); });
 researchTopicsContainer.addEventListener("click", event => {
@@ -1045,7 +1201,6 @@ researchTopicsContainer.addEventListener("click", event => {
   if (!button) return;
   openResearchHub(button.dataset.researchTopic);
 });
-hubsToggle.addEventListener("click", () => { hubsExpanded = !hubsExpanded; renderResearchTopics(); });
 hubDetail.addEventListener("click", event => {
   if (event.target.closest("[data-hub-back]")) { dismissResearchHub(true); return; }
   const related = event.target.closest("[data-research-topic]");
@@ -1059,7 +1214,7 @@ hubDetail.addEventListener("click", event => {
   hubDetail.querySelector(`[data-hub-expand="${key}"]`)?.focus({ preventScroll: true });
   if (!hubExpandedSections.has(key) && window.scrollY > sectionTop) window.scrollTo({ top: sectionTop - 16, behavior: "instant" });
 });
-backToTopics.addEventListener("click", () => { activeUpdateView = "topics"; renderUpdateView(); });
+backToTopics.addEventListener("click", () => { topicsSection.scrollIntoView({ block:"start", behavior:"instant" }); });
 document.querySelector("#resetUpdateView").addEventListener("click", () => {
   activeUpdateType = "全部";
   activeUpdateObject = "全部简牍";
@@ -1072,7 +1227,7 @@ document.querySelector("#resetUpdateView").addEventListener("click", () => {
   renderResearchTopics();
   renderUpdateView();
   renderUpdates();
-  updateViewTabs.querySelector("[data-update-view='latest']")?.focus({ preventScroll: true });
+  updateFilters.querySelector("[data-update-type='全部']")?.focus({ preventScroll: true });
 });
 clearUpdateFilters.addEventListener("click", () => {
   activeUpdateType = "全部";
@@ -1093,10 +1248,11 @@ clearUpdateFilters.addEventListener("click", () => {
 });
 updatesToggle.addEventListener("click", () => { updatesExpanded = !updatesExpanded; renderUpdates(); });
 researchTagsToggle.addEventListener("click", () => { researchTagsExpanded = !researchTagsExpanded; renderDirectionTags(); });
-sitesToggle.addEventListener("click", () => { sitesExpanded = !sitesExpanded; renderSites(); });
-bibliographyToggle.addEventListener("click", () => { bibliographyExpanded = !bibliographyExpanded; renderBibliography(); });
-commonSites.addEventListener("click", event => { const button = event.target.closest("[data-common-action='wechat']"); if (!button) return; wechatExpanded = !wechatExpanded; renderWechatPanel(); });
-wechatCollapse.addEventListener("click", () => { wechatExpanded = false; renderWechatPanel(); commonSites.querySelector("[data-common-action='wechat']")?.focus(); });
+navigationOverview.addEventListener("click", event => {
+  if (event.target.closest("[data-open-periodicals]")) { openContentModule("resources", { resourceType:"📚 学术期刊", triggerSelector:"[data-open-periodicals]" }); return; }
+  const button = event.target.closest("[data-module]"); if (button) openContentModule(button.dataset.module);
+});
+moduleBack.addEventListener("click", returnFromContentModule);
 searchInput.addEventListener("compositionstart", () => { searchComposing = true; });
 searchInput.addEventListener("compositionend", () => { searchComposing = false; updateUnifiedSearch(); });
 searchInput.addEventListener("input", () => { if (!searchComposing) updateUnifiedSearch(); });
@@ -1104,4 +1260,4 @@ searchInput.addEventListener("keydown", event => { if (event.key === "Escape" &&
 document.querySelector("#clearSearch").addEventListener("click", () => { exitUnifiedSearch(); searchInput.focus({ preventScroll:true }); });
 validateAcademicUpdates();
 if (linksLastCheckedElement) linksLastCheckedElement.textContent = linksLastChecked;
-renderFilters(); renderDirectionTags(); renderUpdateFilters(); renderUpdateObjectFilters(); renderResearchTopics(); renderUpdateView(); renderLatestUpdateDate(); renderWechatPanel(); renderUpdates(); renderSites(); renderBibliography();
+renderFilters(); renderDirectionTags(); renderUpdateFilters(); renderUpdateObjectFilters(); renderResearchTopics(); renderUpdateView(); renderLatestUpdateDate(); renderWechatPanel(); renderNavigationOverview(); renderUpdates(); renderSites(); renderBibliography();

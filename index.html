@@ -12,13 +12,11 @@
   <header class="hero">
     <nav class="site-nav" aria-label="页面导航">
       <a class="brand" href="#top"><span>🏺</span> 古文字学术导航</a>
-      <a href="#guide">使用说明</a>
     </nav>
     <div class="hero-content" id="top">
       <p class="eyebrow">ANCIENT CHINESE WRITING · RESEARCH NAVIGATION</p>
       <h1>古文字学术导航</h1>
       <p class="english-name">Ancient Chinese Writing Academic Hub</p>
-      <p class="intro">以汉代简牍研究为重点的古文字与出土文献学术导航。</p>
       <nav class="seal-line" aria-label="古文字门类">
         <button type="button" data-genre="甲骨文" aria-label="甲：甲骨文资源" aria-pressed="false">甲</button><i aria-hidden="true"></i>
         <button type="button" data-genre="金文" aria-label="金：金文资源" aria-pressed="false">金</button><i aria-hidden="true"></i>
@@ -32,7 +30,7 @@
 
   <main class="page-shell">
     <section class="search-panel" aria-labelledby="search-title">
-      <div><p class="section-kicker">检索资源</p><h2 id="search-title">从一枚汉简，抵达一片学术天地</h2></div>
+      <div><p class="section-kicker">检索资源</p><h2 id="search-title">从文字与文献，通向学术研究</h2></div>
       <label class="search-box" for="searchInput">
         <span aria-hidden="true">⌕</span>
         <input id="searchInput" type="search" placeholder="搜索资源、专题、书目、论文与动态…" autocomplete="off" aria-label="全站学术检索" aria-controls="unifiedSearchResults" />
@@ -42,19 +40,10 @@
 
     <section id="unifiedSearchResults" class="unified-search" aria-labelledby="unifiedSearchTitle" hidden></section>
 
-    <section class="filters" aria-label="栏目导航">
-      <div id="categoryFilters" class="filter-list"></div>
-      <p id="categoryFeedback" class="category-feedback" aria-live="polite">栏目导航：请选择要前往的内容。</p>
-    </section>
-
-    <section class="updates-section" aria-labelledby="updates-title">
+    <section class="updates-section" id="updatesSection" aria-labelledby="updates-title">
       <div class="updates-heading">
-      <div><p id="updates-kicker" class="section-kicker">HAN DYNASTY WOODEN SLIPS · LATEST RESEARCH</p><h2 id="updates-title">汉代简牍 · 最新学术动态</h2><p id="latestUpdateDate" class="latest-update-date" aria-live="polite">数据更新：正在读取… · 最近事件：正在读取…</p><p id="updateDateNote" class="date-note">“数据更新”表示本站资料维护日期；“最近事件”表示当前收录动态中的最新事件日期。</p></div>
-        <p id="updates-intro">持续追踪汉代简牍研究、出土材料、论文、会议与学术成果。</p>
-      </div>
-      <div id="updateViewTabs" class="update-view-tabs" aria-label="学术动态视图">
-        <button class="update-view-tab is-active" type="button" data-update-view="latest" aria-pressed="true">最新动态</button>
-        <button class="update-view-tab" type="button" data-update-view="topics" aria-pressed="false">研究专题</button>
+      <div><p id="updates-kicker" class="section-kicker">ACADEMIC UPDATES</p><h2 id="updates-title">最新学术动态</h2><p id="latestUpdateDate" class="latest-update-date" aria-live="polite">数据更新：正在读取… · 最近事件：正在读取…</p></div>
+
       </div>
       <div id="latestUpdatesView" class="update-view-panel">
         <div class="update-filter-groups">
@@ -77,117 +66,145 @@
         <p id="updateSearchNote" class="date-note" hidden>动态已恢复默认；搜索词仍作用于其他资源，修改搜索词可重新搜索动态。</p>
         <p id="updateEmpty" class="update-empty" hidden>当前筛选条件下暂无已核验的学术动态。</p>
       </div>
-      <div id="topicsView" class="update-view-panel" hidden>
-        <div class="research-topics-panel" aria-labelledby="research-topics-title">
-          <div class="research-topics-heading">
-            <div><span class="update-filter-label" id="research-topics-title">研究专题 · 进一步探索</span><p>从专题查阅已收录的资源、基础书目与相关学术动态。</p></div>
-          </div>
-          <div id="researchTopics" class="research-topics-grid"></div>
-          <button id="hubsToggle" class="section-toggle" type="button" hidden aria-expanded="false">展开更多专题</button>
-        </div>
-      </div>
+    </section>
+
+    <section id="topicsSection" class="topics-section" aria-labelledby="research-topics-title">
+      <div class="section-heading"><div><p class="section-kicker">RESEARCH HUBS</p><h2 id="research-topics-title">研究专题</h2></div></div>
+      <div id="researchTopics" class="research-topics-grid portal-topics"></div>
+    </section>
+
+    <section class="featured-section" id="coreSection" aria-labelledby="core-title">
+      <div class="section-heading"><div><p id="core-kicker" class="section-kicker">FEATURED ACADEMIC RESOURCES</p><h2 id="core-title">精选学术资源</h2></div></div>
+      <div id="coreGrid" class="core-grid featured-grid"></div>
+      <p id="coreResourceStatus" class="bibliography-publication" role="status" hidden></p>
+      <div class="papers-controls"><button id="coreResourcesMore" class="section-toggle" type="button" aria-controls="coreGrid" hidden>查看更多资源</button><button id="coreResourcesCollapse" class="section-toggle" type="button" aria-controls="coreGrid" hidden>收起资源</button></div>
+    </section>
+
+    <section id="literatureSection" class="bibliography-section" aria-labelledby="literature-title" hidden>
+      <div class="section-heading"><div><p class="section-kicker">RESEARCH LITERATURE</p><h2 id="literature-title">研究文献</h2></div></div>
+      <div id="literatureGrid" class="bibliography-grid"></div>
+      <p id="literatureStatus" class="bibliography-publication" role="status" aria-live="polite"></p>
+      <div class="papers-controls"><button id="literatureMore" class="section-toggle" type="button" aria-controls="literatureGrid" hidden>查看更多文献</button><button id="literatureCollapse" class="section-toggle" type="button" aria-controls="literatureGrid" hidden>收起文献</button></div>
+    </section>
+
+    <section id="navigationOverview" class="navigation-overview" aria-labelledby="overview-title">
+      <div class="section-heading"><div><p class="section-kicker">ACADEMIC DIRECTORY</p><h2 id="overview-title">学术导航总览</h2></div></div>
+      <ul class="overview-list">
+        <li><span>学术网站与数据库</span><small id="resourceModuleCount"></small><button class="search-action" type="button" data-module="resources">进入</button></li>
+        <li><span>学术期刊与集刊</span><small id="periodicalModuleCount"></small><button class="search-action" type="button" data-open-periodicals>查看</button></li>
+        <li><span>研究著作与整理本</span><small id="bookModuleCount"></small><button class="search-action" type="button" data-module="bibliography">查看</button></li>
+        <li><span>学术公众号</span><small id="wechatModuleCount"></small><button class="search-action" type="button" data-module="wechat">查看</button></li>
+        <li><span>学术论文</span><small id="paperModuleCount"></small><button class="search-action" type="button" data-module="papers">查看</button></li>
+        <li><span>数字人文工具</span><small>整理中</small><button class="search-action" type="button" disabled aria-label="数字人文工具：整理中">查看</button></li>
+        <li><span>网站使用说明</span><button class="search-action" type="button" data-module="guide">查看</button></li>
+      </ul>
     </section>
 
     <section id="hubDetail" class="hub-detail" aria-labelledby="hubTitle" hidden></section>
 
-    <section class="core-section" id="coreSection" aria-labelledby="core-title">
-      <div class="core-heading">
-        <div><p class="section-kicker">HAN DYNASTY WOODEN SLIPS</p><h2 id="core-title">🏺 汉代简牍 · 核心资源</h2></div>
-        <p>围绕汉代简牍资料检索、释文、字形、缀合与学术动态整理的核心入口。</p>
+    <section id="moduleHeader" class="module-header" aria-label="返回导航" hidden><button id="moduleBack" class="hub-back" type="button">← 返回首页</button></section>
+
+    <section class="resources-section" id="resourcesSection" aria-labelledby="resources-title" hidden>
+      <div class="section-heading">
+        <div><p class="section-kicker">ACADEMIC WEBSITES &amp; DATABASES</p><h2 id="resources-title" tabindex="-1">学术网站与数据库</h2></div>
+
       </div>
+    <section class="filters" aria-label="资源类型筛选器">
+      <div id="categoryFilters" class="filter-list"></div>
+      <p id="categoryFeedback" class="category-feedback sr-only" aria-live="polite"></p>
+    </section>
+      <details class="library-tools"><summary>研究方向</summary>
       <div class="research-tags-wrap">
         <span class="tag-label">研究方向标签</span>
         <div id="researchTags" class="research-tags" aria-label="研究方向标签"></div>
         <button id="researchTagsToggle" class="section-toggle" type="button">更多研究方向</button>
       </div>
-      <!-- 核心资源与普通资源共用 script.js 的同一份数据，不会重复维护。 -->
-      <div id="coreGrid" class="core-grid"></div>
-      <p id="coreEmpty" class="core-empty" hidden></p>
-      <div class="research-path" aria-labelledby="path-title">
-        <div class="path-heading"><p class="section-kicker">RESEARCH WORKFLOW</p><h3 id="path-title">汉代简牍研究路径</h3></div>
-        <div class="path-steps" aria-label="从查资料到整理研究笔记的参考步骤">
-          <span>查资料</span><i aria-hidden="true">↓</i><span>看图版 / 实物</span><i aria-hidden="true">↓</i><span>查释文</span><i aria-hidden="true">↓</i><span>查字形</span><i aria-hidden="true">↓</i><span>查缀合</span><i aria-hidden="true">↓</i><span>查著录</span><i aria-hidden="true">↓</i><span>查研究论文</span><i aria-hidden="true">↓</i><span>整理自己的研究笔记</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="common-section" id="commonSection" aria-labelledby="common-title">
-      <div class="section-heading">
-        <div><p class="section-kicker">常用入口</p><h2 id="common-title">我的常用网站</h2></div>
-        <p>为日常检索、研读与文献管理保留的快捷入口。</p>
-      </div>
-      <div id="commonSites" class="common-grid"></div>
-      <div id="wechatPanel" class="wechat-panel" hidden aria-labelledby="wechat-title">
-        <div class="wechat-panel-heading"><div><p class="section-kicker">ACADEMIC WECHAT</p><h3 id="wechat-title">学术公众号</h3></div><button id="wechatCollapse" type="button">收起公众号</button></div>
-        <p class="wechat-intro">用于发现研究动态与出版线索；正式收录仍须核验原始学术来源。</p>
-        <div class="wechat-grid">
-          <article class="wechat-card"><h3>古文字微刊</h3><p class="wechat-meta">古文字研究学术公众号</p><p>关注古文字考释、字形与相关学术动态。</p><span>请在微信中搜索公众号名称</span></article>
-          <article class="wechat-card"><h3>出土文献</h3><p class="wechat-meta">出土文献研究资讯平台</p><p>关注简帛、出土文献整理与研究成果。</p><span>请在微信中搜索公众号名称</span></article>
-          <article class="wechat-card"><h3>简牍学</h3><p class="wechat-meta">简牍研究学术公众号</p><p>关注简牍整理、释读、研究与学术活动。</p><span>请在微信中搜索公众号名称</span></article>
-          <article class="wechat-card"><h3>语言与文献</h3><p class="wechat-meta">语言文字与文献研究平台</p><p>关注语言文字、古典文献与出土材料研究。</p><span>请在微信中搜索公众号名称</span></article>
-          <article class="wechat-card"><h3>出土文献综合研究集刊</h3><p class="wechat-meta">出土文献综合研究相关资讯</p><p>关注集刊成果、出土材料与综合研究信息。</p><span>请在微信中搜索公众号名称</span></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="resources-section" id="resourcesSection" aria-labelledby="resources-title">
-      <div class="section-heading">
-        <div><p class="section-kicker">资源目录</p><h2 id="resources-title">其他学术资源</h2></div>
-        <p id="resultCount" aria-live="polite"></p>
-      </div>
+      </details>
       <div id="resourceFilterStatus" class="resource-filter-status" hidden aria-live="polite">
         <p><strong id="resourceFilterLabel"></strong><span id="resourceFilterSummary"></span></p>
         <button id="clearResourceFilter" type="button" hidden>清除资源筛选</button>
       </div>
       <div id="genreStructure" class="genre-structure" hidden aria-label="帛书资源结构"></div>
       <div id="siteGrid" class="site-grid"></div>
+      <p id="directoryResourceStatus" class="bibliography-publication" role="status"></p>
+      <div class="papers-controls"><button id="directoryResourcesMore" class="section-toggle" type="button" aria-controls="siteGrid" hidden>查看更多资源</button><button id="directoryResourcesCollapse" class="section-toggle" type="button" aria-controls="siteGrid" hidden>收起资源</button></div>
       <p id="genreEmpty" class="genre-empty" hidden>当前暂无已核验资源</p>
-      <button id="sitesToggle" class="section-toggle" type="button" hidden>展开全部资源</button>
-      <div id="emptyState" class="empty-state" hidden><span>〔无〕</span><h3>暂未找到相应资源</h3><p>试试更换关键词、研究方向标签，或点击“全部”浏览完整目录。</p></div>
+      <div id="emptyState" class="empty-state" hidden><span>〔无〕</span><h3>暂未找到相应资源</h3><p>更换资源类型或清除研究方向筛选。</p></div>
     </section>
 
-    <section class="bibliography-section" id="bibliographySection" aria-labelledby="bibliography-title">
+    <section class="bibliography-section" id="bibliographySection" aria-labelledby="bibliography-title" hidden>
       <div class="section-heading bibliography-heading">
-        <div><p class="section-kicker">SELECTED REFERENCE BOOKS</p><h2 id="bibliography-title">核心工具书 / 基础书目</h2></div>
-        <p id="bibliographyIntro">精选常用工具书与基础读物，不求穷尽。</p>
+        <div><p class="section-kicker">RESEARCH BOOKS &amp; EDITIONS</p><h2 id="bibliography-title" tabindex="-1">研究著作与整理本</h2></div>
+
       </div>
       <div id="bibliographyGrid" class="bibliography-grid"></div>
+      <button id="bibliographyToggle" class="section-toggle" type="button" aria-controls="bibliographyGrid" hidden>查看更多著作</button>
       <p id="bibliographyEmpty" class="bibliography-empty" hidden></p>
-      <button id="bibliographyToggle" class="section-toggle" type="button" hidden aria-expanded="false">展开全部书目</button>
     </section>
 
-    <aside class="guide" id="guide" aria-labelledby="guide-title">
-      <p class="section-kicker">使用说明</p><h2 id="guide-title">如何使用这个导航</h2>
-      <ol>
-        <li>顶部分类用于在当前页面原地切换内容，不会把你突然带到页面另一处。</li>
-        <li>顶部搜索可检索全站资源、专题、书目、论文与动态；清空或退出搜索会返回搜索前的浏览位置。</li>
-        <li>最新学术动态可在“最新动态 / 研究专题”之间原地切换。</li>
-        <li>动态类型和研究对象筛选会在当前区域直接更新结果。</li>
-        <li>核心资源筛选只影响当前资源区；没有精确匹配时仍会保留综合资源。</li>
-        <li>点击“学术公众号”会在“我的常用网站”下方原地展开。</li>
-        <li>其他学术资源可按需展开或收起，研究专题也不会永久占据页面。</li>
-        <li>只有外部数据库、资源和论文原文链接会真正离开本站。</li>
-      </ol>
-    </aside>
+    <section id="papersSection" class="bibliography-section" aria-labelledby="papers-title" hidden>
+      <div class="section-heading bibliography-heading">
+        <div><p class="section-kicker">ACADEMIC PAPERS</p><h2 id="papers-title" tabindex="-1">学术论文</h2></div>
+        <p>按题名、作者或研究对象，可使用全站搜索查找。</p>
+      </div>
+      <div id="papersGrid" class="bibliography-grid"></div>
+      <p id="papersStatus" class="bibliography-publication" role="status" aria-live="polite"></p>
+      <div class="papers-controls">
+        <button id="papersMore" class="section-toggle" type="button" aria-controls="papersGrid" aria-expanded="false" hidden>显示更多</button>
+        <button id="papersCollapse" class="section-toggle" type="button" aria-controls="papersGrid" aria-expanded="true" hidden>收起至12篇</button>
+      </div>
+    </section>
 
+    <section id="wechatPanel" class="wechat-panel bibliography-section" aria-labelledby="wechat-title" hidden>
+      <div class="section-heading bibliography-heading"><div><p class="section-kicker">ACADEMIC WECHAT</p><h2 id="wechat-title" tabindex="-1">学术公众号推荐</h2></div></div>
+
+      <div id="wechatGrid" class="wechat-grid bibliography-grid">
+        <article id="wechat-guwenzi-weikan" class="wechat-card bibliography-card" data-categories="学术平台"><h3>古文字微刊</h3><p class="wechat-meta bibliography-author">学术平台 · 古文字研究学术公众号</p><p class="bibliography-note">关注古文字考释、字形与相关学术动态。</p></article>
+        <article id="wechat-chutu-wenxian" class="wechat-card bibliography-card" data-categories="学术平台"><h3>出土文献</h3><p class="wechat-meta bibliography-author">学术平台 · 出土文献研究资讯平台</p><p class="bibliography-note">关注简帛、出土文献整理与研究成果。</p></article>
+        <article id="wechat-hanzi-wenming" class="wechat-card bibliography-card" data-categories="学术平台"><h3>汉字文明</h3><p class="wechat-meta bibliography-author">学术平台 · 汉字文化与文字研究</p><p class="bibliography-note">关注汉字文明、汉字文化与文字研究。</p></article>
+        <article id="wechat-chinese-historical-literature-society" class="wechat-card bibliography-card" data-categories="综合 历史文献 古文字相关"><h3>历史文献研究会</h3><p class="wechat-meta bibliography-author">认证主体：中国历史文献研究会 · 综合 / 历史文献 / 古文字相关</p><p class="bibliography-note">中国历史文献研究会官方公众号。发布历史文献学相关论文、刊物、会议及学术活动信息，部分内容涉及古文字、甲骨文与出土文献研究。</p></article>
+        <article id="wechat-national-museum-of-chinese-writing" class="wechat-card bibliography-card" hidden data-categories="官方文化机构"><h3>中国文字博物馆</h3><p class="wechat-meta bibliography-author">官方文化机构 · 文字文化与博物馆</p><p class="bibliography-note">关注文字文化、博物馆展览与相关文化活动。</p></article>
+        <article id="wechat-jiandu-studies" class="wechat-card bibliography-card" hidden data-categories="官方学术机构 简牍研究"><h3>简牍学研究</h3><p class="wechat-meta bibliography-author">官方学术机构 / 简牍研究</p><p class="bibliography-note">关注简牍整理、释读、研究成果与学术交流。</p></article>
+        <article id="wechat-national-ancient-books-preservation-center" class="wechat-card bibliography-card" hidden data-categories="官方文化机构 文献整理相关"><h3>国家古籍保护中心</h3><p class="wechat-meta bibliography-author">官方文化机构 / 文献整理相关</p><p class="bibliography-note">关注古籍保护、文献整理与相关文化活动。</p></article>
+        <article id="wechat-pre-qin-qin-han-history" class="wechat-card bibliography-card" hidden data-categories="学者运营 先秦秦汉 出土文献"><h3>先秦秦汉史</h3><p class="wechat-meta bibliography-author">学者运营 / 先秦秦汉 / 出土文献</p><p class="bibliography-note">关注先秦秦汉历史、简帛与出土文献研究。</p></article>
+        <article id="wechat-chinese-language-history-philology" class="wechat-card bibliography-card" hidden data-categories="学术平台 汉语史 文献学"><h3>汉语史与文献学微刊</h3><p class="wechat-meta bibliography-author">学术平台 / 汉语史 / 文献学</p><p class="bibliography-note">关注汉语史、文字训诂与文献整理研究。</p></article>
+        <article id="wechat-bibliography-documents" class="wechat-card bibliography-card" hidden data-categories="学者运营 历史文献 目录版本"><h3>书目文献</h3><p class="wechat-meta bibliography-author">学者运营 / 历史文献 / 目录版本</p><p class="bibliography-note">关注历史文献、目录版本、校勘与古籍整理出版。</p></article>
+        <article id="wechat-classical-philology" class="wechat-card bibliography-card" hidden data-categories="学术平台 古典文献 古籍整理"><h3>古典文献学微刊</h3><p class="wechat-meta bibliography-author">学术平台 / 古典文献 / 古籍整理</p><p class="bibliography-note">关注古典文献研究、古籍整理与相关学术资讯。</p></article>
+        <article id="wechat-jiandu-xue" class="wechat-card bibliography-card" hidden><h3>简牍学</h3><p class="wechat-meta bibliography-author">简牍研究学术公众号</p><p class="bibliography-note">关注简牍整理、释读、研究与学术活动。</p></article>
+        <article id="wechat-language-and-documents" class="wechat-card bibliography-card" hidden><h3>语言与文献</h3><p class="wechat-meta bibliography-author">语言文字与文献研究平台</p><p class="bibliography-note">关注语言文字、古典文献与出土材料研究。</p></article>
+        <article id="wechat-unearthed-documents-collected-studies" class="wechat-card bibliography-card" hidden><h3>出土文献综合研究集刊</h3><p class="wechat-meta bibliography-author">出土文献综合研究相关资讯</p><p class="bibliography-note">关注集刊成果、出土材料与综合研究信息。</p></article>
+      </div>
+    </section>
+
+        <aside class="guide" id="guide" aria-labelledby="guide-title" hidden>
+      <p class="section-kicker">使用说明</p><h2 id="guide-title" tabindex="-1">网站使用说明</h2>
+      <ol>
+        <li>搜索全站内容；退出搜索可回到原浏览位置。</li>
+        <li>甲、金、石、简、帛切换材料门类；资源类型仅筛选完整资源库。</li>
+        <li>带 ↗ 的链接前往外部来源。</li>
+      </ol>
+      <details class="research-path">
+        <summary class="path-heading">汉代简牍研究路径</summary>
+        <div class="path-steps" aria-label="从查资料到整理研究笔记的参考步骤">
+          <span>查资料</span><i aria-hidden="true">↓</i><span>看图版 / 实物</span><i aria-hidden="true">↓</i><span>查释文</span><i aria-hidden="true">↓</i><span>查字形</span><i aria-hidden="true">↓</i><span>查缀合</span><i aria-hidden="true">↓</i><span>查著录</span><i aria-hidden="true">↓</i><span>查研究论文</span><i aria-hidden="true">↓</i><span>整理自己的研究笔记</span>
+        </div>
+      </details>
     <section class="about-site" aria-labelledby="about-title">
       <div class="about-block">
         <p class="section-kicker">ABOUT THIS SITE</p>
         <h2 id="about-title">关于本站</h2>
-        <p>“古文字学术导航”面向古文字与简牍研究，当前仍以汉代简牍为重点，整理数据库、研究机构、论文、新书、会议、数字资源和学术公众号。</p>
-        <p>本站采用“自动发现 + 人工审核”的维护方式，是个人学术整理项目，不代表相关机构官方立场；后续将逐步扩展其他古文字资源。</p>
+        <p>面向古文字与出土文献研究，以汉代简牍为重点的个人学术整理项目，不代表相关机构官方立场。</p>
       </div>
       <div class="about-block" aria-labelledby="principles-title">
         <p class="section-kicker">EDITORIAL PRINCIPLES</p>
         <h2 id="principles-title">收录原则</h2>
         <ul>
-          <li>优先采用正式期刊、高校、研究机构、出版社、考古机构和专业数据库。</li>
-          <li>学术公众号主要用于发现线索；如为转载，优先寻找原始学术来源。</li>
-          <li>所有自动发现内容必须经过人工审核后方可正式收录。</li>
-          <li>具有长期参考价值的旧资料可采用“历史补录”，本站不保证覆盖全部成果。</li>
+          <li>优先收录正式学术来源；公众号转载追溯原始出处。</li>
+          <li>自动发现内容经人工审核后收录；长期有效的旧资料标记“历史补录”。</li>
         </ul>
       </div>
     </section>
+    </aside>
   </main>
 
   <footer><p>🏺 古文字学术导航 · V1.2</p><p>个人学习与研究使用 · 汉代简牍重点整理中</p><p>链接核验：<span id="linksLastChecked">正在读取…</span></p><p>如发现链接失效或资料信息错误，欢迎反馈。</p></footer>

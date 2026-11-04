@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T13:48:08",
+  "generatedAt": "2026-11-02T11:17:56+08:00",
   "candidates": [
     {
       "id": "candidate-0305f5c6f451",
@@ -712,6 +712,542 @@
       "suggestedTopics": [],
       "status": "pending",
       "needsDateReview": true
+    },
+    {
+      "id": "candidate-ea2f004ac2c0",
+      "title": "讲座纪要｜艾兰：商人为什么用龟占卜？——龟壳与中国早期宇宙观",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/info/1072/3554.htm",
+      "possibleDate": "2026-10-30",
+      "type": "学术讲座",
+      "categories": [
+        "oracle"
+      ],
+      "tags": [
+        "甲骨文",
+        "殷墟",
+        "占卜"
+      ],
+      "summary": "学术讲座纪要：艾兰于2026年10月15日在清华大学讨论商代龟甲占卜与早期宇宙观；中心官网于10月30日刊发纪要，内容涉及灵龟信仰与火卜传统的关系。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "甲骨文",
+        "殷墟",
+        "占卜"
+      ],
+      "suggestedTopics": [],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "eventDate": "2026-10-15",
+        "dateNote": "2026-10-30为纪要页面发布日期；讲座于2026-10-15举行。",
+        "evidence": "正文载明主讲人为艾兰（Sarah Allan），属于出土文献与古文字前沿系列讲座第二十六讲。"
+      },
+      "publicationRecommendation": "recommended",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [],
+      "reviewDecision": "approved",
+      "date": "2026-10-30",
+      "relatedResources": [
+        "tsinghua-ctwx"
+      ],
+      "featured": false,
+      "publishedAt": "2026-11-02"
+    },
+    {
+      "id": "candidate-2e11f345b2a4",
+      "title": "学术讲座预告｜清华大学“王国维学术讲座”丨傅敏怡：中国古代文学的形成：出土文字材料与传世文本",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/info/1072/3555.htm",
+      "possibleDate": "2026-10-30",
+      "type": "学术讲座",
+      "categories": [
+        "slips",
+        "silk"
+      ],
+      "tags": [
+        "出土文献",
+        "张家山汉简",
+        "马王堆帛书"
+      ],
+      "summary": "学术讲座预告：傅敏怡（Michael Friedrich）将于2026年11月5日15:00在清华大学“王国维学术讲座”讨论出土文字材料与传世文学的形成，案例包括马王堆三号汉墓及张家山三三六号汉墓写本，公告提供线上直播。10月30日为公告发布日期。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "出土文献",
+        "张家山汉简",
+        "马王堆帛书"
+      ],
+      "suggestedTopics": [
+        "张家山汉简"
+      ],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "eventDate": "2026-11-05",
+        "dateNote": "2026-10-30为公告发布日期；2026-11-05 15:00为未来讲座时间，不是已完成活动。",
+        "evidence": "正文明确主讲人为傅敏怡（Michael Friedrich），给出主题、时间、地点及直播链接。"
+      },
+      "publicationRecommendation": "optional",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [
+        "zhangjiashan-hanjian"
+      ],
+      "reviewDecision": "approved",
+      "date": "2026-10-30",
+      "relatedResources": [
+        "tsinghua-ctwx"
+      ],
+      "featured": false,
+      "publishedAt": "2026-11-02"
+    },
+    {
+      "id": "candidate-23503508fc65",
+      "title": "《出土文献》2026年第3期（总第27期）",
+      "source": "清华大学出土文献研究与保护中心",
+      "sourceUrl": "https://www.ctwx.tsinghua.edu.cn/info/1093/3531.htm",
+      "possibleDate": "2026-09-15",
+      "type": "新资料",
+      "categories": [
+        "bronze",
+        "slips",
+        "stone"
+      ],
+      "tags": [
+        "出土文献",
+        "金文",
+        "清华简",
+        "五一广场东汉简",
+        "石刻"
+      ],
+      "summary": "《出土文献》2026年第3期（总第27期）于2026年9月出版，中心官网9月15日发布目录，内容涉及青铜器铭文、清华简、秦汉简牍及崖墓题记等研究；单篇论文详细书目信息以期刊原文为准。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "出土文献",
+        "金文",
+        "清华简",
+        "五一广场东汉简",
+        "石刻"
+      ],
+      "suggestedTopics": [
+        "清华简",
+        "五一广场东汉简"
+      ],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "publicationMonth": "2026-09",
+        "dateNote": "2026-09-15为目录页面发布日期；正文明确本期出版时间为2026年9月。不据目录猜测单篇页码或独立论文URL。",
+        "evidence": "正文列有清华简《芮良夫毖》《五纪》、五一广场东汉简文书以及四川三台元宝山崖墓M1题记等论文。",
+        "duplicateCheck": "现有模糊去重将不同期次列为相似：已逐项核对本条为2026年第3期/总第27期；既有为第1期/总第25期、第2期/总第26期，原文与URL均不同，并非重复。"
+      },
+      "publicationRecommendation": "recommended",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [
+        "qinghua-slips",
+        "wuyi-eastern-han-slips"
+      ],
+      "reviewDecision": "approved",
+      "date": "2026-09-15",
+      "relatedResources": [
+        "tsinghua-ctwx"
+      ],
+      "featured": false,
+      "publishedAt": "2026-11-02"
+    },
+    {
+      "id": "candidate-26aa53de23f8",
+      "title": "中国古文字研究会第二十六届学术年会在郑州大学顺利召开",
+      "source": "郑州大学汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1162/4509.htm",
+      "possibleDate": "2026-10-24",
+      "type": "学术会议",
+      "categories": [
+        "oracle",
+        "bronze",
+        "slips"
+      ],
+      "tags": [
+        "古文字",
+        "甲骨文",
+        "金文",
+        "清华简",
+        "汉字学"
+      ],
+      "summary": "中国古文字研究会第二十六届学术年会于2026年10月16日至19日在郑州大学举行，10月24日发布报道。会议涉及甲骨文、金文、战国文字和汉字学研究，部分论文收入《古文字研究》第三十六辑。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "古文字",
+        "甲骨文",
+        "金文",
+        "清华简",
+        "汉字学"
+      ],
+      "suggestedTopics": [
+        "清华简"
+      ],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "eventDate": "2026-10-16 至 10-19",
+        "dateNote": "2026-10-24为报道发布日期；正文所述会议日期为2026-10-16至10-19。",
+        "evidence": "正文载明主办、承办单位和学术议题，包含清华简新见字等报告；与清华研究生论坛不是同一会议。"
+      },
+      "publicationRecommendation": "recommended",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [
+        "qinghua-slips"
+      ],
+      "reviewDecision": "approved",
+      "date": "2026-10-24",
+      "relatedResources": [],
+      "featured": false,
+      "publishedAt": "2026-11-02"
+    },
+    {
+      "id": "candidate-79be830ad81d",
+      "title": "十年·专辑 | 《汉字汉语研究》2026年第4期",
+      "source": "郑州大学汉字文明研究中心",
+      "sourceUrl": "https://www5.zzu.edu.cn/hzwm/info/1150/4502.htm",
+      "possibleDate": "2026-10-14",
+      "type": "新资料",
+      "categories": [
+        "oracle",
+        "bronze",
+        "slips"
+      ],
+      "tags": [
+        "汉字学",
+        "甲骨文",
+        "金文",
+        "简牍",
+        "说文"
+      ],
+      "summary": "郑州大学官网于2026年10月14日推介《汉字汉语研究》2026年第4期纪念专辑，研究方向包括《说文》学、甲骨学、商周金文、战国货币文字及简牍文献；该日期为官网推介日，不代表每篇论文的独立发表日期。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "汉字学",
+        "甲骨文",
+        "金文",
+        "简牍",
+        "说文"
+      ],
+      "suggestedTopics": [],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "dateNote": "2026-10-14为官网推介日期；期次2026年第4期由正文明确给出，不推定单篇论文页码或发表日。",
+        "evidence": "正文明确总第36期及专辑研究范围；不复制仅见于图片且未核验的单篇书目信息。"
+      },
+      "publicationRecommendation": "recommended",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [],
+      "reviewDecision": "approved",
+      "date": "2026-10-14",
+      "relatedResources": [],
+      "featured": false,
+      "publishedAt": "2026-11-02"
+    },
+    {
+      "id": "candidate-b46f7af952d0",
+      "title": "《簡帛》（第三十二輯）出版",
+      "source": "武汉大学简帛网",
+      "sourceUrl": "https://www.bsm.org.cn/?xiaox/10176.html=",
+      "possibleDate": "2026-09-09",
+      "type": "新书",
+      "categories": [
+        "bronze",
+        "slips",
+        "silk"
+      ],
+      "tags": [
+        "简帛",
+        "金文",
+        "清华简",
+        "悬泉汉简",
+        "五一广场东汉简",
+        "马王堆帛书"
+      ],
+      "summary": "《简帛》第三十二辑由上海古籍出版社于2026年5月出版，简帛网于9月9日公布书讯和目录，涉及金文、清华简、秦汉简牍及马王堆帛书等研究。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "简帛",
+        "金文",
+        "清华简",
+        "悬泉汉简",
+        "五一广场东汉简",
+        "马王堆帛书"
+      ],
+      "suggestedTopics": [
+        "清华简",
+        "悬泉汉简",
+        "五一广场东汉简"
+      ],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "publicationMonth": "2026-05",
+        "dateNote": "2026-09-09为书讯发布时间；正文明确上海古籍出版社于2026年5月出版，二者不得混同。",
+        "evidence": "目录明确列有清华简、悬泉汉简、长沙五一广场简和马王堆帛书研究条目。"
+      },
+      "publicationRecommendation": "recommended",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [
+        "qinghua-slips",
+        "xuanquan-hanjian",
+        "wuyi-eastern-han-slips"
+      ],
+      "reviewDecision": "approved",
+      "date": "2026-09-09",
+      "relatedResources": [
+        "bsm"
+      ],
+      "featured": false,
+      "publishedAt": "2026-11-02"
+    },
+    {
+      "id": "candidate-bd7c0979fc62",
+      "title": "《懸泉漢簡（六）》綴合（十一）",
+      "source": "武汉大学简帛网",
+      "sourceUrl": "https://www.bsm.org.cn/?hanjian/10224.html=",
+      "possibleDate": "2026-11-02",
+      "type": "研究动态",
+      "categories": [
+        "slips"
+      ],
+      "tags": [
+        "悬泉汉简",
+        "缀合",
+        "释文"
+      ],
+      "summary": "姚磊于2026年11月2日在简帛网首发缀合札记，依据图版、碴口、材质、字形和文意等信息，提出《悬泉汉简（六）》中两枚残简的缀合及释文订补；本条为网站首发研究札记。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "悬泉汉简",
+        "缀合",
+        "释文"
+      ],
+      "suggestedTopics": [
+        "悬泉汉简"
+      ],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "author": "姚磊",
+        "dateNote": "2026-11-02为简帛网首发日期；不将网站首发研究札记伪作期刊论文。",
+        "evidence": "页面正文列出Ⅱ90DXT0314②：135与254号简，附缀合图版并说明理由。"
+      },
+      "publicationRecommendation": "recommended",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [
+        "xuanquan-hanjian"
+      ],
+      "reviewDecision": "approved",
+      "date": "2026-11-02",
+      "relatedResources": [
+        "bsm"
+      ],
+      "featured": false,
+      "publishedAt": "2026-11-02"
+    },
+    {
+      "id": "candidate-a2d4d79c3d6a",
+      "title": "唐代墓志文学研究新视域",
+      "source": "中国社会科学网—中国社会科学报",
+      "sourceUrl": "https://www.cssn.cn/skgz/bwyc/202610/t20261013_6072615.shtml",
+      "possibleDate": "2026-10-13",
+      "type": "学术会议",
+      "categories": [
+        "stone"
+      ],
+      "tags": [
+        "石刻",
+        "墓志",
+        "历史文献",
+        "数字人文"
+      ],
+      "summary": "2026年10月10日，陕西师范大学举办新见唐代墓志文学研究论坛，讨论石刻文献整理、数字技术边界及文献学方法。中国社会科学报于10月13日报道。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "石刻",
+        "墓志",
+        "历史文献",
+        "数字人文"
+      ],
+      "suggestedTopics": [],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "eventDate": "2026-10-10",
+        "reporter": "陆航",
+        "dateNote": "2026-10-13为报道发布日期，论坛于2026-10-10举行。",
+        "evidence": "正文给出论坛主题、举办地点及关于墓志文献整理的具体讨论。"
+      },
+      "publicationRecommendation": "recommended",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [],
+      "reviewDecision": "approved",
+      "date": "2026-10-13",
+      "relatedResources": [],
+      "featured": false,
+      "publishedAt": "2026-11-02"
+    },
+    {
+      "id": "candidate-15acc984cdd2",
+      "title": "简牍领域垂域大模型“简问”发布",
+      "source": "人民日报海外版",
+      "sourceUrl": "https://paper.people.com.cn/rmrbhwb/pc/content/202610/21/content_30186928.html",
+      "possibleDate": "2026-10-21",
+      "type": "研究动态",
+      "categories": [
+        "slips"
+      ],
+      "tags": [
+        "简牍",
+        "数字简牍",
+        "研究成果"
+      ],
+      "summary": "《人民日报海外版》2026年10月21日报道西北师范大学研发的“简问”模型发布及原简牍学术资源数据共享平台升级，涉及简牍问答、文字识别和残简缀合等科研场景；10月21日为报道刊发日。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "简牍",
+        "数字简牍",
+        "研究成果"
+      ],
+      "suggestedTopics": [],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "reporter": "宋朝军",
+        "dateNote": "2026-10-21为报纸刊发日（第11版）；报道仅称近日发布，不以刊发日替代模型确切上线日。",
+        "evidence": "报纸正文明确研发单位与平台升级信息；现有DeepJiandu数据集动态与本项模型发布为不同成果。"
+      },
+      "publicationRecommendation": "recommended",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [],
+      "reviewDecision": "approved",
+      "date": "2026-10-21",
+      "relatedResources": [
+        "nwnu-jiandu"
+      ],
+      "featured": true,
+      "publishedAt": "2026-11-02"
+    },
+    {
+      "id": "candidate-45e8096eb76f",
+      "title": "《悬泉汉简（陆）》新书首发",
+      "source": "中国社会科学网",
+      "sourceUrl": "https://www.cssn.cn/skgz/bwyc/202610/t20261019_6073889.shtml",
+      "possibleDate": "2026-10-19",
+      "type": "新书",
+      "categories": [
+        "slips"
+      ],
+      "tags": [
+        "悬泉汉简",
+        "图版",
+        "释文"
+      ],
+      "summary": "《悬泉汉简（陆）》于2026年10月17日举行首发仪式，中国社会科学网10月19日报道。该卷由甘肃简牍博物馆等四家机构编著、中西书局出版，收录近2200枚简牍的红外线、彩色图版及释文；报道日期不作为版权页出版日。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "悬泉汉简",
+        "图版",
+        "释文"
+      ],
+      "suggestedTopics": [
+        "悬泉汉简"
+      ],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "eventDate": "2026-10-17",
+        "publisher": "中西书局",
+        "reporter": "朱羿",
+        "dateNote": "2026-10-19为新闻发布时间，首发仪式为2026-10-17；未据此补写书籍版权页出版日或ISBN。",
+        "evidence": "正文明确四家编著单位、出版社及本卷图版释文内容。与已收录《悬泉汉简（肆）》首发不是同一卷。"
+      },
+      "publicationRecommendation": "recommended",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [
+        "xuanquan-hanjian"
+      ],
+      "reviewDecision": "approved",
+      "date": "2026-10-19",
+      "relatedResources": [
+        "nwnu-jiandu",
+        "tsinghua-ctwx"
+      ],
+      "featured": true,
+      "publishedAt": "2026-11-02"
+    },
+    {
+      "id": "candidate-b34ea2810fac",
+      "title": "《悬泉汉简释文校注》（壹—叁）首发",
+      "source": "中国社会科学网",
+      "sourceUrl": "https://cssn.cn/skgz/bwyc/202610/t20261019_6073891.shtml",
+      "possibleDate": "2026-10-19",
+      "type": "新书",
+      "categories": [
+        "slips"
+      ],
+      "tags": [
+        "悬泉汉简",
+        "释文",
+        "校注"
+      ],
+      "summary": "《悬泉汉简释文校注》（壹—叁）于2026年10月17日举行首发仪式，中国社会科学网10月19日报道。该书由甘肃文化出版社出版，以原始资料和简牍图像为基础开展释读、校勘及注释。",
+      "discoveredAt": "2026-11-02",
+      "matchedKeywords": [
+        "悬泉汉简",
+        "释文",
+        "校注"
+      ],
+      "suggestedTopics": [
+        "悬泉汉简"
+      ],
+      "status": "published",
+      "needsDateReview": false,
+      "verification": {
+        "checkedAt": "2026-11-02",
+        "dateBasis": "来源页面发布日期；不等同于图书出版日期或活动日期",
+        "eventDate": "2026-10-17",
+        "publisher": "甘肃文化出版社",
+        "reporter": "朱羿",
+        "dateNote": "2026-10-19为新闻发布时间，首发仪式为2026-10-17；未由介绍人身份推断本书作者或主编。",
+        "evidence": "正文明确书名、卷次、出版社与首发日期。与图版整理本《悬泉汉简（陆）》为两部不同著作。"
+      },
+      "publicationRecommendation": "recommended",
+      "reviewNote": "2026-11-02：用户在当前会话明确人工批准本轮11条正式发布；通过现有审核与发布流程处理。",
+      "suggestedHubIds": [
+        "xuanquan-hanjian"
+      ],
+      "reviewDecision": "approved",
+      "date": "2026-10-19",
+      "relatedResources": [
+        "nwnu-jiandu"
+      ],
+      "featured": false,
+      "publishedAt": "2026-11-02"
     }
   ],
   "olderCandidates": [

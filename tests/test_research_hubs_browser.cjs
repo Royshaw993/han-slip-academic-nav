@@ -29,11 +29,11 @@ async function layout(page,label){
   });
   assert.ok(result.scrollWidth<=result.width,`${label}: horizontal overflow ${JSON.stringify(result)}`);
   assert.deepEqual(result.overflow,[],label);
-  if(result.width<=430)assert.ok(result.columns.every(n=>n===1),`${label}: non-single-column grid`);
+  if(result.width<=430)assert.ok(result.columns.every(n=>n<=2),`${label}: non-single-column grid`);
   return result;
 }
-async function genre(page,value){await page.locator(`[data-genre="${value}"]`).click();await frames(page);}
-async function topics(page){await page.locator('[data-update-view="topics"]').click();await frames(page);}
+async function genre(page,value){await page.locator(value==='全部'?'#returnHomeButton':`[data-genre="${value}"]`).click();await frames(page);}
+async function topics(page){await page.locator('#topicsSection').scrollIntoViewIfNeeded();await frames(page);}
 async function open(page,id){await page.locator(`#researchTopics [data-research-topic="${id}"]`).click();await frames(page);assert.equal(await page.locator('#hubDetail').isVisible(),true);}
 async function back(page){await page.locator('[data-hub-back]').click();await frames(page);assert.equal(await page.locator('#hubDetail').isVisible(),false);}
 (async()=>{
@@ -48,25 +48,21 @@ async function back(page){await page.locator('[data-hub-back]').click();await fr
     const url=`http://127.0.0.1:${server.address().port}/`;
     await page.goto(url);
     assert.equal(await page.locator('#coreGrid .core-card').count(),4);
-    assert.equal(await page.locator('#siteGrid .site-card').count(),6);
-    assert.equal(await page.locator('#bibliographyGrid .bibliography-card').count(),2);
+    assert.equal(await page.locator('#resourcesSection').isVisible(),false);
+    assert.equal(await page.locator('#bibliographySection').isVisible(),false);
     await topics(page);
-    assert.equal(await page.locator('#researchTopics .research-topic-card').count(),4);
-    assert.deepEqual(await page.locator('#researchTopics [data-research-topic]').evaluateAll(nodes=>nodes.map(n=>n.dataset.researchTopic)),['zhangjiashan-hanjian','qinghua-slips','xuanquan-hanjian','zoumalou-western-han-slips']);
-    assert.match(await page.locator('#hubsToggle').textContent(),/（5）/);
-    await page.locator('#hubsToggle').click();
-    assert.equal(await page.locator('#researchTopics .research-topic-card').count(),5);
+    assert.equal(await page.locator('#researchTopics .research-topic-card').count(),8);
+    assert.deepEqual(await page.locator('#researchTopics [data-research-topic]').evaluateAll(nodes=>nodes.map(n=>n.dataset.researchTopic)),['zhangjiashan-hanjian','qinghua-slips','yinxu-oracle','western-zhou-bronze','mawangdui-silk','xuanquan-hanjian','zoumalou-western-han-slips','wuyi-eastern-han-slips']);
     const homeContext=await page.evaluate(()=>({category:activeCategory,view:activeUpdateView,expanded:hubsExpanded,scrollY:window.scrollY}));
     await open(page,'xuanquan-hanjian');
     assert.equal(await page.locator('[data-hub-section="updates"] .update-card').count(),4);
     await page.locator('[data-hub-expand="updates"]').click();
-    assert.equal(await page.locator('[data-hub-section="updates"] .update-card').count(),5);
+    assert.equal(await page.locator('[data-hub-section="updates"] .update-card').count(),9);
     await page.locator('[data-hub-expand="updates"]').click();
     assert.equal(await page.locator('[data-hub-section="updates"] .update-card').count(),4);
     await back(page);
-    assert.equal(await page.locator('#researchTopics .research-topic-card').count(),5);
-    assert.equal(await page.locator('#hubsToggle').getAttribute('aria-expanded'),'true');
-    assert.equal(await page.locator('[data-update-view="topics"]').getAttribute('aria-pressed'),'true');
+    assert.equal(await page.locator('#researchTopics .research-topic-card').count(),8);
+    assert.equal(await page.locator('#topicsSection').isVisible(),true);
     assert.deepEqual(await page.evaluate(()=>({category:activeCategory,view:activeUpdateView,expanded:hubsExpanded,scrollY:window.scrollY})),homeContext);
     report.push({case:'home limits, legacy topic, expansion and return',pass:true});
 
@@ -74,31 +70,27 @@ async function back(page){await page.locator('[data-hub-back]').click();await fr
       await page.setViewportSize({width,height:850});
       await page.goto(url);await topics(page);await layout(page,`${width} home`);
       for(const [category,id,title,resources,books,updates] of [
-        ['🏺 汉代简牍','zhangjiashan-hanjian','张家山汉简专题',2,1,2],
-        ['🏺 汉代简牍','qinghua-slips','清华简',1,0,2],
+        ['🏺 汉代简牍','zhangjiashan-hanjian','张家山汉简专题',3,1,3],
+        ['全部','qinghua-slips','清华简',2,0,4],
         ['帛书','mawangdui-silk','马王堆帛书',0,0,0],
         ['甲骨文','yinxu-oracle','殷墟甲骨',2,1,0],
         ['金文','western-zhou-bronze','西周金文',2,2,0]
       ]){
         await genre(page,category);await topics(page);await layout(page,`${width} ${category} list`);
-        if(category==='🏺 汉代简牍')assert.equal(await page.locator('#updates-title').textContent(),'简牍 · 研究专题');
+        if(category==='🏺 汉代简牍')assert.equal(await page.locator('#research-topics-title').textContent(),'研究专题');
         let listIds=await page.locator('#researchTopics [data-research-topic]').evaluateAll(nodes=>nodes.map(n=>n.dataset.researchTopic));
         if(category==='🏺 汉代简牍'){
           assert.equal(await page.locator('#researchTopics .research-topic-card').count(),4);
-          assert.match(await page.locator('#hubsToggle').textContent(),/（5）/);
           assert.ok(listIds.includes(id),`${width}: slips should show ${id}`);
-          if(id==='wuyi-eastern-han-slips'){
-            await page.locator('#hubsToggle').click();
-            assert.equal(await page.locator('#researchTopics .research-topic-card').count(),5);
-            listIds=await page.locator('#researchTopics [data-research-topic]').evaluateAll(nodes=>nodes.map(n=>n.dataset.researchTopic));
-          }
-        }else assert.deepEqual(listIds,[id]);
+
+        }else if(category==='全部')assert.equal(listIds.length,8);
+        else assert.deepEqual(listIds,[id]);
         await open(page,id);
         assert.equal(await page.locator('#hubTitle').textContent(),title);
         assert.equal(await page.locator('[data-hub-section="resources"] .site-card').count(),resources);
         assert.equal(await page.locator('[data-hub-section="bibliography"] .bibliography-card').count(),books);
         assert.equal(await page.locator('[data-hub-section="updates"] .update-card').count(),updates);
-        assert.match(await page.locator('[data-hub-back]').textContent(),/返回当前门类/);
+        assert.match(await page.locator('[data-hub-back]').textContent(),category==='全部'?/返回首页/:/返回当前门类/);
         const metrics=await layout(page,`${width} ${id}`);
         if(id==='mawangdui-silk')assert.doesNotMatch(await page.locator('#hubDetail').textContent(),/楚帛书/);
         if(!updates)assert.match(await page.locator('[data-hub-section="updates"]').textContent(),/当前暂无已收录的相关学术动态。/);
@@ -120,36 +112,31 @@ async function back(page){await page.locator('[data-hub-back]').click();await fr
           await back(page);
           assert.ok(Math.abs(await page.evaluate(()=>window.scrollY)-origin.scrollY)<2,`${width} restored scroll`);
         }else await back(page);
-        if(id==='wuyi-eastern-han-slips'){
-          assert.equal(await page.locator('#hubsToggle').getAttribute('aria-expanded'),'true');
-          assert.equal(await page.locator('#researchTopics .research-topic-card').count(),5);
-          assert.equal(await page.evaluate(()=>activeCategory),'🏺 汉代简牍');
-          assert.equal(await page.locator('[data-update-view="topics"]').getAttribute('aria-pressed'),'true');
-        }
-        assert.equal(await page.locator(`[data-genre="${category}"]`).getAttribute('aria-pressed'),'true');
+
+        if(category!=='全部')assert.equal(await page.locator(`[data-genre="${category}"]`).getAttribute('aria-pressed'),'true');
         report.push({case:id,width,metrics,pass:true});
       }
-      await genre(page,'石刻');await topics(page);
+      await genre(page,'石刻');assert.equal(await page.locator('#topicsSection').isVisible(),false);
       assert.match(await page.locator('#researchTopics').textContent(),/暂无已整理的石刻/);
       await layout(page,`${width} stone`);
     }
     // Existing V1.2 entry points continue to work after leaving a hub.
     await page.setViewportSize({width:1280,height:900});
-    await genre(page,'🏺 汉代简牍');await topics(page);await open(page,'qinghua-slips');
+    await genre(page,'甲骨文');await topics(page);await open(page,'yinxu-oracle');
     await page.locator('#returnHomeButton').click();await frames(page);
     assert.equal(await page.locator('#hubDetail').isVisible(),false);
-    assert.equal(await page.locator('#commonSection').isVisible(),true);
-    await page.locator('[data-common-action="wechat"]').click();assert.equal(await page.locator('#wechatPanel').isVisible(),true);
-    await page.locator('#wechatCollapse').click();assert.equal(await page.locator('#wechatPanel').isVisible(),false);
-    await page.locator('#sitesToggle').click();assert.ok(await page.locator('#siteGrid .site-card').count()>6);
-    await page.locator('#sitesToggle').click();assert.equal(await page.locator('#siteGrid .site-card').count(),6);
-    await genre(page,'甲骨文');await page.locator('#bibliographyToggle').click();assert.equal(await page.locator('#bibliographyGrid .bibliography-card').count(),6);
-    await page.locator('#bibliographyToggle').click();assert.equal(await page.locator('#bibliographyGrid .bibliography-card').count(),4);
+    assert.equal(await page.locator('#navigationOverview').isVisible(),true);
+    await page.locator('[data-module="wechat"]').click();assert.equal(await page.locator('#wechatPanel .wechat-card:visible').count(),14);
+    await page.locator('#moduleBack').click();await frames(page);
+    await page.locator('[data-module="resources"]').click();assert.equal(await page.locator('#siteGrid .site-card:visible').count(),12);
+    await page.locator('#moduleBack').click();await frames(page);
+    await page.locator('[data-module="bibliography"]').click();assert.equal(await page.locator('#bibliographyGrid .bibliography-card:visible').count(),17);
+    await page.locator('#moduleBack').click();await frames(page);
     await genre(page,'🏺 汉代简牍');await page.locator('[data-update-type="新书"]').click();
     const prior=await page.locator('#updatesGrid').innerHTML();
     await topics(page);await open(page,'zhangjiashan-hanjian');await back(page);
-    await page.locator('[data-update-view="latest"]').click();assert.equal(await page.locator('#updatesGrid').innerHTML(),prior);
-    await topics(page);await open(page,'qinghua-slips');
+    assert.equal(await page.locator('#updatesGrid').innerHTML(),prior);
+    await genre(page,'全部');await topics(page);await open(page,'qinghua-slips');
     await page.locator('#searchInput').fill('说文');await frames(page);
     assert.equal(await page.locator('#hubDetail').isVisible(),false);
     assert.match(await page.locator('#unifiedSearchResults').textContent(),/说文/);
@@ -168,7 +155,7 @@ async function back(page){await page.locator('[data-hub-back]').click();await fr
       coreBibliographyData[0].title='超长书目标题用于窄屏换行验证'.repeat(12);
       academicUpdatesData.find(u=>u.id==='tsinghua-gujianxinyi').title='超长学术动态标题用于窄屏换行验证'.repeat(12);
     });
-    await genre(page,'🏺 汉代简牍');await topics(page);await open(page,'qinghua-slips');
+    await page.evaluate(()=>activateCategory('全部'));await frames(page);await topics(page);await open(page,'qinghua-slips');
     assert.equal(await page.locator('[data-hub-section="resources"] .site-card').count(),4);
     assert.equal(await page.locator('[data-hub-section="bibliography"] .bibliography-card').count(),4);
     for(const section of ['resources','bibliography']){

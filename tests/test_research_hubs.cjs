@@ -45,14 +45,15 @@ test('eight unique hubs, valid schema and categories, reference-only records', (
   }
   assert.deepEqual(warnings, []);
 });
-test('41 explicit unique persistent resource IDs', () => {
+test('51 explicit unique persistent resource IDs', () => {
   const {run} = load(), sites = run('sites');
-  assert.equal(sites.length,41); assert.equal(new Set(sites.map(s=>s.id)).size,41);
+  assert.equal(sites.length,51); assert.equal(new Set(sites.map(s=>s.id)).size,51);
   sites.forEach(s=>assert.match(s.id,/^[a-z][a-z0-9-]+$/));
   const source = fs.readFileSync(path.join(root,'script.js'),'utf8').split('const categories =')[0];
-  assert.equal((source.match(/\{ id:"/g)||[]).length,41);
+  assert.equal((source.match(/\{ id:"/g)||[]).length,51);
   // Persistent keys are intentionally pinned independently of names/descriptions/URLs.
-  const persistentIds = ['nwnu-jiandu','bsm','ihp-woodslip','guanlian-hanqing','xiaoxue','yinxu-oracle-database','ihp-oracle-rubbings','tsinghua-ctwx','wuhan-bamboo-silk-center','cnki','china-archaeology','cssn','google-scholar','jstor','cinii','brill','zotero','ctext','zdic','zi-tools','openalex','semantic-scholar','bnu-shuowen','bnu-hanzi','ytenx','ccl-corpus','xiaoxue-oracle','xiaoxue-oracle-sources','chant-oracle','xiaoxue-bronze','ihp-bronze','ihp-preqin-vocabulary','shangzhou-bronze-query','ihp-bronze-rubbings','zju-epitaphs','ihp-han-stone-rubbings','ihp-buddhist-stone-rubbings','ihp-liao-jin-yuan-rubbings','ihp-song-rubbings','bnu-inscriptions','academic-wechat'];
+  const persistentIds = ['chutu-wenxian-journal','chutu-wenxian-yanjiu','chutu-wenxian-falvshi','nwnu-jiandu','bsm','ihp-woodslip','guanlian-hanqing','xiaoxue','yinxu-oracle-database','ihp-oracle-rubbings','tsinghua-ctwx','wuhan-bamboo-silk-center','cnki','china-archaeology','cssn','google-scholar','jstor','cinii','brill','zotero','ctext','zdic','zi-tools','openalex','semantic-scholar','bnu-shuowen','bnu-hanzi','ytenx','ccl-corpus','xiaoxue-oracle','xiaoxue-oracle-sources','chant-oracle','xiaoxue-bronze','ihp-bronze','ihp-preqin-vocabulary','shangzhou-bronze-query','ihp-bronze-rubbings','zju-epitaphs','ihp-han-stone-rubbings','ihp-buddhist-stone-rubbings','ihp-liao-jin-yuan-rubbings','ihp-song-rubbings','bnu-inscriptions','academic-wechat'];
+  persistentIds.push('nlc-beitie-jinghua','shl-beitie','ncl-stone-rubbings','pku-rare-books','shukutoku-stone-rubbings','kyoto-stone-rubbings','china-jinshi-zonglu');
   assert.deepEqual(plain(sites.map(s=>s.id).sort()), persistentIds.sort());
 });
 test('resource identity survives renaming, description and URL edits', () => {
@@ -73,34 +74,32 @@ test('legacy API derives the original four IDs and topics from one source',()=>{
   assert.deepEqual(plain(c.window.researchTopics.map(h=>h.id)),['xuanquan-hanjian','zhangjiashan-hanjian','zoumalou-western-han-slips','wuyi-eastern-han-slips']);
   for(const old of c.window.researchTopics){const hub=c.window.researchHubs.find(h=>h.id===old.id);assert.equal(old.title,hub.title);assert.deepEqual(old.topics,hub.updateTags);}
 });
-test('default homepage exposes only four slips hubs and expands to all five',()=>{
+test('default homepage exposes all eight existing hubs as compact entries',()=>{
   const {run,node}=load();
-  assert.equal(run(`hubsForCategory('全部').length`),5);
-  assert.equal(run(`hubsForCategory('全部').every(h=>h.category==='slips')`),true);
-  assert.equal(node('#researchTopics').childElementCount,4);
-  assert.match(node('#hubsToggle').textContent,/（5）/);
-  run('hubsExpanded=true; renderResearchTopics(); renderResearchTopics();');
-  assert.equal(node('#researchTopics').childElementCount,5);
+  assert.equal(run(`hubsForCategory('全部').length`),8);
+  assert.equal(node('#researchTopics').childElementCount,8);
+  run('renderResearchTopics(); renderResearchTopics();');
+  assert.equal(node('#researchTopics').childElementCount,8);
+  assert.doesNotMatch(node('#researchTopics').innerHTML,/topic-description|topic-count/);
 });
 test('current category controls every list and the expansion count',()=>{
   const {run,node}=load();
-  const cases=[['全部','slips',5],['🏺 汉代简牍','slips',5],['甲骨文','oracle',1],['金文','bronze',1],['帛书','silk',1],['石刻','stone',0]];
+  const cases=[['全部',null,8],['🏺 汉代简牍','slips',4],['甲骨文','oracle',1],['金文','bronze',1],['帛书','silk',1],['石刻','stone',0]];
   for(const [category,code,expected] of cases) {
     run(`activeCategory=${JSON.stringify(category)};hubsExpanded=false;renderResearchTopics()`);
     const visible=run(`hubsForCategory(activeCategory).map(h=>h.id)`);
     assert.equal(visible.length,expected,category);
-    assert.ok(visible.every(id=>run(`hubsById.get(${JSON.stringify(id)}).category===${JSON.stringify(code)}`)),category);
-    assert.equal(node('#hubsToggle').hidden,expected<=4,category);
-    if(expected>4)assert.match(node('#hubsToggle').textContent,/（5）/);
+    if(code)assert.ok(visible.every(id=>run(`hubsById.get(${JSON.stringify(id)}).category===${JSON.stringify(code)}`)),category);
+    assert.equal(node('#researchTopics').childElementCount,expected,category);
     if(category==='石刻')assert.match(node('#researchTopics').innerHTML,/当前暂无已整理的石刻研究专题/);
   }
 });
-test('the default slips list excludes oracle, bronze and silk hubs',()=>{
+test('the portal includes oracle, bronze and silk hubs without changing IDs',()=>{
   const {run}=load();
   const ids=run(`hubsForCategory('全部').map(h=>h.id)`);
-  assert.deepEqual(plain(ids),['zhangjiashan-hanjian','qinghua-slips','xuanquan-hanjian','zoumalou-western-han-slips','wuyi-eastern-han-slips']);
+  assert.deepEqual(plain(ids),['zhangjiashan-hanjian','qinghua-slips','yinxu-oracle','western-zhou-bronze','mawangdui-silk','xuanquan-hanjian','zoumalou-western-han-slips','wuyi-eastern-han-slips']);
 });
-for(const [id,category] of [['zhangjiashan-hanjian','🏺 汉代简牍'],['qinghua-slips','🏺 汉代简牍'],['mawangdui-silk','帛书'],['yinxu-oracle','甲骨文'],['western-zhou-bronze','金文']]){
+for(const [id,category] of [['zhangjiashan-hanjian','🏺 汉代简牍'],['qinghua-slips',null],['mawangdui-silk','帛书'],['yinxu-oracle','甲骨文'],['western-zhou-bronze','金文']]){
   test(`${id} appears only in its intended genre`,()=>{
     const {run}=load();
     for(const genre of ['甲骨文','金文','石刻','🏺 汉代简牍','帛书']) assert.equal(run(`hubsForCategory(${JSON.stringify(genre)}).some(h=>h.id===${JSON.stringify(id)})`),genre===category);
@@ -114,8 +113,8 @@ test('stone empty state and preparing silk hub remain accessible',()=>{
 });
 test('precise existing update matches and newest-first ordering',()=>{
   const {run}=load();
-  assert.deepEqual(plain(run(`updatesForHub(hubsById.get('zhangjiashan-hanjian')).map(u=>u.id)`)),['zhangjiashan-gushiqi-20250925','ruc-zhangjiashan-daozhi-2025']);
-  assert.equal(run(`updatesForHub(hubsById.get('qinghua-slips')).length`),2);
+  assert.deepEqual(plain(run(`updatesForHub(hubsById.get('zhangjiashan-hanjian')).map(u=>u.id)`)),['tsinghua-ctwx-20261030-93aa1a4f','zhangjiashan-gushiqi-20250925','ruc-zhangjiashan-daozhi-2025']);
+  assert.deepEqual(plain(run(`updatesForHub(hubsById.get('qinghua-slips')).map(u=>u.id)`)),['zzu-www5-20261024-a7de7cf4','tsinghua-ctwx-20260915-a5c60393','bsm-20260909-2d6b6d9e','tsinghua-gujianxinyi','tsinghua-oxford-2026']);
   assert.equal(run(`updatesForHub({updateTags:['汉简','金文']}).some(u=>u.id==='ruc-zhangjiashan-daozhi-2025')`),false);
 });
 test('topics-only updates supported, substring/category matches excluded, IDs deduplicated',()=>{
@@ -142,13 +141,13 @@ test('related switching retains original context; return restores filters and sc
 });
 test('home and top genre navigation exit detail without stale hidden sections',()=>{
   const {run,node}=load();run(`openResearchHub('qinghua-slips')`);assert.match(node('#hubDetail').innerHTML,/返回首页/);
-  run(`activateCategory('金文')`);assert.equal(node('#hubDetail').hidden,true);assert.equal(node('#resourcesSection').hidden,false);
-  run(`activateCategory('全部')`);assert.equal(node('#commonSection').hidden,false);
+  run(`activateCategory('金文')`);assert.equal(node('#hubDetail').hidden,true);assert.equal(node('#topicsSection').hidden,false);assert.equal(node('#resourcesSection').hidden,true);
+  run(`activateCategory('全部')`);assert.equal(node('#navigationOverview').hidden,false);
 });
 test('detail independent of list filters, content source updates reflected on render',()=>{
   const {run,node}=load();
   run(`activeUpdateType='新书';activeUpdateObject='悬泉汉简';searchInput.value='不存在';openResearchHub('zhangjiashan-hanjian')`);
-  assert.equal((node('#hubDetail').innerHTML.match(/class="update-card"/g)||[]).length,2);
+  assert.equal((node('#hubDetail').innerHTML.match(/class="update-card"/g)||[]).length,3);
   run(`hubBooksById.get('zhangjiashan-hanmu-zhujian-247').title='书目修订测试';renderHubDetail()`);assert.match(node('#hubDetail').innerHTML,/书目修订测试/);
 });
 test('expansion caps sections at four; collapse and repeated render remain deterministic',()=>{
@@ -167,7 +166,7 @@ test('optional cross-category hubs and unavailable status are handled explicitly
   const {run}=load();
   run(`hubsById.set('cross',{id:'cross',category:'slips',categories:['silk'],status:'active'});hubsById.set('draft',{id:'draft',category:'slips',status:'draft'})`);
   assert.equal(run(`hubsForCategory('帛书').some(h=>h.id==='cross')`),true);
-  assert.equal(run(`hubsForCategory('🏺 汉代简牍').some(h=>h.id==='cross')`),true);
+  assert.equal(run(`hubsForCategory('🏺 汉代简牍').some(h=>h.id==='cross')`),false);
   assert.equal(run(`hubsForCategory('甲骨文').some(h=>h.id==='cross')`),false);
   assert.equal(run(`hubsForCategory('全部').some(h=>h.id==='draft')`),false);
 });
@@ -175,7 +174,7 @@ test('a hub can link to a different-category related hub without changing list f
   const {run,node}=load();
   run(`hubsById.get('zhangjiashan-hanjian').relatedHubIds=['western-zhou-bronze'];openResearchHub('zhangjiashan-hanjian')`);
   assert.match(node('#hubDetail').innerHTML,/西周金文/);
-  assert.equal(run(`hubsForCategory('全部').some(h=>h.id==='western-zhou-bronze')`),false);
+  assert.equal(run(`hubsForCategory('全部').some(h=>h.id==='western-zhou-bronze')`),true);
   run(`openResearchHub('western-zhou-bronze')`);
   assert.equal(run('activeHubId'),'western-zhou-bronze');assert.equal(run("hubReturnContext.category"),'全部');
 });

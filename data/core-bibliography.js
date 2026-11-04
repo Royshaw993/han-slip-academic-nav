@@ -133,15 +133,42 @@ window.coreBibliography = [
   {
     "id": "changsha-wuyi-guangchang-donghan-jiandu",
     "title": "《长沙五一广场东汉简牍》",
-    "author": "长沙市文物考古研究所等 编",
-    "categories": ["slips"],
+    "author": "长沙市文物考古研究所、清华大学出土文献研究与保护中心、中国文化遗产研究院、湖南大学岳麓书院 编",
+    "categories": [
+      "slips"
+    ],
     "type": "核心整理本",
     "level": "",
-    "useFor": ["图版", "释文", "五一广场东汉简"],
+    "useFor": [
+      "图版",
+      "释文",
+      "五一广场东汉简"
+    ],
     "publisher": "中西书局",
     "year": "",
-    "note": "按系列书目展示，不拆分各册。",
-    "featured": false
+    "note": "",
+    "featured": false,
+    "sourceNote": "reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。 E05/E06归入原有系列父记录，原说明“按系列书目展示，不拆分各册。”保留于此。",
+    "volumes": [
+      {
+        "id": "changsha-wuyi-donghan-qi",
+        "title": "《长沙五一广场东汉简牍（柒）》",
+        "author": "长沙市文物考古研究所、清华大学出土文献研究与保护中心、中国文化遗产研究院、湖南大学岳麓书院 编",
+        "publisher": "中西书局",
+        "year": "",
+        "isbn": "",
+        "sourceNote": "E06；reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。 版权年及ISBN未核留空。"
+      },
+      {
+        "id": "changsha-wuyi-donghan-jiu",
+        "title": "《长沙五一广场东汉简牍（玖）》",
+        "author": "长沙市文物考古研究所、清华大学出土文献研究与保护中心、中国文化遗产研究院、湖南大学岳麓书院 编",
+        "publisher": "中西书局",
+        "year": "",
+        "isbn": "",
+        "sourceNote": "E05；reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。 版权年及ISBN未核留空。"
+      }
+    ]
   },
   {
     "id": "changsha-wuyi-guangchang-donghan-jiandu-xuanshi",
@@ -155,5 +182,133 @@ window.coreBibliography = [
     "year": "2015",
     "note": "适合从选释入手了解五一广场东汉简。",
     "featured": false
+  },
+  {
+    "id": "jiandu-boshu-geshi-yanjiu",
+    "title": "《简牍帛书格式研究》",
+    "author": "程鹏万",
+    "categories": [
+      "slips",
+      "silk"
+    ],
+    "type": "研究专著",
+    "level": "",
+    "useFor": [
+      "简牍形制",
+      "帛书"
+    ],
+    "publisher": "上海古籍出版社",
+    "year": "2017",
+    "note": "",
+    "featured": false,
+    "sourceNote": "N17；reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。",
+    "isbn": "9787532585687"
+  },
+  {
+    "id": "changsha-zoumalou-xihan-jiandu-yanjiu",
+    "title": "《长沙走马楼西汉简牍研究》",
+    "author": "陈松长 主编",
+    "categories": [
+      "slips"
+    ],
+    "type": "专题论文集",
+    "level": "",
+    "useFor": [
+      "走马楼西汉简"
+    ],
+    "publisher": "岳麓书社",
+    "year": "2024",
+    "note": "",
+    "featured": false,
+    "sourceNote": "N26；reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。",
+    "isbn": "9787553820507"
+  },
+  {
+    "id": "handai-susong-zhidu-yanjiu",
+    "title": "《汉代诉讼制度研究》",
+    "author": "程政举",
+    "categories": [
+      "slips"
+    ],
+    "type": "研究专著",
+    "level": "",
+    "useFor": [
+      "汉代法律制度"
+    ],
+    "publisher": "法律出版社",
+    "year": "2010",
+    "note": "",
+    "featured": false,
+    "sourceNote": "E04；本轮实际获取CiNii馆藏页再次核对书版。2006年同名学位版本独立待核，未发布；reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。",
+    "isbn": "9787511809964",
+    "url": "https://ci.nii.ac.jp/ncid/BB05580838"
+  },
+  {
+    "id": "changsha-zoumalou-xihan-jiandu-wenzibian",
+    "title": "《长沙走马楼西汉简牍文字编》",
+    "author": "陈松长、谢伟斌、周俊卿 主编",
+    "categories": [
+      "slips"
+    ],
+    "type": "文字工具书",
+    "level": "",
+    "useFor": [
+      "走马楼西汉简",
+      "字形"
+    ],
+    "publisher": "岳麓书社",
+    "year": "",
+    "note": "",
+    "featured": false,
+    "sourceNote": "E07；出版年与ISBN未核，未采用文件名年份；reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。"
+  },
+  {
+    "id": "changsha-zoumalou-xihan-jiandu",
+    "title": "《长沙走马楼西汉简牍》",
+    "author": "长沙简牍博物馆、湖南大学简帛文献研究中心 编著",
+    "categories": [
+      "slips"
+    ],
+    "type": "材料整理本",
+    "level": "",
+    "useFor": [
+      "走马楼西汉简",
+      "图版",
+      "释文"
+    ],
+    "publisher": "岳麓书社",
+    "year": "",
+    "note": "",
+    "featured": false,
+    "sourceNote": "E08—E10；另核湖南大学2024-10-31新书公告 https://news.hnu.edu.cn/info/1003/25091.htm ，公告为证据而非独立书目入口；各卷版权年未由发布会日期推填；reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。",
+    "volumes": [
+      {
+        "id": "changsha-zoumalou-xihan-yi",
+        "title": "《长沙走马楼西汉简牍（壹）》",
+        "author": "长沙简牍博物馆、湖南大学简帛文献研究中心 编著",
+        "publisher": "岳麓书社",
+        "year": "",
+        "isbn": "",
+        "sourceNote": "E09；reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。 版权年及ISBN未核留空。"
+      },
+      {
+        "id": "changsha-zoumalou-xihan-er",
+        "title": "《长沙走马楼西汉简牍（贰）》",
+        "author": "长沙简牍博物馆、湖南大学简帛文献研究中心 编著",
+        "publisher": "岳麓书社",
+        "year": "",
+        "isbn": "",
+        "sourceNote": "E08；reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。 版权年及ISBN未核留空。"
+      },
+      {
+        "id": "changsha-zoumalou-xihan-san",
+        "title": "《长沙走马楼西汉简牍（叁）》",
+        "author": "长沙简牍博物馆、湖南大学简帛文献研究中心 编著",
+        "publisher": "岳麓书社",
+        "year": "",
+        "isbn": "",
+        "sourceNote": "E10；reports/classic-paper-broad-intake-review-2026-11-03.md 第6节已核题录及原始证据；本轮授权正式转入书目，原报告不改。 版权年及ISBN未核留空。"
+      }
+    ]
   }
 ];

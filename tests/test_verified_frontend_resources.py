@@ -53,9 +53,10 @@ class VerifiedFrontendResourcesTests(unittest.TestCase):
             self.assertNotIn("resourceCategories", line)
 
     def test_front_page_limit_and_existing_navigation_contract_remain(self) -> None:
-        self.assertIn("allOrdinary.slice(0, 6)", self.script)
+        self.assertIn("(paged ? categoryResources.slice(0, count) : featured).map(coreCardTemplate)", self.script)
+        self.assertIn('const homepageFeaturedIds = ["bsm", "nwnu-jiandu", "xiaoxue", "ihp-bronze"]', self.script)
         self.assertGreater(self.script.index('url:"https://szsw.bnu.edu.cn/"'), self.script.index('name:"Semantic Scholar"'))
-        for marker in ('[data-genre]', 'activateCategory("全部")', "sitesExpanded = !sitesExpanded", "searchInput.addEventListener"):
+        for marker in ('[data-genre]', 'activateCategory("全部")', "setResourceType", "searchInput.addEventListener"):
             self.assertIn(marker, self.script)
 
     def test_resources_are_not_added_to_news_source_pool(self) -> None:

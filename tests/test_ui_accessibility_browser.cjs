@@ -35,24 +35,25 @@ const frames = page => page.evaluate(()=>new Promise(r=>requestAnimationFrame(()
       await page.route('**/style.css',r=>r.fulfill({contentType:'text/css',body:beforeCSS}));await page.reload();const before=await measure();
       await page.unroute('**/style.css');await page.reload();const after=await measure();
       assert.ok(after.hero<before.hero);assert.ok(after.first<before.first);await layout();metrics.push({width,before,after});pass(width,'mobile content earlier without overflow');
+      await keyboard(page.locator('[data-module="resources"]'));
       await keyboard(page.locator('[data-category="🧱 古文字数据库"]'));
       assert.ok(await focus(page.locator('[data-category="🧱 古文字数据库"]')));
       await keyboard(page.locator('[data-genre="金文"]'));assert.ok(await focus(page.locator('[data-genre="金文"]')));
-      await keyboard(page.locator('#returnHomeButton'));assert.ok(await focus(page.locator('[data-category="全部"]')));pass(width,'category, genre and home keyboard focus');
+      await keyboard(page.locator('#returnHomeButton'));assert.ok(await focus(page.locator('.brand')));pass(width,'category, genre and home keyboard focus');
       for(const [attr,value] of [['data-direction','释文'],['data-update-type','新论文'],['data-update-object','张家山汉简']]) {
-        await page.goto(url);const target=page.locator('['+attr+'="'+value+'"]');await keyboard(target);
+        await page.goto(url);if(attr==='data-direction'){await keyboard(page.locator('[data-module="resources"]'));await page.locator('.library-tools > summary').click();}const target=page.locator('['+attr+'="'+value+'"]');await keyboard(target);
         assert.ok(await focus(target));assert.equal(await target.getAttribute('aria-pressed'),'true');
         const states=await page.locator('['+attr+']').evaluateAll(es=>es.every(e=>e.getAttribute('aria-pressed')===String(e.classList.contains('is-active'))));assert.ok(states);
       }
       pass(width,'filter focus and aria-pressed stay synchronized');
-      await page.goto(url);const wechat=page.locator('[data-common-action="wechat"]');await keyboard(wechat);assert.ok(await focus(wechat));assert.equal(await wechat.getAttribute('aria-expanded'),'true');
-      await keyboard(page.locator('#wechatCollapse'));assert.ok(await focus(wechat));assert.equal(await wechat.getAttribute('aria-expanded'),'false');pass(width,'WeChat open and collapse focus');
+      await page.goto(url);const wechat=page.locator('[data-module="wechat"]');await keyboard(wechat);assert.ok(await focus(page.locator('#moduleBack')));assert.equal(await page.locator('#wechatPanel .wechat-card:visible').count(),14);
+      await keyboard(page.locator('#moduleBack'));assert.ok(await focus(wechat));assert.equal(await page.locator('#wechatPanel').isVisible(),false);pass(width,'WeChat module and keyboard return retain focus');
       await page.locator('#searchInput').fill('张家山');const trigger=page.locator('#unifiedSearchResults [data-research-topic="zhangjiashan-hanjian"]');await keyboard(trigger);await keyboard(page.locator('[data-hub-back]'));assert.ok(await focus(trigger));assert.equal(await page.locator('#searchInput').inputValue(),'张家山');await layout();pass(width,'search hub return restores result focus');
       const hits=await page.evaluate(()=>searchUnified(searchQuery).map(e=>e.type+':'+e.id));await page.locator('#searchInput').fill('简');await layout();await page.locator('#searchInput').fill('张家山');assert.deepEqual(await page.evaluate(()=>searchUnified(searchQuery).map(e=>e.type+':'+e.id)),hits);
       await page.locator('#clearSearch').click();pass(width,'compact search preserves results and exit');
-      await page.evaluate(()=>openResearchHub('mawangdui-silk'));await frames(page);assert.equal(await page.locator('.hub-section-empty').count(),5);assert.equal(await page.locator('.hub-section').count(),5);
-      assert.ok(await page.locator('#hubDetail').evaluate(e=>e.getBoundingClientRect().height<800));await layout();pass(width,'five compact empty sections retain boundaries');
-      await page.goto(url);assert.equal(await page.locator('#updateDateNote').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)>=13),true);
+      await page.evaluate(()=>openResearchHub('mawangdui-silk'));await frames(page);assert.equal(await page.locator('.hub-section-empty').count(),4);assert.equal(await page.locator('.hub-section').count(),5);
+      assert.ok(await page.locator('.hub-section-empty').evaluateAll(es=>es.every(e=>e.getBoundingClientRect().height<140)));await layout();pass(width,'four compact empty sections retain boundaries alongside existing papers');
+      await page.goto(url);assert.equal(await page.locator('#latestUpdateDate').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)>=13),true);
       await page.keyboard.press('Tab');await page.locator('[data-update-type="新论文"]').focus();await page.waitForFunction(()=>getComputedStyle(document.activeElement).outlineColor==='rgb(142, 48, 40)');assert.equal(await page.locator('[data-update-type="新论文"]').evaluate(e=>getComputedStyle(e).outlineColor),'rgb(142, 48, 40)');
       pass(width,'readable metadata and solid focus indicator');
     }

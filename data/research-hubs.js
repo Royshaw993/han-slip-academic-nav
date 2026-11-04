@@ -7,14 +7,14 @@ window.researchHubs = [
   {
     id: "zhangjiashan-hanjian", title: "张家山汉简专题", subtitle: "Zhangjiashan Han Slips",
     category: "slips", description: "聚合张家山汉简的文本、法律、文字与思想研究。",
-    resourceIds: ["nwnu-jiandu", "bsm"], bibliographyIds: ["zhangjiashan-hanmu-zhujian-247"],
+    resourceIds: ["nwnu-jiandu", "bsm", "chutu-wenxian-falvshi"], bibliographyIds: ["zhangjiashan-hanmu-zhujian-247"],
     updateTags: ["张家山汉简"], relatedHubIds: ["zoumalou-western-han-slips", "wuyi-eastern-han-slips"],
     featured: true, status: "active"
   },
   {
     id: "qinghua-slips", title: "清华简", category: "slips",
     description: "汇集本站已收录的清华简研究入口与相关学术动态。",
-    resourceIds: ["tsinghua-ctwx"], bibliographyIds: [], updateTags: ["清华简"], relatedHubIds: [],
+    resourceIds: ["tsinghua-ctwx", "chutu-wenxian-journal"], bibliographyIds: [], updateTags: ["清华简"], relatedHubIds: [],
     featured: true, status: "active"
   },
   {
@@ -45,7 +45,7 @@ window.researchHubs = [
   {
     id: "zoumalou-western-han-slips", title: "走马楼西汉简专题", subtitle: "Zoumalou Western Han Slips",
     category: "slips", description: "聚合走马楼西汉简的行政、司法、制度与地方治理研究。",
-    resourceIds: ["nwnu-jiandu", "bsm"], bibliographyIds: [], updateTags: ["走马楼西汉简"],
+    resourceIds: ["nwnu-jiandu", "bsm", "chutu-wenxian-yanjiu"], bibliographyIds: ["changsha-zoumalou-xihan-jiandu", "changsha-zoumalou-xihan-jiandu-yanjiu", "changsha-zoumalou-xihan-jiandu-wenzibian"], updateTags: ["走马楼西汉简"],
     relatedHubIds: ["zhangjiashan-hanjian", "wuyi-eastern-han-slips"], featured: false, status: "active"
   },
   {

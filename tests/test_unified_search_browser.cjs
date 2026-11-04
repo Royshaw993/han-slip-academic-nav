@@ -22,7 +22,7 @@ const inputAtCurrentScroll = async (page,value) => {
   await page.evaluate(value=>{searchInput.value=value;searchInput.dispatchEvent(new Event('input',{bubbles:true}));},value);await frames(page);
 };
 const state = page => page.evaluate(()=>({
-  activeCategory,activeResourceCategory,activeDirectionTag,activeUpdateType,activeUpdateObject,activeUpdateView,
+  activeCategory,activeResourceCategory,activeResourceType,activeModule,moduleReturnContext,activeDirectionTag,activeUpdateType,activeUpdateObject,activeUpdateView,
   updatesExpanded,researchTagsExpanded,sitesExpanded,topicSelectionActive,updateSearchIgnored,wechatExpanded,
   bibliographyExpanded,hubsExpanded,activeHubId,hubReturnContext,hubExpandedSections:[...hubExpandedSections],
   hidden:searchBrowseSections().map(s=>s.hidden),scrollY:window.scrollY
@@ -51,16 +51,17 @@ async function layout(page,label){
     const url=`http://127.0.0.1:${server.address().port}/`;
     await page.goto(url);await frames(page);
     assert.equal(await page.locator('input[type=search]').count(),1);
-    assert.equal(await page.evaluate(()=>unifiedSearchCatalog.entries.length),81);
+    assert.equal(await page.evaluate(()=>unifiedSearchCatalog.entries.length),await page.evaluate(()=>researchHubsData.length+sites.length+coreBibliographyData.length+classicPaperCatalog.papers.length+academicUpdatesData.filter(u=>!u.example).length));
     await page.locator('[data-genre="金文"]').click();await query(page,'张家山');
     for(const type of ['hub','resource','bibliography','update'])assert.ok(await page.locator(`[data-search-type="${type}"]`).count()>0);
     assert.equal(await page.evaluate(()=>activeCategory),'金文');
     const hits=await page.evaluate(()=>searchUnified(searchQuery).map(e=>e.type+':'+e.id));
     assert.equal(new Set(hits).size,hits.length);
-    assert.match(await page.locator('[role=status]').textContent(),new RegExp(`找到 ${hits.length} 项`));
+    assert.match(await page.locator('#unifiedSearchResults [role=status]').textContent(),new RegExp(`找到 ${hits.length} 项`));
     pass('all-site search from bronze, multiple types and deduplicated count');
     await query(page,'林澐');assert.equal(await page.locator('[data-search-type=paper]').count(),1);
-    assert.equal(await page.locator('[data-search-type=paper] a').count(),0);
+    assert.equal(await page.locator('[data-search-type=paper] [data-paper-source="primary"]').count(),0);
+    assert.equal(await page.locator('[data-search-type=paper] a').textContent(),'查看出版信息（2019年文集重收） ↗');
     await query(page,'本轮用户确认');assert.match(await page.locator('#unifiedSearchResults').textContent(),/找到 0 项/);
     await query(page,'西北师范大学');
     assert.ok(await page.locator('[data-search-type=resource]').count()>0);assert.ok(await page.locator('[data-search-type=update]').count()>0);
@@ -68,6 +69,42 @@ async function layout(page,label){
       const link=page.locator(selector).first();assert.equal(await link.getAttribute('target'),'_blank');assert.equal(await link.getAttribute('rel'),'noopener noreferrer');
     }
     pass('author/institution matching, internal-note exclusion and existing external-link behavior');
+    for(const paper of await page.evaluate(()=>window.classicPapers)){
+      for(const term of [paper.title,paper.author]){
+        await query(page,term);
+        const result=page.locator(`[data-search-type="paper"][data-search-id="${paper.id}"]`);
+        if(await result.count()===0 && await page.locator('[data-search-expand="paper"]').count()){
+          await page.locator('[data-search-expand="paper"]').click();await frames(page);
+        }
+        assert.equal(await result.count(),1);
+        assert.ok((await result.innerText()).includes(paper.pages||paper.journal));
+        assert.equal(await result.locator('.classic-paper-access').count(),0);
+        assert.doesNotMatch(await result.innerText(),/题录已核|暂无经核验|未核实无登录|目标报纸文章HTML正文|非期刊PDF/);
+        if(paper.note)assert.ok((await result.innerText()).includes(paper.note));
+        const link=result.locator('[data-paper-source="primary"]');
+        assert.equal(await link.count(),paper.url?1:0);
+        assert.equal(await result.locator('[data-paper-source="related"]').count(),(paper.relatedSources||[]).length);
+        if(paper.url){
+          assert.equal(await link.getAttribute('href'),paper.url);
+          assert.equal(await link.getAttribute('target'),'_blank');
+          assert.equal(await link.getAttribute('rel'),'noopener noreferrer');
+          const labels={'scan-pdf':'阅读原文（扫描PDF）','full-pdf':'阅读原文（PDF）',excerpt:'阅读节选','paper-info':'查看论文信息',bibliography:'查看出版信息','full-html':'阅读原文'};
+          assert.equal(await link.innerText(),labels[paper.accessType]+' ↗');
+        }
+        if(paper.recommendationStatus==='catalog-only')assert.match(await result.innerText(),/补充题录/);
+      }
+    }
+    await query(page,'批准候选');assert.match(await page.locator('#unifiedSearchResults').innerText(),/找到 0 项/);
+    pass('all 74 papers searchable by title and author with accurate access labels, limits and safe links; C records retained');
+    await query(page,'清华简');
+    await page.locator('#unifiedSearchResults [data-research-topic="qinghua-slips"]').click();await frames(page);
+    assert.equal(await page.locator('#hubDetail [data-paper-id="liuguozhong-lixueqin-yu-qinghuajian"]').count(),0);
+    await page.locator('[data-hub-expand="papers"]').click();await frames(page);
+    assert.equal(await page.locator('#hubDetail [data-paper-id="liuguozhong-lixueqin-yu-qinghuajian"]').count(),1);
+    await page.locator('[data-hub-back]').click();await frames(page);
+    assert.equal(await page.locator('#searchInput').inputValue(),'清华简');
+    assert.equal(await page.locator('[data-search-type="paper"][data-search-id="liuguozhong-lixueqin-yu-qinghuajian"]').count(),1);
+    pass('C paper hidden from hub preview, retained on expansion and search return');
     await query(page,'简牍');
     const expected=await page.evaluate(()=>searchUnified(searchQuery).filter(e=>e.type==='update').length);
     assert.ok(expected>4);assert.equal(await page.locator('[data-search-type=update]').count(),4);
@@ -80,8 +117,10 @@ async function layout(page,label){
     const tabs=browser.contexts()[0].pages().length;
     await page.locator('[data-search-wechat]').click();assert.equal(await page.locator('#wechatPanel').isVisible(),true);
     assert.equal(page.url(),url);assert.equal(browser.contexts()[0].pages().length,tabs);
+    assert.equal(await page.locator('#wechatPanel .wechat-card:visible').count(),14);
+    await page.locator('#moduleBack').click();await frames(page);
+    assert.equal(await page.locator('#unifiedSearchResults').isVisible(),true);
     await page.locator('[data-search-wechat]').click();assert.equal(await page.locator('#wechatPanel').isVisible(),true);
-    await page.locator('#wechatCollapse').click();assert.equal(await page.locator('#wechatPanel').isVisible(),false);
     await page.locator('#clearSearch').click();assert.equal(await page.evaluate(()=>activeCategory),'金文');
     pass('internal resource expands in place without a link/new tab and exit restores context');
 
@@ -158,8 +197,8 @@ async function layout(page,label){
     await page.goto(url);await frames(page);
     assert.ok(warnings.some(m=>m.includes('Search data: hub:zhangjiashan-hanjian: resourceIds 无效引用')));
     await query(page,'张家山');await page.locator('#unifiedSearchResults [data-research-topic="zhangjiashan-hanjian"]').click();await frames(page);
-    assert.equal(await page.locator('[data-hub-section=resources] .site-card').count(),2);
-    await page.locator('[data-hub-back]').click();await query(page,'姚磊');assert.equal(await page.locator('[data-search-type=update]').count(),1);
+    assert.equal(await page.locator('[data-hub-section=resources] .site-card').count(),3);
+    await page.locator('[data-hub-back]').click();await query(page,'姚磊');assert.deepEqual((await page.locator('[data-search-type=update]').evaluateAll(es=>es.map(e=>e.dataset.searchId))).sort(),(await page.evaluate(()=>academicUpdatesData.filter(u=>(u.title+' '+u.summary+' '+u.source).includes('姚磊')).map(u=>u.id))).sort());
     assert.deepEqual(errors,[]);
     pass('initial relationship validation warns and malformed references/tags preserve usable page and search');
     fs.writeFileSync(path.join(output,'report.json'),JSON.stringify({report,errors,warnings},null,2));
