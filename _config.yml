@@ -12,6 +12,12 @@ exclude:
   - tools/
   - logs/
   - tmp/
+  - GITHUB_PUBLISH_GUIDE.md
+  - MAINTENANCE_GUIDE.md
+  - PUBLISH_APPROVED_UPDATES_GUIDE.md
+  - REVIEW_RULES.md
+  - WECHAT_CANDIDATE_GUIDE.md
+  - WEEKLY_AUTO_CHECK_GUIDE.md
   # Keep standard build/dependency exclusions when using Jekyll 3.
   - .sass-cache/
   - .jekyll-cache/
