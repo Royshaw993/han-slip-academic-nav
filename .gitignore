@@ -6,3 +6,4 @@ __pycache__/
 data/candidate-updates.review-backup.json
 /data/candidate-updates.review.lock
 /tmp/
+/dist/
