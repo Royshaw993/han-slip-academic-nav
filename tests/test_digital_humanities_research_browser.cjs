@@ -37,7 +37,7 @@ async function expandPapers(page){while(await page.locator('#papersMore').isVisi
       assert.equal(await page.locator('#paperModuleCount').textContent(),'已收录 92 条');
       assert.equal(await page.locator('#periodicalModuleCount').textContent(),'已收录 5 条');
       assert.equal(await page.locator('#bookModuleCount').textContent(),'已收录 17 条');
-      assert.equal(await page.locator('#digitalHumanitiesModuleCount').textContent(),'已收录 31 条');
+      assert.equal(await page.locator('#digitalHumanitiesModuleCount').textContent(),'已收录 30 条');
       assert.equal(await page.evaluate(()=>sites.length),65);
       const added=await page.evaluate(()=>window.classicPapers.filter(p=>p.id.startsWith('paper-dh-')));
       assert.equal(added.length,18);
@@ -46,8 +46,8 @@ async function expandPapers(page){while(await page.locator('#papersMore').isVisi
       assert.equal(await page.locator('#resourcesSection').isVisible(),true);assert.equal(await page.locator('#papersSection').isVisible(),true);
       assert.equal(await page.locator('#papers-title').textContent(),'数字人文研究成果');
       assert.equal(await page.locator('#papersGrid [data-paper-id]').count(),12);
-      await page.locator('#directoryResourcesMore').click();await frames(page);
-      assert.equal(await page.locator('#siteGrid > .site-card').count(),13);
+      assert.equal(await page.locator('#directoryResourcesMore').isVisible(),false);
+      assert.equal(await page.locator('#siteGrid > .site-card').count(),12);
       await expandPapers(page);
       const ids=await page.locator('#papersGrid [data-paper-id]').evaluateAll(es=>es.map(e=>e.dataset.paperId));
       assert.equal(ids.length,18);assert.equal(new Set(ids).size,18);assert.deepEqual(ids.slice().sort(),added.map(p=>p.id).sort());
@@ -111,7 +111,7 @@ async function expandPapers(page){while(await page.locator('#papersMore').isVisi
         return {title:host.querySelector('h4').textContent,links:host.querySelectorAll('a').length};
       });
       assert.deepEqual(noUrl,{title:'无URL题录样本',links:0});
-      checks.push({width,papers:92,digitalResearch:18,digitalResources:13,periodicals:5,passed:true});
+      checks.push({width,papers:92,digitalResearch:18,digitalResources:12,periodicals:5,passed:true});
       await page.close();
     }
     assert.deepEqual(errors,[]);assert.deepEqual(warnings,[]);

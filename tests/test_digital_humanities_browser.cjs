@@ -66,8 +66,8 @@ async function layout(page){
       await page.locator('[data-category="全部"]').click();await frames(page);
       await page.locator('[data-direction="数字人文"]').click();await frames(page);
       assert.equal(await page.locator('#siteGrid > .site-card').count(),12);
-      await page.locator('#directoryResourcesMore').click();await frames(page);
-      assert.equal(await page.locator('#siteGrid > .site-card').count(),13);
+      assert.equal(await page.locator('#directoryResourcesMore').isVisible(),false);
+      assert.ok(!(await page.locator('#siteGrid h3').allTextContents()).includes('简牍学术资源数据共享平台'));
       await page.locator('[data-category="🛠️ 学术工具"]').click();await frames(page);
       assert.equal(await page.locator('#resources-title').textContent(),'研究工具');
       const directions=await page.locator('#siteGrid h3').allTextContents();

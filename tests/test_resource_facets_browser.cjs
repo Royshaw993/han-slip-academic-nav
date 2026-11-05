@@ -7,7 +7,7 @@ const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://lo
 const frames=page=>page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
 const types=['全部','🧱 古文字数据库','📚 学术期刊','🏛️ 学术机构','🛠️ 学术工具','🌏 海外汉学'];
 const directions=['','甲骨','金文','石刻','简牍','帛书','数字人文'];
-const expected=[[64,11,10,13,10,7,13],[34,9,8,13,4,2,1],[5,2,2,0,3,2,2],[4,0,0,0,2,2,2],[16,0,0,0,0,0,7],[30,6,6,7,2,1,6]];
+const expected=[[64,11,10,13,10,7,12],[34,9,8,13,4,2,0],[5,2,2,0,3,2,2],[4,0,0,0,2,2,2],[16,0,0,0,0,0,7],[30,6,6,7,2,1,6]];
 async function layout(page){
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   assert.deepEqual(await page.locator('.resource-facet-row button:visible').evaluateAll(es=>es.filter(e=>{const r=e.getBoundingClientRect();return r.left<0||r.right>innerWidth||e.scrollWidth>e.clientWidth+1;}).map(e=>e.textContent)),[]);
@@ -21,7 +21,7 @@ async function layout(page){
     const home=await page.locator('#coreGrid').innerHTML();
     const records=await page.evaluate(()=>JSON.stringify([sites,coreBibliographyData,window.classicPapers,researchHubsData,academicUpdatesData]));
     assert.deepEqual(await page.locator('#navigationOverview li > span').allTextContents(),['学术资源','学术刊物','研究书目','学术公众号','学术论文','数字人文','网站使用说明']);
-    assert.equal(await page.locator('#digitalHumanitiesModuleCount').textContent(),'已收录 31 条');
+    assert.equal(await page.locator('#digitalHumanitiesModuleCount').textContent(),'已收录 30 条');
     assert.equal(await page.locator('[data-open-digital-humanities]').isEnabled(),true);
     await page.locator('[data-module="resources"]').click();await frames(page);
     assert.deepEqual(await page.locator('#categoryFilters button').allTextContents(),['全部','数据库','学术刊物','研究机构','研究工具','海外资源']);
@@ -59,7 +59,7 @@ async function layout(page){
     await page.locator('#moduleBack').click();await frames(page);
     await page.locator('[data-open-digital-humanities]').click();await frames(page);
     assert.equal(await page.locator('#resources-title').textContent(),'数字人文');assert.equal(await page.evaluate(()=>activeDirectionTag),'数字人文');
-    await page.locator('#directoryResourcesMore').click();await frames(page);assert.equal(await page.locator('#siteGrid > .site-card').count(),13);
+    assert.equal(await page.locator('#directoryResourcesMore').isVisible(),false);assert.equal(await page.locator('#siteGrid > .site-card').count(),12);
     assert.equal(await page.locator('#directoryResourceStatus').isVisible(),false);
     await page.locator('.filters').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(output,'digital-humanities-375.png')});
     await page.locator('#moduleBack').click();await frames(page);assert.equal(await page.locator('[data-open-digital-humanities]').evaluate(e=>e===document.activeElement),true);

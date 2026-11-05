@@ -509,10 +509,11 @@ test('existing eight resources keep their IDs while restrictions and dataset inf
 test('digital humanities direction reuses declared projects, publications, portal and methods without copying databases',()=>{
   const app=load();app.run('openContentModule("resources");activeDirectionTag="数字人文";renderSites()');
   const ids=plain(app.run('sites.filter(matchesResourceBase).filter(matchesResourceDirection).map(s=>s.id)'));
-  assert.equal(ids.length,13);
-  for(const id of ['nwnu-jiandu','digital-humanities-research-journal','ruc-digital-humanities-institute','dhcn','collatex'])assert.ok(ids.includes(id),id);
-  for(const id of ['bsm','shl-beitie','fudan-zhuiyu-lianzhu','fudan-sifang-huitong'])assert.ok(!ids.includes(id),id);
+  assert.equal(ids.length,12);
+  assert.deepEqual(ids.slice().sort(),['digital-humanities-research-journal','digital-humanities-collected-journal','ruc-digital-humanities-institute','tsinghua-cnki-digital-humanities-center','dhcn','shidian-guji','imagej-fiji','collatex','epidoc','escriptorium','markus','docusky'].sort());
+  for(const id of ['nwnu-jiandu','bsm','shl-beitie','fudan-zhuiyu-lianzhu','fudan-sifang-huitong'])assert.ok(!ids.includes(id),id);
   app.run('setResourceType("🛠️ 学术工具")');assert.equal(app.run('sites.filter(matchesResourceBase).filter(matchesResourceDirection).length'),7);
+  app.run('setResourceType("🧱 古文字数据库")');assert.equal(app.run('sites.filter(matchesResourceBase).filter(matchesResourceDirection).length'),0);
   assert.ok(app.query('缀玉联珠').some(e=>e.type==='resource'));
 });
 test('pending candidates stay outside formal data and protected paper and bibliography counts remain',()=>{
@@ -578,7 +579,7 @@ test('overseas is a cross-type shortcut that composes with material and digital 
   assert.ok(ids.includes('kyoto-stone-rubbings'));assert.ok(!ids.includes('bnu-inscriptions'));
 });
 test('digital humanities entry count and preset derive from formal data and restore prior facets',()=>{
-  const app=load();assert.equal(app.node('#digitalHumanitiesModuleCount').textContent,'已收录 31 条');assert.equal(app.node('[data-open-digital-humanities]').disabled,false);
+  const app=load();assert.equal(app.node('#digitalHumanitiesModuleCount').textContent,'已收录 30 条');assert.equal(app.node('[data-open-digital-humanities]').disabled,false);
   app.run('activeResourceType="🌏 海外汉学";activeDirectionTag="石刻";openContentModule("resources",{resourceType:"全部",direction:"数字人文",triggerSelector:"[data-open-digital-humanities]"})');
   assert.equal(app.node('#resources-title').textContent,'数字人文');assert.equal(app.run('activeDirectionTag'),'数字人文');
   app.run('returnFromContentModule()');app.flush();assert.equal(app.run('activeResourceType'),'🌏 海外汉学');assert.equal(app.run('activeDirectionTag'),'石刻');
@@ -667,7 +668,7 @@ test('overview counts use one display format and the actual public directory sco
   app.node('#wechatPanel').querySelectorAll=()=>wechat;
   const before=app.run('JSON.stringify([sites,coreBibliographyData,classicPaperCatalog.papers])');
   app.run('renderNavigationOverview()');
-  for(const [id,total] of [['resource',64],['periodical',5],['book',17],['paper',92],['wechat',14],['digitalHumanities',31]])assert.equal(app.node('#'+id+'ModuleCount').textContent,'已收录 '+total+' 条');
+  for(const [id,total] of [['resource',64],['periodical',5],['book',17],['paper',92],['wechat',14],['digitalHumanities',30]])assert.equal(app.node('#'+id+'ModuleCount').textContent,'已收录 '+total+' 条');
   assert.deepEqual(plain(app.run('sites.filter(s=>s.commonOnly).map(s=>s.id)')),['academic-wechat']);
   app.run('openContentModule("resources",{resourceType:"全部"})');
   assert.equal(app.run('sites.filter(matchesResourceBase).filter(matchesResourceDirection).length'),64);
@@ -679,9 +680,9 @@ test('overview totals deduplicate stable IDs and recalculate rather than hardcod
   const app=load(),wechat=[{id:'channel-one'},{id:'channel-one'},{id:'channel-two'}];
   app.node('#wechatPanel').querySelectorAll=()=>wechat;
   app.run('sites.push({...sites.find(s=>s.id==="nwnu-jiandu")},{...sites.find(s=>s.id==="digital-humanities-research-journal")});coreBibliographyData.push(coreBibliographyData[0]);classicPaperCatalog.papers.push(classicPaperCatalog.papers.find(p=>p.id==="paper-dh-deepjiandu"));renderNavigationOverview()');
-  for(const [id,total] of [['resource',64],['periodical',5],['book',17],['paper',92],['wechat',2],['digitalHumanities',31]])assert.equal(app.node('#'+id+'ModuleCount').textContent,'已收录 '+total+' 条');
+  for(const [id,total] of [['resource',64],['periodical',5],['book',17],['paper',92],['wechat',2],['digitalHumanities',30]])assert.equal(app.node('#'+id+'ModuleCount').textContent,'已收录 '+total+' 条');
   app.run('sites.push({...sites.find(s=>s.id==="nwnu-jiandu"),id:"overview-test-resource",researchTags:["数据库建设成果"]});classicPaperCatalog.papers.push({...classicPaperCatalog.papers.find(p=>p.id==="paper-dh-deepjiandu"),id:"overview-test-paper"});coreBibliographyData.push({...coreBibliographyData[0],id:"overview-test-book"});renderNavigationOverview()');
-  for(const [id,total] of [['resource',65],['book',18],['paper',93],['digitalHumanities',33]])assert.equal(app.node('#'+id+'ModuleCount').textContent,'已收录 '+total+' 条');
+  for(const [id,total] of [['resource',65],['book',18],['paper',93],['digitalHumanities',32]])assert.equal(app.node('#'+id+'ModuleCount').textContent,'已收录 '+total+' 条');
 });
 
 test('updates expose only type filters while preserving object tags and ignoring legacy object parameters',()=>{

@@ -787,7 +787,7 @@ function siteSearchText(site) {
 // 仅以正式记录的主类型、明确材料关联和人工确认的地域标记生成筛选，不复制资源。
 const overseasResourceIds = new Set(["xiaoxue","xiaoxue-oracle","xiaoxue-oracle-sources","xiaoxue-bronze","ihp-woodslip","ihp-oracle-rubbings","ihp-bronze","ihp-preqin-vocabulary","ihp-bronze-rubbings","ihp-han-stone-rubbings","ihp-buddhist-stone-rubbings","ihp-liao-jin-yuan-rubbings","ihp-song-rubbings","chant-oracle","ncl-stone-rubbings","shukutoku-stone-rubbings","kyoto-stone-rubbings","google-scholar","jstor","cinii","brill","zotero","openalex","semantic-scholar","imagej-fiji","collatex","epidoc","escriptorium","markus","docusky"]);
 const resourceDirectionLinks = {
-  "nwnu-jiandu":["简牍","数字人文"], "bsm":["简牍","帛书"], "ihp-woodslip":["简牍"], "guanlian-hanqing":["简牍","帛书"],
+  "nwnu-jiandu":["简牍"], "bsm":["简牍","帛书"], "ihp-woodslip":["简牍"], "guanlian-hanqing":["简牍","帛书"],
   "ihp-preqin-vocabulary":["甲骨","简牍"], "tsinghua-ctwx":["简牍","帛书"], "wuhan-bamboo-silk-center":["简牍","帛书"],
   "chutu-wenxian-journal":["甲骨","金文","简牍","帛书"], "chutu-wenxian-yanjiu":["简牍","帛书"], "chutu-wenxian-falvshi":["甲骨","金文","简牍"]
 };
